@@ -1,468 +1,690 @@
 <!DOCTYPE html>
-<html lang="de">
-
-<head>
-	<meta charset="utf-8">
-	<meta content="width=device-width, initial-scale=1.0" name="viewport">
-	<title>Home - Qreepex</title>
-	<!-- Favicons -->
-	<!--<link href="assets/img/favicon.png" rel="icon">-->
-	<!--<link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">-->
-	<!-- Google Fonts -->
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-	<!-- Vendor CSS Files -->
-	<link href="https://qreepex.xyz/assets/vendor/aos/aos.css" rel="stylesheet">
-	<link href="https://qreepex.xyz/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-	<link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-	<link href="https://qreepex.xyz/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-	<link href="https://qreepex.xyz/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-	<link href="https://qreepex.xyz/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-	<!-- Template Main CSS File -->
-	<link href="https://qreepex.xyz/assets/css/style.css" rel="stylesheet">
-
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Home - Qreepex
+    </title>
+    <!-- Favicons -->
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <!-- Vendor CSS Files -->
+    <link href="https://qreepex.xyz/assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="https://qreepex.xyz/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="https://qreepex.xyz/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="https://qreepex.xyz/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="https://qreepex.xyz/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <!-- Template Main CSS File -->
+    <link href="https://qreepex.xyz/assets/css/style.css" rel="stylesheet">
     <!-- Status Bar -->
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-
-	<!-- META 2 -->
-	<meta name="theme-color" content="#3f43fd;">
-
-	<!-- Include this to make the og:image larger -->
-	<meta name="twitter:card" content="summary_large_image">
-
+    <!-- META 2 -->
+    <meta name="theme-color" content="#3f43fd;">
+    <!-- Include this to make the og:image larger -->
+    <meta name="twitter:card" content="summary_large_image">
     <!-- Discord Meta -->
     <meta property="og:title" content="Home - qreepex" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://qreepex.xyz" />
     <meta property="og:description" content="👋 Heyo, I'm qreepex. I am a young developer from Germany and I am specialized in programming around Discord.
-	I code for many YouTubers & Streamers, but also work on my own bigger projects, some of them verified by Discord." />
-    
+                                             I code for many YouTubers & Streamers, but also work on my own bigger projects, some of them verified by Discord." />
     <!-- Facebook Meta Info -->
     <meta property="og:site_name" content="qreepex">
-
     <!-- Google+ Meta Info -->
     <meta itemprop="name" content="Home - qreepex">
     <meta itemprop="description" content="👋 Heyo, I'm qreepex. I am a young developer from Germany and I am specialized in programming around Discord.
-	I code for many YouTubers & Streamers, but also work on my own bigger projects, some of them verified by Discord.">
-
+                                          I code for many YouTubers & Streamers, but also work on my own bigger projects, some of them verified by Discord.">
     <!-- Twitter Meta Info -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:url" content="https://qreepex.xyz/">
     <meta name="twitter:title" content="Home - qreepex">
     <meta name="twitter:description" content="👋 Heyo, I'm qreepex. I am a young developer from Germany and I am specialized in programming around Discord.
-	I code for many YouTubers & Streamers, but also work on my own bigger projects, some of them verified by Discord.">
+                                              I code for many YouTubers & Streamers, but also work on my own bigger projects, some of them verified by Discord.">
     <!-- whatsapp -->
     <meta data-react-helmet="true" charset="utf-8">
     <meta data-react-helmet="true" property="og:title" content="Home - qreepex">
     <meta data-react-helmet="true" property="og:description" content="👋 Heyo, I'm qreepex. I am a young developer from Germany and I am specialized in programming around Discord.
-	I code for many YouTubers & Streamers, but also work on my own bigger projects, some of them verified by Discord.">
+                                                                      I code for many YouTubers & Streamers, but also work on my own bigger projects, some of them verified by Discord.">
     <meta data-react-helmet="true" name="description" content="👋 Heyo, I'm qreepex. I am a young developer from Germany and I am specialized in programming around Discord.
-I code for many YouTubers & Streamers, but also work on my own bigger projects, some of them verified by Discord.">
-
-</head>
-
-<body style="background-color: #1c242c;">
-	<!-- ======= Header ======= -->
-	<header id="header" class="fixed-top d-flex align-items-center header-transparent">
-		<div class="container d-flex align-items-center justify-content-between">
-			<div class="logo">
-				<h1 class=" qrpx-animated-105"><a href="https://qreepex.xyz"><span>Qreepex</span></a></h1>
-            </div>
-			<nav id="navbar" class="navbar">
-				<ul>
-					<li><a class="nav-link scrollto active qrpx-animated-105" href="https://qreepex.xyz">Home</a></li>
-					<li><a class="nav-link scrollto qrpx-animated-105" href="https://qreepex.xyz/links">Links</a></li>
-					<li class="dropdown qrpx-animated-105"><a href="https://qreepex.xyz/projects"><span>Projects</span> <i class="bi bi-chevron-down"></i></a>
-						<ul>
-							<li><a href="https://eazyautodelete.xyz">EazyAutodelete</a></li>
-							<li><a href="https://qrpx.link/covidstats">CovidStats</a></li>
-							<li><a href="https://qrpx.link/eazytemp">EazyTemp</a></li>
-							<li><a href="https://qreepex.xyz/projects">Weitere...</a></li>
-						</ul>
-					</li>
-					<li><a class="nav-link scrollto qrpx-animated-105" href="https://qrpx.link/contact">Contact</a></li>
-				</ul>
-                <i class="bi bi-list mobile-nav-toggle"></i>
-            </nav>
-		</div>
-	</header>
-	<!-- End Header -->
-	<!-- ======= Hero Section ======= -->
-	<section id="hero">
-		<div class="container">
-			<div class="row justify-content-between">
-                <div class="col-lg-4 order-1 hero-img" data-aos="zoom-out"> <img src="assets/img/hero-img.png" class="img-fluid" alt=""> </div>
-				<div class="col-lg-7 pt-5 pt-lg-0 order-2 d-flex align-items-center text-end">
-					<div data-aos="zoom-out">
-						<h1>👋 Heyo, I'm <span>Qreepex</span>!</h1>
-						<h2>I am a young developer from Germany and I am specialized in programming around Discord.</h2>
-                    </div>
-                </div>
-			</div>
-		</div>
-
-		<svg class="hero-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28 " preserveAspectRatio="none">
-			<defs>
-				<path id="wave-path" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z">
-			</defs>
-			<g class="wave1">
-				<use xlink:href="#wave-path" x="50" y="3" fill="rgba(28, 36, 44, .3)">
-			</g>
-			<g class="wave2">
-				<use xlink:href="#wave-path" x="50" y="0" fill="rgba(28, 36, 44, .5)">
-			</g>
-            <g class="wave3">
-				<use xlink:href="#wave-path" x="50" y="9" fill="rgba(28, 36, 44, .7)">
-			</g>
-            <g class="wave4">
-				<use xlink:href="#wave-path" x="50" y="6" fill="#1c242c">
-			</g>
-		</svg>
-	</section>
-
-	<!-- End Hero -->
-
-        <div id="cookieConsent">
-            <div id="closeCookieConsent">📌</div>
-            Diese Website benutzt Cookies. <a href="https://qrpx.link/privacy" target="_blank">Weitere infos</a>. <a class="cookieConsentOK">Ich akzeptiere</a>
+                                                               I code for many YouTubers & Streamers, but also work on my own bigger projects, some of them verified by Discord.">
+  </head>
+  <body style="background-color: #1c242c;">
+    <!-- ======= Header ======= -->
+    <header id="header" class="fixed-top d-flex align-items-center header-transparent">
+      <div class="container d-flex align-items-center justify-content-between">
+        <div class="logo">
+          <h1 class=" qrpx-animated-105">
+            <a href="https://qreepex.xyz">
+              <span>Qreepex</span>
+            </a>
+          </h1>
         </div>
-
-	<main id="main">
-		<!-- ======= About Section ======= -->
-		<section id="about" class="about" style="background-color: #1c242c; color: #fff;">
-			<div class="container-fluid align-items-center">
-				<div class="row justify-content-center">
-					<div class="col-xl-6 col-lg-5 icon-boxes d-flex flex-column align-items-stretch justify-content-center py-5 px-lg-5" data-aos="fade-left">
-						<h3>Heyo! Welcome to my Website. 👋</h3>
-						<p>I am a Developer who focuses on developing Discord Bots. Requirements and user numbers vary a lot, which means that each bot is very individual. You can find a selection of my projects below.</p>
-						<div class="icon-box" data-aos="zoom-in" data-aos-delay="100">
-							<div class="icon"><i class="bx bx-key"></i></div>
-							<h4 class="title"><a>The beginning</a></h4>
-							<p class="description">How did it start? Well, quite simple in itself, I just felt like it and then it started. I can only recommend it to everyone, it will pay off.</p>
-						</div>
-						<div class="icon-box" data-aos="zoom-in" data-aos-delay="200">
-							<div class="icon"><i class="bx bx-compass"></i></div>
-							<h4 class="title"><a>Meanwhile</a></h4>
-							<p class="description">I have continued with sometimes more, sometimes less motivation and learned new things. Sure, the whole thing had ups and downs, but keep it up and don't give up!</p>
-						</div>
-						<div class="icon-box" data-aos="zoom-in" data-aos-delay="300">
-							<div class="icon"><i class="bx bxs-flag-checkered"></i></div>
-							<h4 class="title"><a>Currently</a></h4>
-							<p class="description">I kept going and learned a lot. By now my bots list over 1,500 servers and I have started programming for many German influencers.</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-		<!-- End About Section -->
-		<!-- ======= Features Section ======= -->
-		<section id="features" class="features">
-			<div class="container">
-				<div class="section-title" data-aos="fade-up">
-					<h2>Skills</h2>
-					<p>Languages & Skills</p>
-				</div>
-				<div class="row" data-aos="fade-left">
-					<div class="col-lg-3 col-md-4 qrpx-animated-105 shadow">
-						<div class="icon-box rounded" data-aos="zoom-in" data-aos-delay="50"> <i class="bx bxl-javascript qrpx-icon qrpx-icon-js"></i>
-							<h3><a>JavaScript</a></h3> </div>
-					</div>
-					<div class="col-lg-3 col-md-4 mt-4 mt-md-0 qrpx-animated-105 shadow">
-						<div class="icon-box rounded" data-aos="zoom-in" data-aos-delay="100"> <i class="bx bxl-nodejs qrpx-icon qrpx-icon-node"></i>
-							<h3><a >Node.JS</a></h3> </div>
-					</div>
-					<div class="col-lg-3 col-md-4 mt-4 mt-md-0 qrpx-animated-105 shadow">
-						<div class="icon-box rounded" data-aos="zoom-in" data-aos-delay="150"> <i class="bx bxl-discord-alt qrpx-icon qrpx-icon-discord"></i>
-							<h3><a >Discord API</a></h3> </div>
-					</div>
-					<div class="col-lg-3 col-md-4 mt-4 mt-lg-0 qrpx-animated-105 shadow">
-						<div class="icon-box rounded" data-aos="zoom-in" data-aos-delay="200"> <i class="bx bxl-html5 qrpx-icon qrpx-icon-html"></i>
-							<h3><a >HTML</a></h3> </div>
-					</div>
-					<div class="col-lg-3 col-md-4 mt-4 qrpx-animated-105 shadow">
-						<div class="icon-box rounded" data-aos="zoom-in" data-aos-delay="250"> <i class="bx bxl-css3 qrpx-icon qrpx-icon-css"></i>
-							<h3><a >CSS</a></h3> </div>
-					</div>
-					<div class="col-lg-3 col-md-4 mt-4 qrpx-animated-105 shadow">
-						<div class="icon-box rounded" data-aos="zoom-in" data-aos-delay="300"> <i class="bx bxl-php qrpx-icon qrpx-icon-php"></i>
-							<h3><a >PHP</a></h3> </div>
-					</div>
-					<div class="col-lg-3 col-md-4 mt-4 qrpx-animated-105 shadow">
-						<div class="icon-box rounded" data-aos="zoom-in" data-aos-delay="350"> <i class="bx bxl-bootstrap qrpx-icon qrpx-icon-bt"></i>
-							<h3><a>Bootstrap</a></h3> </div>
-					</div>
-					<div class="col-lg-3 col-md-4 mt-4 qrpx-animated-105 shadow">
-						<div class="icon-box rounded" data-aos="zoom-in" data-aos-delay="400"> <i class="bx bx-data qrpx-icon qrpx-icon-db"></i>
-							<h3><a>Database</a></h3> </div>
-					</div>
-					<div class="col-lg-3 col-md-4 mt-4 qrpx-animated-105 shadow">
-						<div class="icon-box rounded" data-aos="zoom-in" data-aos-delay="450"> <i class="bx bxl-google qrpx-icon qrpx-icon-google"></i>
-							<h3><a>Google API</a></h3> </div>
-					</div>
-					<div class="col-lg-3 col-md-4 mt-4 qrpx-animated-105 shadow">
-						<div class="icon-box rounded" data-aos="zoom-in" data-aos-delay="500"> <i class="bx bxl-git qrpx-icon qrpx-icon-git"></i>
-							<h3><a>Git</a></h3> </div>
-					</div>
-					<div class="col-lg-3 col-md-4 mt-4 qrpx-animated-105 shadow">
-						<div class="icon-box rounded" data-aos="zoom-in" data-aos-delay="550"> <i class="bx bxl-youtube qrpx-icon qrpx-icon-yt"></i>
-							<h3><a>YouTube API</a></h3> </div>
-					</div>
-					<div class="col-lg-3 col-md-4 mt-4 qrpx-animated-105 shadow">
-						<div class="icon-box rounded" data-aos="zoom-in" data-aos-delay="600"> <i class="bx bxl-adobe qrpx-icon qrpx-icon-cc"></i>
-							<h3><a>Creative Cloud</a></h3> </div>
-					</div>
-				</div>
-			</div>
-		</section>
-
-        <br>
-		<!-- End Features Section -->
-		<!-- ======= Counts Section ======= -->
-		<section id="counts" class="counts" style="background-color: #1c242c;">
-			<div class="container">
-                <div class="section-title" data-aos="fade-up">
-					<h2>Stats</h2>
-					<p>Statistics & Numbers</p>
-				</div>
-				<div class="row" data-aos="fade-up">
-					<div class="col-lg-3 col-md-6 qrpx-animated-105">
-						<div class="count-box rounded shadow" style="background-color: rgb(38, 46, 54, 1);"> <i class="bi bi-clock"></i> <span id="coding-minutes" data-purecounter-end="20403" style="color: white;" data-purecounter-duration="2.53" data-purecounter-once="true" class="purecounter"></span>
-							<p style="color: rgba(255, 255, 255, 0.7);">hrs since 1st line code written</p>
-						</div>
-					</div>
-					<div class="col-lg-3 col-md-6 mt-5 mt-md-0 qrpx-animated-105">
-						<div class="count-box rounded shadow" style="background-color: rgb(38, 46, 54, 1);"> <i class="bi bi-journal-richtext"></i> <span data-purecounter-start="0" data-purecounter-end="113" style="color: white;" data-purecounter-duration="2.3" class="purecounter"></span>
-							<p style="color: rgba(255, 255, 255, 0.7);">projects</p>
-						</div>
-					</div>
-                    <div class="col-lg-3 col-md-6 mt-5 mt-lg-0 qrpx-animated-105">
-						<div class="count-box rounded shadow" style="background-color: rgb(38, 46, 54, 1);"> <i class="bi bi-bar-chart"></i> <span data-purecounter-start="0" data-purecounter-end="1700" style="color: white;" data-purecounter-duration="2.3" class="purecounter"></span>
-							<p style="color: rgba(255, 255, 255, 0.7);">servers with my bots</p>
-						</div>
-					</div>
-					<div class="col-lg-3 col-md-6 mt-5 mt-lg-0 qrpx-animated-105">
-						<div class="count-box rounded shadow" style="background-color: rgb(38, 46, 54, 1);"> <i class="bi bi-people"></i> <span data-purecounter-start="0" data-purecounter-end="450000" style="color: white;" data-purecounter-duration="2.3" class="purecounter"></span>
-							<p style="color: rgba(255, 255, 255, 0.7);">total members</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-		<!-- End Counts Section -->
-
-		<!-- ======= clients Section ======= -->
-		<section id="clients" class="clients mt-5">
-			<div class="container"">
-				<div class="clients-slider swiper"" data-aos="fade-up" data-aos-delay="100">
-					<div class="swiper-wrapper"">
-						<div class="swiper-slide">
-							<div class="testimonial-item">
-								<h3>NaaIhr</h3>
-								<h4><a href="https://youtube.com/naaihr">YouTuber</a> &amp; <a href="https://twitch.tv/naaihr">Streamer</a></h4>
-								<p> <i class="bx bxs-quote-alt-left quote-icon-left"></i>Die Zusammenarbeit mit qreepex war für meine Community ein echter Gewinn. Nach dem Start war qreepex weiterhin involviert, engagiert und ein hilfreicher Ansprechpartner in allen Belangen. Seine Arbeitsleistung erfüllte alle meine Anforderungen und übertraf meine Erwartungen.<i class="bx bxs-quote-alt-right quote-icon-right"></i> </p>
-							</div>
-						</div>
-
-						<div class="swiper-slide">
-							<div class="testimonial-item">
-								<h3>Specter</h3>
-								<h4>Admin @ <a href="https://youtube.com/erheblich">Erheblich</a></h4>
-								<p> <i class="bx bxs-quote-alt-left quote-icon-left"></i>Funktioniert so wie es soll und weist nie Probleme auf. Qreepex hat es in kürzester Zeit nach Anfrage perfekt "eingestellt."<i class="bx bxs-quote-alt-right quote-icon-right"></i> </p>
-							</div>
-						</div>
-
-						<div class="swiper-slide">
-							<div class="testimonial-item">
-								<h3>GoldenerApfel</h3>
-								<h4><a href="https://twitch.tv/goldenerapfel">Streamer</a></h4>
-								<p> <i class="bx bxs-quote-alt-left quote-icon-left"></i>Er hat schnell reagiert, und auftretende Probleme im Handumdrehen gelöst. Klare Empfehlung meinerseits<i class="bx bxs-quote-alt-right quote-icon-right"></i> </p>
-							</div>
-						</div>
-
-					</div>
-					<div class="swiper-pagination"></div>
-				</div>
-			</div>
-		</section>
-<!--
-		<section id="eazyautodelete">
-			<div class="container">
-				<div class="section-title" data-aos="fade-up">
-					<a href="https://ea.qreepex.xyz"><h2>Erfolgreichstes Projekt</h2></a>
-					<a href="https://ea.qreepex.xyz" style="color: #3f43fd;"><p>EazyAutodelete Bot</p></a>
-				</div>
-				<div class="row content mb-5 justify-content-center">
-					<div class="col-12 col-lg-5 mb-5 mb-lg-0 pe-lg-5" data-aos="fade-up-right">
-						<img src="https://qreepex.xyz/assets/img/ea-1.png" class="img-fluid rounded-3 qrpx-animated-105 shadow" alt="">
-					</div>
-					<div class="col-10 col-lg-7 p-3 rounded-3 shadow" data-aos="fade-up-left" style="color: #fff; background-color: #37383f;">
-						<h3 class="qrpx-animated-101">Nnutzerfreundliches Bedinung</h3>
-						<p>
-						EazyAutodelete zeichnet sich durch die sehr einfach zu verstehende Bedinung aus. Mit zwei Befehlen ist der Bot komplett auf dich und deinen Server abgestimmt.
-						</p>
-						<ul style="list-style-type: none;padding-left: 0;">
-						<li><i class="bi bi-check" style="color: #5ffd3f;"></i> Unterstützt alle gängigen Zeiteinheiten wie s, m, h.</li>
-						<li><i class="bi bi-check" style="color: #5ffd3f;"></i> Einstellung in einem Kanal vollständig mit einem Befehl möglich. </li>
-						</ul>
-					</div>
-				</div>
-
-				<div class="row content mt-5 pt-5 justify-content-center"">
-					<div class="col-12 col-lg-5 mb-5 mb-lg-0 ps-lg-5 pe-lg-0 order-lg-2" data-aos="fade-up-right">
-						<img src="https://qreepex.xyz/assets/img/ea-2.png" class="img-fluid rounded-3 qrpx-animated-105 shadow">
-					</div>
-					<div class="col-10 col-lg-7 p-3 rounded-3 shadow order-lg-1" data-aos="fade-up-left" style="color: #fff; background-color: #37383f;">
-						<h3 class="qrpx-animated-101">Multilingual Verfügbar</h3>
-						<p>
-						EazyAutodelete findet bei Communitys aus aller Welt Anklang. Daher ist der Bot zu beinahe 100% auf Englisch, Deutsch und Französisch verfügbar.
-						</p>
-						<p>
-						Stetig arbeiten die Übersetzer an Verbesserungen der Übersetzungen, um jedem User ein und gewohntes Nutzungsgefühl bieten zu können. Auch neue Features werden schnellstmöglich multilingual zur Verdügung gestellt, damit niemand da steht und nicht weiß, was der Bot möchte.
-						</p>
-						<p>
-						Falls du dich beim Übersetzen engagieren möchtest, melde dich via. Discord bei qreepex#0001.
-						</p>
-					</div>
-				</div>
-			
-				<div class="row content mt-5 pt-5 justify-content-center"">
-					<div class="col-12 col-lg-5 mb-5 mb-lg-0 pe-lg-5" data-aos="fade-up-right">
-						<img src="https://qreepex.xyz/assets/img/ea-3.png" class="img-fluid rounded-3 qrpx-animated-105 shadow">
-					</div>
-					<div class="col-10 col-lg-7 p-3 rounded-3 shadow" data-aos="fade-up-left" style="color: #fff; background-color: #37383f;">
-						<h3 class="qrpx-animated-101">Benutzerfreundlich & Durchdacht</h3>
-						<p>Du hast den Prefix von EazyAutodelete vergessen? Kein Problem, denn dank des gut durchdachten Konzepts, musst du den Bot nur pingen und er verrät dir sofort, wie der Prefix für den jeweiligen Server lautet.</p>
-						<p>
-						Der Prefix lässt sich schnell und einfach mit dem {guildprefix}setprefix [newprefix] Befehl festlegen.
-						</p>
-						<p>
-						Denk dran, bald gibt es für Bots bevorzugt Slash Commands, also gewöhn dich nicht zu sehr an den neuen Prefix, bald ist es eh ein /.
-						</p>
-					</div>
-				</div>
-			</div>
-		</section>
-	-->
-		<section id="projects">
-            <div class="container mb-5 pb-5">
-                <div class="section-title" data-aos="fade-up">
-					<a href="https://qreepex.xyz/projects"><h2>Projects</h2></a>
-					<a href="https://qreepex.xyz/projects" style="color: #3f43fd;"><p>Big Projects</p></a>
-				</div>
-                <div class="row justify-content-center">
-                    <div class="col-10 col-sm-5 col-lg-3 col-xxl-3 pt-3" data-aos="fade-up" data-aos-delay="0">
-                        <a href="https://eazyautodelete.xyz">
-                            <div class="card rounded-3 p-3 qrpx-animated-105 shadow" style="background-color: rgb(38, 46, 54, 1);">
-                                <div class="card-body p-1 pb-3">
-                                    <h4 class="card-title fw-bolder qreepex-accent1 text-start">EazyAutodelete</h4>
-                                    <p class="card-text text-start fs-6 fs-6" style="color: #fff;">With over 300.000 users, multilingualism and Discord verification my most successful and complex project.</p>
-                                </div>
-                                <img class="card-img-top p-1 img-fluid rounded-3" src="https://cdn.discordapp.com/avatars/746453621821931634/879009fb61c65a137f0a565989896862.webp" alt="EazyAutodelete Logo">
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-10 col-sm-5 col-lg-3 col-xxl-3 pt-3" data-aos="fade-up" data-aos-delay="100">
-                        <a href="https://qreepex.xyz/projects/bte-germany">
-                            <div class="card rounded-3 p-3 qrpx-animated-105 shadow" style="background-color: rgb(38, 46, 54, 1);">
-                                <div class="card-body p-1 pb-3">
-                                    <h4 class="card-title fw-bolder qreepex-accent1 text-start">BTE Germany</h4>
-                                    <p class="card-text text-start fs-6" style="color: #fff;">From FTP uploads, the Google Spreadsheet API, to auto threads and moderation, everything is available in this bot.</p>
-                                </div>
-                                <img class="card-img-top p-1 img-fluid rounded-3" src="https://cdn.discordapp.com/icons/692825222373703772/a_e643511c769fd27a0f361d01c23f2cee.gif?size=1024" alt="BTE Germany Logo">
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-10 col-sm-5 col-lg-3 col-xxl-3 pt-3" data-aos="fade-up" data-aos-delay="200">
-                        <a href="https://qreepex.xyz/projects/naaihr">
-                            <div class="card rounded-3 p-3 qrpx-animated-105 shadow" style="background-color: rgb(38, 46, 54, 1);">
-                                <div class="card-body p-1 pb-3">
-                                    <h4 class="card-title fw-bolder qreepex-accent1 text-start">NaaIhr</h4>
-                                    <p class="card-text text-start fs-6" style="color: #fff;">Multiple bots for the german YouTuber & streamer NaaIhr with moderation, level system, upload notifications and much more.</p>
-                                </div>
-                                <img class="card-img-top p-1 img-fluid rounded-3" src="https://cdn.discordapp.com/avatars/820660588504940564/c8497d49b261561969fac9e0c4ccc2f3.webp" alt="NaaIhr Logo">
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-10 col-sm-5 col-lg-3 col-xxl-3 pt-3" data-aos="fade-up" data-aos-delay="300">
-                        <a href="https://qrpx.link/eazytemp">
-                            <div class="card rounded-3 p-3 qrpx-animated-105 shadow" style="background-color: rgb(38, 46, 54, 1);">
-                                <div class="card-body p-1 pb-3">
-                                    <h4 class="card-title fw-bolder qreepex-accent1 text-start">EazyTemp</h4>
-                                    <p class="card-text text-start fs-6" style="color: #fff;">A simple and semi-public bot to easily create and manage temporary voice channels via discord buttons.</p>
-                                </div>
-                                <img class="card-img-top p-1 img-fluid rounded-3" src="https://cdn.discordapp.com/avatars/715855067143471144/b7c6329a8306a466b786606587d4e0a5.png?size=512" alt="EazyTemp Logo">
-                            </div>
-                        </a>
-                    </div>
+        <nav id="navbar" class="navbar">
+          <ul>
+            <li>
+              <a class="nav-link scrollto active qrpx-animated-105" href="https://qreepex.xyz">Home
+              </a>
+            </li>
+            <li>
+              <a class="nav-link scrollto qrpx-animated-105" href="https://qreepex.xyz/links">Links
+              </a>
+            </li>
+            <li class="dropdown qrpx-animated-105">
+              <a href="https://qreepex.xyz/projects">
+                <span>Projects
+                </span> 
+                <i class="bi bi-chevron-down">
+                </i>
+              </a>
+              <ul>
+                <li>
+                  <a href="https://eazyautodelete.xyz">EazyAutodelete
+                  </a>
+                </li>
+                <li>
+                  <a href="https://qrpx.link/covidstats">CovidStats
+                  </a>
+                </li>
+                <li>
+                  <a href="https://qrpx.link/eazytemp">EazyTemp
+                  </a>
+                </li>
+                <li>
+                  <a href="https://qreepex.xyz/projects">Weitere...
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a class="nav-link scrollto qrpx-animated-105" href="https://qrpx.link/contact">Contact
+              </a>
+            </li>
+          </ul>
+          <i class="bi bi-list mobile-nav-toggle">
+          </i>
+        </nav>
+      </div>
+    </header>
+    <!-- End Header -->
+    <!-- ======= Hero Section ======= -->
+    <section id="hero">
+      <div class="container">
+        <div class="row justify-content-between">
+          <div class="col-lg-4 order-1 hero-img" data-aos="zoom-out"> 
+            <img src="assets/img/hero-img.png" class="img-fluid" alt=""> 
+          </div>
+          <div class="col-lg-7 pt-5 pt-lg-0 order-2 d-flex align-items-center text-end">
+            <div data-aos="zoom-out">
+              <h1>👋 Heyo, I'm 
+                <span>Qreepex
+                </span>!
+              </h1>
+              <h2>I am a young developer from Germany and I am specialized in programming around Discord.
+              </h2>
+            </div>
+          </div>
+        </div>
+      </div>
+      <svg class="hero-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28 " preserveAspectRatio="none">
+        <defs>
+          <path id="wave-path" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z">
+            </defs>
+          <g class="wave1">
+            <use xlink:href="#wave-path" x="50" y="3" fill="rgba(28, 36, 44, .3)">
+              </g>
+            <g class="wave2">
+              <use xlink:href="#wave-path" x="50" y="0" fill="rgba(28, 36, 44, .5)">
+                </g>
+              <g class="wave3">
+                <use xlink:href="#wave-path" x="50" y="9" fill="rgba(28, 36, 44, .7)">
+                  </g>
+                <g class="wave4">
+                  <use xlink:href="#wave-path" x="50" y="6" fill="#1c242c">
+                    </g>
+                  </svg>
+                </section>
+              <!-- End Hero -->
+              <div id="cookieConsent">
+                <div id="closeCookieConsent">📌
                 </div>
-			</div>
-		</section>
-	</main>
-	<!-- End #main -->
-	<!-- ======= Footer ======= -->
-	<footer id="footer" class="qrpx-footer">
-		<div class="footer-top">
-			<div class="container">
-				<div class="row justify-content-center">
-                    <div class="col-6 col-md-2 footer-links">
-						<h4>Links</h4>
-						<ul>
-							<li><i class="bx bx-chevron-right"></i> <a href="https://qreepex.xyz/projects" target="_blank" rel="noopener noreferrer">Projects</a></li>
-							<li><i class="bx bx-chevron-right"></i> <a href="https://qreepex.xyz/me" target="_blank" rel="noopener noreferrer">Profile</a></li>
-							<li><i class="bx bx-chevron-right"></i> <a href="https://qreepex.xyz/tools" target="_blank" rel="noopener noreferrer">Tools</a></li>
-						</ul>
-					</div>
-					<div class="col-6 col-md-2 footer-links">
-						<h4>Socials</h4>
-						<ul>
-							<li><i class="bx bx-chevron-right"></i> <a href="https://qrpx.link/github" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-							<li><i class="bx bx-chevron-right"></i> <a href="https://qrpx.link/discord" target="_blank" rel="noopener noreferrer">Discord</a></li>
-							<li><i class="bx bx-chevron-right"></i> <a href="https://qrpx.link/tiktok" target="_blank" rel="noopener noreferrer">TikTok</a></li>
-						</ul>
-					</div>
-					<div class="col-6 col-md-2 footer-links">
-						<h4>Public Bots</h4>
-						<ul>
-							<li><i class="bx bx-chevron-right"></i> <a href="https://eazyautodelete.xyz" target="_blank" rel="noopener noreferrer">EazyAutodelete</a></li>
-							<li><i class="bx bx-chevron-right"></i> <a href="https://qrpx.link/eazytemp" target="_blank" rel="noopener noreferrer">EazyTemp</a></li>
-							<li><i class="bx bx-chevron-right"></i> <a href="https://qrpx.link/covidstats" target="_blank" rel="noopener noreferrer">CovidStats</a></li>
-						</ul>
-					</div>
-                    <div class="col-6 col-md-2 footer-links">
-						<h4>Legal</h4>
-						<ul>
-							<li><i class="bx bx-chevron-right"></i> <a href="https://qrpx.link/imprint" target="_blank" rel="noopener noreferrer">Imprint</a></li>
-							<li><i class="bx bx-chevron-right"></i> <a href="https://qrpx.link/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a></li>
-							<li><i class="bx bx-chevron-right"></i> <a href="https://qrpx.link/contact" target="_blank" rel="noopener noreferrer">Contact</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="container">
-			<div class="copyright" style="color: white;">&copy; Copyright <strong><span><a href="https://qreepex.xyz">Qreepex</a></span></strong>. All Rights Reserved</div>
-			<div class="credits">
-                Made with <a href="https://getbootstrap.com/">Bootstrap</a> | Designed with <a href="https://bootstrapmade.com/">BootstrapMade</a> | 2022</div>
-		</div>
-	</footer>
-	<!-- End Footer --><a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-	<div id="preloader"></div>
-	<!-- Vendor JS Files -->
-	<script src="https://qreepex.xyz/assets/vendor/aos/aos.js"></script>
-	<script src="https://qreepex.xyz/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<script src="https://qreepex.xyz/assets/vendor/glightbox/js/glightbox.min.js"></script>
-	<script src="https://qreepex.xyz/assets/vendor/purecounter/purecounter.js"></script>
-	<script src="https://qreepex.xyz/assets/vendor/swiper/swiper-bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
-    <script>$(document).ready((function(){$('[data-toggle="tooltip"]').tooltip(),setTimeout((function(){$("#cookieConsent").fadeIn(200)}),35),$("#closeCookieConsent, .cookieConsentOK").click((function(){$("#cookieConsent").fadeOut(200)}))}));</script>
-	<script>document.getElementById("coding-minutes").setAttribute("data-purecounter-end",Math.round(((new Date).getTime()-1576829134e3)/1e3/60/60)),setInterval((()=>{document.getElementById("coding-minutes").setAttribute("data-purecounter-end",Math.round(((new Date).getTime()-1576829134e3)/1e3/60/60))}),100);</script>
-	<script src="https://qreepex.xyz/assets/js/main.js"></script>
-</body>
-
-</html>
-
-
-<!-- CREDITS
+                Diese Website benutzt Cookies. 
+                <a href="https://qrpx.link/privacy" target="_blank">Weitere infos
+                </a>. 
+                <a class="cookieConsentOK">Ich akzeptiere
+                </a>
+              </div>
+              <main id="main">
+                <!-- ======= About Section ======= -->
+                <section id="about" class="about" style="background-color: #1c242c; color: #fff;">
+                  <div class="container-fluid align-items-center">
+                    <div class="row justify-content-center">
+                      <div class="col-xl-6 col-lg-5 icon-boxes d-flex flex-column align-items-stretch justify-content-center py-5 px-lg-5" data-aos="fade-left">
+                        <h3>Heyo! Welcome to my Website. 👋
+                        </h3>
+                        <p>I am a Developer who focuses on developing Discord Bots. Requirements and user numbers vary a lot, which means that each bot is very individual. You can find a selection of my projects below.
+                        </p>
+                        <div class="icon-box" data-aos="zoom-in" data-aos-delay="100">
+                          <div class="icon">
+                            <i class="bx bx-key">
+                            </i>
+                          </div>
+                          <h4 class="title">
+                            <a>The beginning
+                            </a>
+                          </h4>
+                          <p class="description">How did it start? Well, quite simple in itself, I just felt like it and then it started. I can only recommend it to everyone, it will pay off.
+                          </p>
+                        </div>
+                        <div class="icon-box" data-aos="zoom-in" data-aos-delay="200">
+                          <div class="icon">
+                            <i class="bx bx-compass">
+                            </i>
+                          </div>
+                          <h4 class="title">
+                            <a>Meanwhile
+                            </a>
+                          </h4>
+                          <p class="description">I have continued with sometimes more, sometimes less motivation and learned new things. Sure, the whole thing had ups and downs, but keep it up and don't give up!
+                          </p>
+                        </div>
+                        <div class="icon-box" data-aos="zoom-in" data-aos-delay="300">
+                          <div class="icon">
+                            <i class="bx bxs-flag-checkered">
+                            </i>
+                          </div>
+                          <h4 class="title">
+                            <a>Currently
+                            </a>
+                          </h4>
+                          <p class="description">I kept going and learned a lot. By now my bots list over 1,500 servers and I have started programming for many German influencers.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+                <!-- End About Section -->
+                <!-- ======= Features Section ======= -->
+                <section id="features" class="features">
+                  <div class="container">
+                    <div class="section-title" data-aos="fade-up">
+                      <h2>Skills
+                      </h2>
+                      <p>Languages & Skills
+                      </p>
+                    </div>
+                    <div class="row" data-aos="fade-left">
+                      <div class="col-lg-3 col-md-4 qrpx-animated-105 shadow">
+                        <div class="icon-box rounded" data-aos="zoom-in" data-aos-delay="50"> 
+                          <i class="bx bxl-javascript qrpx-icon qrpx-icon-js">
+                          </i>
+                          <h3>
+                            <a>JavaScript
+                            </a>
+                          </h3> 
+                        </div>
+                      </div>
+                      <div class="col-lg-3 col-md-4 mt-4 mt-md-0 qrpx-animated-105 shadow">
+                        <div class="icon-box rounded" data-aos="zoom-in" data-aos-delay="100"> 
+                          <i class="bx bxl-nodejs qrpx-icon qrpx-icon-node">
+                          </i>
+                          <h3>
+                            <a >Node.JS
+                            </a>
+                          </h3> 
+                        </div>
+                      </div>
+                      <div class="col-lg-3 col-md-4 mt-4 mt-md-0 qrpx-animated-105 shadow">
+                        <div class="icon-box rounded" data-aos="zoom-in" data-aos-delay="150"> 
+                          <i class="bx bxl-discord-alt qrpx-icon qrpx-icon-discord">
+                          </i>
+                          <h3>
+                            <a >Discord API
+                            </a>
+                          </h3> 
+                        </div>
+                      </div>
+                      <div class="col-lg-3 col-md-4 mt-4 mt-lg-0 qrpx-animated-105 shadow">
+                        <div class="icon-box rounded" data-aos="zoom-in" data-aos-delay="200"> 
+                          <i class="bx bxl-html5 qrpx-icon qrpx-icon-html">
+                          </i>
+                          <h3>
+                            <a >HTML
+                            </a>
+                          </h3> 
+                        </div>
+                      </div>
+                      <div class="col-lg-3 col-md-4 mt-4 qrpx-animated-105 shadow">
+                        <div class="icon-box rounded" data-aos="zoom-in" data-aos-delay="250"> 
+                          <i class="bx bxl-css3 qrpx-icon qrpx-icon-css">
+                          </i>
+                          <h3>
+                            <a >CSS
+                            </a>
+                          </h3> 
+                        </div>
+                      </div>
+                      <div class="col-lg-3 col-md-4 mt-4 qrpx-animated-105 shadow">
+                        <div class="icon-box rounded" data-aos="zoom-in" data-aos-delay="300"> 
+                          <i class="bx bxl-php qrpx-icon qrpx-icon-php">
+                          </i>
+                          <h3>
+                            <a >PHP
+                            </a>
+                          </h3> 
+                        </div>
+                      </div>
+                      <div class="col-lg-3 col-md-4 mt-4 qrpx-animated-105 shadow">
+                        <div class="icon-box rounded" data-aos="zoom-in" data-aos-delay="350"> 
+                          <i class="bx bxl-bootstrap qrpx-icon qrpx-icon-bt">
+                          </i>
+                          <h3>
+                            <a>Bootstrap
+                            </a>
+                          </h3> 
+                        </div>
+                      </div>
+                      <div class="col-lg-3 col-md-4 mt-4 qrpx-animated-105 shadow">
+                        <div class="icon-box rounded" data-aos="zoom-in" data-aos-delay="400"> 
+                          <i class="bx bx-data qrpx-icon qrpx-icon-db">
+                          </i>
+                          <h3>
+                            <a>Database
+                            </a>
+                          </h3> 
+                        </div>
+                      </div>
+                      <div class="col-lg-3 col-md-4 mt-4 qrpx-animated-105 shadow">
+                        <div class="icon-box rounded" data-aos="zoom-in" data-aos-delay="450"> 
+                          <i class="bx bxl-google qrpx-icon qrpx-icon-google">
+                          </i>
+                          <h3>
+                            <a>Google API
+                            </a>
+                          </h3> 
+                        </div>
+                      </div>
+                      <div class="col-lg-3 col-md-4 mt-4 qrpx-animated-105 shadow">
+                        <div class="icon-box rounded" data-aos="zoom-in" data-aos-delay="500"> 
+                          <i class="bx bxl-git qrpx-icon qrpx-icon-git">
+                          </i>
+                          <h3>
+                            <a>Git
+                            </a>
+                          </h3> 
+                        </div>
+                      </div>
+                      <div class="col-lg-3 col-md-4 mt-4 qrpx-animated-105 shadow">
+                        <div class="icon-box rounded" data-aos="zoom-in" data-aos-delay="550"> 
+                          <i class="bx bxl-youtube qrpx-icon qrpx-icon-yt">
+                          </i>
+                          <h3>
+                            <a>YouTube API
+                            </a>
+                          </h3> 
+                        </div>
+                      </div>
+                      <div class="col-lg-3 col-md-4 mt-4 qrpx-animated-105 shadow">
+                        <div class="icon-box rounded" data-aos="zoom-in" data-aos-delay="600"> 
+                          <i class="bx bxl-adobe qrpx-icon qrpx-icon-cc">
+                          </i>
+                          <h3>
+                            <a>Creative Cloud
+                            </a>
+                          </h3> 
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+                <br>
+                <!-- End Features Section -->
+                <!-- ======= Counts Section ======= -->
+                <section id="counts" class="counts" style="background-color: #1c242c;">
+                  <div class="container">
+                    <div class="section-title" data-aos="fade-up">
+                      <h2>Stats
+                      </h2>
+                      <p>Statistics & Numbers
+                      </p>
+                    </div>
+                    <div class="row" data-aos="fade-up">
+                      <div class="col-lg-3 col-md-6 qrpx-animated-105">
+                        <div class="count-box rounded shadow" style="background-color: rgb(38, 46, 54, 1);"> 
+                          <i class="bi bi-clock">
+                          </i> 
+                          <span id="coding-minutes" data-purecounter-end="20403" style="color: white;" data-purecounter-duration="2.53" data-purecounter-once="true" class="purecounter">
+                          </span>
+                          <p style="color: rgba(255, 255, 255, 0.7);">hrs since 1st line code written
+                          </p>
+                        </div>
+                      </div>
+                      <div class="col-lg-3 col-md-6 mt-5 mt-md-0 qrpx-animated-105">
+                        <div class="count-box rounded shadow" style="background-color: rgb(38, 46, 54, 1);"> 
+                          <i class="bi bi-journal-richtext">
+                          </i> 
+                          <span data-purecounter-start="0" data-purecounter-end="113" style="color: white;" data-purecounter-duration="2.3" class="purecounter">
+                          </span>
+                          <p style="color: rgba(255, 255, 255, 0.7);">projects
+                          </p>
+                        </div>
+                      </div>
+                      <div class="col-lg-3 col-md-6 mt-5 mt-lg-0 qrpx-animated-105">
+                        <div class="count-box rounded shadow" style="background-color: rgb(38, 46, 54, 1);"> 
+                          <i class="bi bi-bar-chart">
+                          </i> 
+                          <span data-purecounter-start="0" data-purecounter-end="1700" style="color: white;" data-purecounter-duration="2.3" class="purecounter">
+                          </span>
+                          <p style="color: rgba(255, 255, 255, 0.7);">servers with my bots
+                          </p>
+                        </div>
+                      </div>
+                      <div class="col-lg-3 col-md-6 mt-5 mt-lg-0 qrpx-animated-105">
+                        <div class="count-box rounded shadow" style="background-color: rgb(38, 46, 54, 1);"> 
+                          <i class="bi bi-people">
+                          </i> 
+                          <span data-purecounter-start="0" data-purecounter-end="450000" style="color: white;" data-purecounter-duration="2.3" class="purecounter">
+                          </span>
+                          <p style="color: rgba(255, 255, 255, 0.7);">total members
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+                <!-- End Counts Section -->
+                <!-- ======= clients Section ======= -->
+                <section id="clients" class="clients mt-5">
+                  <div class="container">
+                    <div class="clients-slider swiper" data-aos="fade-up" data-aos-delay="100">
+                      <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                          <div class="testimonial-item">
+                            <h3>NaaIhr
+                            </h3>
+                            <h4>
+                              <a href="https://youtube.com/naaihr">YouTuber
+                              </a> &amp; 
+                              <a href="https://twitch.tv/naaihr">Streamer
+                              </a>
+                            </h4>
+                            <p> 
+                              <i class="bx bxs-quote-alt-left quote-icon-left">
+                              </i>Die Zusammenarbeit mit qreepex war für meine Community ein echter Gewinn. Nach dem Start war qreepex weiterhin involviert, engagiert und ein hilfreicher Ansprechpartner in allen Belangen. Seine Arbeitsleistung erfüllte alle meine Anforderungen und übertraf meine Erwartungen.
+                              <i class="bx bxs-quote-alt-right quote-icon-right">
+                              </i> 
+                            </p>
+                          </div>
+                        </div>
+                        <div class="swiper-slide">
+                          <div class="testimonial-item">
+                            <h3>Specter
+                            </h3>
+                            <h4>Admin @ 
+                              <a href="https://youtube.com/erheblich">Erheblich
+                              </a>
+                            </h4>
+                            <p> 
+                              <i class="bx bxs-quote-alt-left quote-icon-left">
+                              </i>Funktioniert so wie es soll und weist nie Probleme auf. Qreepex hat es in kürzester Zeit nach Anfrage perfekt "eingestellt."
+                              <i class="bx bxs-quote-alt-right quote-icon-right">
+                              </i> 
+                            </p>
+                          </div>
+                        </div>
+                        <div class="swiper-slide">
+                          <div class="testimonial-item">
+                            <h3>GoldenerApfel
+                            </h3>
+                            <h4>
+                              <a href="https://twitch.tv/goldenerapfel">Streamer
+                              </a>
+                            </h4>
+                            <p> 
+                              <i class="bx bxs-quote-alt-left quote-icon-left">
+                              </i>Er hat schnell reagiert, und auftretende Probleme im Handumdrehen gelöst. Klare Empfehlung meinerseits
+                              <i class="bx bxs-quote-alt-right quote-icon-right">
+                              </i> 
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="swiper-pagination">
+                      </div>
+                    </div>
+                  </div>
+                </section>
+                <section id="projects">
+                  <div class="container mb-5 pb-5">
+                    <div class="section-title" data-aos="fade-up">
+                      <a href="https://qreepex.xyz/projects">
+                        <h2>Projects
+                        </h2>
+                      </a>
+                      <a href="https://qreepex.xyz/projects" style="color: #3f43fd;">
+                        <p>Big Projects
+                        </p>
+                      </a>
+                    </div>
+                    <div class="row justify-content-center">
+                      <div class="col-10 col-sm-5 col-lg-3 col-xxl-3 pt-3" data-aos="fade-up" data-aos-delay="0">
+                        <a href="https://eazyautodelete.xyz">
+                          <div class="card rounded-3 p-3 qrpx-animated-105 shadow" style="background-color: rgb(38, 46, 54, 1);">
+                            <div class="card-body p-1 pb-3">
+                              <h4 class="card-title fw-bolder qreepex-accent1 text-start">EazyAutodelete
+                              </h4>
+                              <p class="card-text text-start fs-6 fs-6" style="color: #fff;">With over 300.000 users, multilingualism and Discord verification my most successful and complex project.
+                              </p>
+                            </div>
+                            <img class="card-img-top p-1 img-fluid rounded-3" src="https://cdn.discordapp.com/avatars/746453621821931634/879009fb61c65a137f0a565989896862.webp" alt="EazyAutodelete Logo">
+                          </div>
+                        </a>
+                      </div>
+                      <div class="col-10 col-sm-5 col-lg-3 col-xxl-3 pt-3" data-aos="fade-up" data-aos-delay="100">
+                        <a href="https://qreepex.xyz/projects/bte-germany">
+                          <div class="card rounded-3 p-3 qrpx-animated-105 shadow" style="background-color: rgb(38, 46, 54, 1);">
+                            <div class="card-body p-1 pb-3">
+                              <h4 class="card-title fw-bolder qreepex-accent1 text-start">BTE Germany
+                              </h4>
+                              <p class="card-text text-start fs-6" style="color: #fff;">From FTP uploads, the Google Spreadsheet API, to auto threads and moderation, everything is available in this bot.
+                              </p>
+                            </div>
+                            <img class="card-img-top p-1 img-fluid rounded-3" src="https://cdn.discordapp.com/icons/692825222373703772/a_e643511c769fd27a0f361d01c23f2cee.gif?size=1024" alt="BTE Germany Logo">
+                          </div>
+                        </a>
+                      </div>
+                      <div class="col-10 col-sm-5 col-lg-3 col-xxl-3 pt-3" data-aos="fade-up" data-aos-delay="200">
+                        <a href="https://qreepex.xyz/projects/naaihr">
+                          <div class="card rounded-3 p-3 qrpx-animated-105 shadow" style="background-color: rgb(38, 46, 54, 1);">
+                            <div class="card-body p-1 pb-3">
+                              <h4 class="card-title fw-bolder qreepex-accent1 text-start">NaaIhr
+                              </h4>
+                              <p class="card-text text-start fs-6" style="color: #fff;">Multiple bots for the german YouTuber & streamer NaaIhr with moderation, level system, upload notifications and much more.
+                              </p>
+                            </div>
+                            <img class="card-img-top p-1 img-fluid rounded-3" src="https://cdn.discordapp.com/avatars/820660588504940564/c8497d49b261561969fac9e0c4ccc2f3.webp" alt="NaaIhr Logo">
+                          </div>
+                        </a>
+                      </div>
+                      <div class="col-10 col-sm-5 col-lg-3 col-xxl-3 pt-3" data-aos="fade-up" data-aos-delay="300">
+                        <a href="https://qrpx.link/eazytemp">
+                          <div class="card rounded-3 p-3 qrpx-animated-105 shadow" style="background-color: rgb(38, 46, 54, 1);">
+                            <div class="card-body p-1 pb-3">
+                              <h4 class="card-title fw-bolder qreepex-accent1 text-start">EazyTemp
+                              </h4>
+                              <p class="card-text text-start fs-6" style="color: #fff;">A simple and semi-public bot to easily create and manage temporary voice channels via discord buttons.
+                              </p>
+                            </div>
+                            <img class="card-img-top p-1 img-fluid rounded-3" src="https://cdn.discordapp.com/avatars/715855067143471144/b7c6329a8306a466b786606587d4e0a5.png?size=512" alt="EazyTemp Logo">
+                          </div>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </main>
+              <!-- End #main -->
+              <!-- ======= Footer ======= -->
+              <footer id="footer" class="qrpx-footer">
+                <div class="footer-top">
+                  <div class="container">
+                    <div class="row justify-content-center">
+                      <div class="col-6 col-md-2 footer-links">
+                        <h4>Links
+                        </h4>
+                        <ul>
+                          <li>
+                            <i class="bx bx-chevron-right">
+                            </i> 
+                            <a href="https://qreepex.xyz/projects" target="_blank" rel="noopener noreferrer">Projects
+                            </a>
+                          </li>
+                          <li>
+                            <i class="bx bx-chevron-right">
+                            </i> 
+                            <a href="https://qreepex.xyz/me" target="_blank" rel="noopener noreferrer">Profile
+                            </a>
+                          </li>
+                          <li>
+                            <i class="bx bx-chevron-right">
+                            </i> 
+                            <a href="https://qreepex.xyz/tools" target="_blank" rel="noopener noreferrer">Tools
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="col-6 col-md-2 footer-links">
+                        <h4>Socials
+                        </h4>
+                        <ul>
+                          <li>
+                            <i class="bx bx-chevron-right">
+                            </i> 
+                            <a href="https://qrpx.link/github" target="_blank" rel="noopener noreferrer">GitHub
+                            </a>
+                          </li>
+                          <li>
+                            <i class="bx bx-chevron-right">
+                            </i> 
+                            <a href="https://qrpx.link/discord" target="_blank" rel="noopener noreferrer">Discord
+                            </a>
+                          </li>
+                          <li>
+                            <i class="bx bx-chevron-right">
+                            </i> 
+                            <a href="https://qrpx.link/tiktok" target="_blank" rel="noopener noreferrer">TikTok
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="col-6 col-md-2 footer-links">
+                        <h4>Public Bots
+                        </h4>
+                        <ul>
+                          <li>
+                            <i class="bx bx-chevron-right">
+                            </i> 
+                            <a href="https://eazyautodelete.xyz" target="_blank" rel="noopener noreferrer">EazyAutodelete
+                            </a>
+                          </li>
+                          <li>
+                            <i class="bx bx-chevron-right">
+                            </i> 
+                            <a href="https://qrpx.link/eazytemp" target="_blank" rel="noopener noreferrer">EazyTemp
+                            </a>
+                          </li>
+                          <li>
+                            <i class="bx bx-chevron-right">
+                            </i> 
+                            <a href="https://qrpx.link/covidstats" target="_blank" rel="noopener noreferrer">CovidStats
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="col-6 col-md-2 footer-links">
+                        <h4>Legal
+                        </h4>
+                        <ul>
+                          <li>
+                            <i class="bx bx-chevron-right">
+                            </i> 
+                            <a href="https://qrpx.link/imprint" target="_blank" rel="noopener noreferrer">Imprint
+                            </a>
+                          </li>
+                          <li>
+                            <i class="bx bx-chevron-right">
+                            </i> 
+                            <a href="https://qrpx.link/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy
+                            </a>
+                          </li>
+                          <li>
+                            <i class="bx bx-chevron-right">
+                            </i> 
+                            <a href="https://qrpx.link/contact" target="_blank" rel="noopener noreferrer">Contact
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="container">
+                  <div class="copyright" style="color: white;">&copy; Copyright 
+                    <strong>
+                      <span>
+                        <a href="https://qreepex.xyz">Qreepex
+                        </a>
+                      </span>
+                    </strong>. All Rights Reserved
+                  </div>
+                  <div class="credits">
+                    Made with 
+                    <a href="https://getbootstrap.com/">Bootstrap
+                    </a> | Designed with 
+                    <a href="https://bootstrapmade.com/">BootstrapMade
+                    </a> | 2022
+                  </div>
+                </div>
+              </footer>
+              <!-- End Footer -->
+              <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+                <i class="bi bi-arrow-up-short">
+                </i>
+              </a>
+              <div id="preloader">
+              </div>
+              <!-- Vendor JS Files -->
+              <script src="https://qreepex.xyz/assets/vendor/aos/aos.js">
+              </script>
+              <script src="https://qreepex.xyz/assets/vendor/bootstrap/js/bootstrap.bundle.min.js">
+              </script>
+              <script src="https://qreepex.xyz/assets/vendor/glightbox/js/glightbox.min.js">
+              </script>
+              <script src="https://qreepex.xyz/assets/vendor/purecounter/purecounter.js">
+              </script>
+              <script src="https://qreepex.xyz/assets/vendor/swiper/swiper-bundle.min.js">
+              </script>
+              <script src="https://code.jquery.com/jquery-latest.min.js" type="text/javascript">
+              </script>
+              <script>$(document).ready((function(){
+                  $('[data-toggle="tooltip"]').tooltip(),setTimeout((function(){
+                    $("#cookieConsent").fadeIn(200)}
+                                                                    ),35),$("#closeCookieConsent, .cookieConsentOK").click((function(){
+                    $("#cookieConsent").fadeOut(200)}
+                                                                                                                           ))}
+                                        ));
+              </script>
+              <script>document.getElementById("coding-minutes").setAttribute("data-purecounter-end",Math.round(((new Date).getTime()-1576829134e3)/1e3/60/60)),setInterval((()=>{
+                  document.getElementById("coding-minutes").setAttribute("data-purecounter-end",Math.round(((new Date).getTime()-1576829134e3)/1e3/60/60))}
+),100);
+              </script>
+              <script src="https://qreepex.xyz/assets/js/main.js">
+              </script>
+              </body>
+            </html>
+          <!-- CREDITS
 https://www.clipartkey.com/
 https://www.pngitem.com/middle/hhTohbm_transparent-computer-programming-png-png-download/
 -->
