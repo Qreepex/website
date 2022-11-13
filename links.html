@@ -328,15 +328,6 @@
     <script src="assets/vendor/jquery/jquery.min.js" type="text/javascript"></script>
     <script src="assets/js/main.js"></script>
     <script>
-      $(document).ready(function () {
-        $('[data-toggle="tooltip"]').tooltip(),
-          setTimeout(function () {
-            $("#cookieConsent").fadeIn(200);
-          }, 35),
-          $("#closeCookieConsent, .cookieConsentOK").click(function () {
-            $("#cookieConsent").fadeOut(200);
-          });
-      });
       document
         .getElementById("coding-minutes")
         .setAttribute("data-purecounter-end", Math.round((new Date().getTime() - 1576829134e3) / 1e3 / 60 / 60)),
