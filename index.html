@@ -607,14 +607,20 @@
     <script src="assets/vendor/jquery/jquery.min.js" type="text/javascript"></script>
     <script src="assets/js/main.js"></script>
     <script>
-      document
-        .getElementById("coding-minutes")
-        .setAttribute("data-purecounter-end", Math.round(((new Date().getTime() - new Date(1545305573000).getTime()) / 1000 / 60 / 60)),
-        setInterval(() => {
-          document
-            .getElementById("coding-minutes")
-            .setAttribute("data-purecounter-end", Math.round((new Date().getTime() - new Date(1545305573000).getTime()) / 1000 / 60 / 60));
-        }, 100);
+document
+  .getElementById("coding-minutes")
+  .setAttribute(
+    "data-purecounter-end",
+    Math.round((new Date().getTime() - new Date(1545305573000).getTime()) / 1000 / 60 / 60)
+  ),
+  setInterval(() => {
+    document
+      .getElementById("coding-minutes")
+      .setAttribute(
+        "data-purecounter-end",
+        Math.round((new Date().getTime() - new Date(1545305573000).getTime()) / 1000 / 60 / 60)
+      );
+  }, 100);
     </script>
 
     <script async defer src="https://r1.delivery.services.eazyautodelete.xyz/latest.js"></script>
