@@ -7,6 +7,7 @@
 	import AboutSection from '$lib/content/AboutSection.svelte';
 	import SkillsSection from '$lib/content/SkillsSection.svelte';
 	import ProjectsSection from '$lib/content/ProjectsSection.svelte';
+	import { skillGroups } from '$lib/content/skills';
 
 	gsap.registerPlugin(ScrollTrigger);
 
@@ -30,25 +31,6 @@
 		}
 	});
 	// ─────────────────────────────────────────────────────────────────────
-
-	const skillGroups = [
-		{
-			title: 'Fullstack & Platform',
-			items: ['Cloud Native', 'AI Integration', 'Rust', 'Go', 'TypeScript', 'Java']
-		},
-		{
-			title: 'Event Technology',
-			items: [
-				'grandMA2',
-				'grandMA3',
-				'L-Acoustics',
-				'Show Networking',
-				'Lighting Design',
-				'Live Systems'
-			]
-		}
-	];
-
 
 	const profileLinks = [
 		{ label: 'GitHub', href: 'https://github.com/', external: true },
