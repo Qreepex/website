@@ -21,8 +21,6 @@
 		scrolled = window.scrollY > 10;
 	};
 
-
-
 	onMount(() => {
 		handleScroll();
 		window.addEventListener('scroll', handleScroll, { passive: true });
@@ -33,18 +31,21 @@
 	});
 </script>
 
-<header
-	class="navbar-shell fixed top-0 right-0 left-0 z-50"
-	class:is-scrolled={scrolled}
->
-	<div class="mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-4 sm:px-10 lg:px-16">
-		<a href="#" class="text-sm font-semibold tracking-[0.2em] text-electric-300 uppercase">{brand}</a>
+<header class="navbar-shell fixed top-0 right-0 left-0 z-50" class:is-scrolled={scrolled}>
+	<div
+		class="mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-4 sm:px-10 lg:px-16"
+	>
+		<a href="#" class="text-electric-300 text-sm font-semibold tracking-[0.2em] uppercase"
+			>{brand}</a
+		>
 
 		<nav aria-label="Primary">
 			<ul class="flex items-center gap-4 sm:gap-6">
 				{#each links as link}
 					<li>
-						<a href={link.href} class="text-sm text-mist-100/90 transition hover:text-electric-300">{link.label}</a>
+						<a href={link.href} class="hover:text-electric-300 text-sm text-mist-100/90 transition"
+							>{link.label}</a
+						>
 					</li>
 				{/each}
 			</ul>
@@ -79,22 +80,22 @@
 			to bottom,
 			black 0%,
 			black 30%,
-			rgba(0,0,0,0.95) 40%,
-			rgba(0,0,0,0.8) 50%,
-			rgba(0,0,0,0.55) 60%,
-			rgba(0,0,0,0.3) 70%,
-			rgba(0,0,0,0.1) 82%,
+			rgba(0, 0, 0, 0.95) 40%,
+			rgba(0, 0, 0, 0.8) 50%,
+			rgba(0, 0, 0, 0.55) 60%,
+			rgba(0, 0, 0, 0.3) 70%,
+			rgba(0, 0, 0, 0.1) 82%,
 			transparent 100%
 		);
 		mask-image: linear-gradient(
 			to bottom,
 			black 0%,
 			black 30%,
-			rgba(0,0,0,0.95) 40%,
-			rgba(0,0,0,0.8) 50%,
-			rgba(0,0,0,0.55) 60%,
-			rgba(0,0,0,0.3) 70%,
-			rgba(0,0,0,0.1) 82%,
+			rgba(0, 0, 0, 0.95) 40%,
+			rgba(0, 0, 0, 0.8) 50%,
+			rgba(0, 0, 0, 0.55) 60%,
+			rgba(0, 0, 0, 0.3) 70%,
+			rgba(0, 0, 0, 0.1) 82%,
 			transparent 100%
 		);
 		transition:

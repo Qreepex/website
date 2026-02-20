@@ -23,7 +23,9 @@
 	const year = new Date().getFullYear();
 </script>
 
-<footer class="section-dark-a relative overflow-hidden border-t border-electric-400/25 px-6 py-18 sm:px-10 lg:px-16">
+<footer
+	class="section-dark-a relative overflow-hidden border-t border-electric-400/25 px-6 py-18 sm:px-10 lg:px-16"
+>
 	<div class="mx-auto grid w-full max-w-7xl gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
 		<div>
 			<p class="text-xs font-semibold tracking-[0.2em] text-electric-400 uppercase">{name}</p>
@@ -39,7 +41,7 @@
 							href={link.href}
 							target={link.external ? '_blank' : undefined}
 							rel={link.external ? 'noreferrer' : undefined}
-							class="text-mist-100/84 transition hover:text-electric-300"
+							class="hover:text-electric-300 text-mist-100/84 transition"
 						>
 							{link.label}
 						</a>
@@ -53,14 +55,19 @@
 			<ul class="mt-4 space-y-2.5">
 				{#each legalLinks as link}
 					<li>
-						<a href={link.href} class="text-mist-100/84 transition hover:text-electric-300">{link.label}</a>
+						<a href={link.href} class="hover:text-electric-300 text-mist-100/84 transition"
+							>{link.label}</a
+						>
 					</li>
 				{/each}
 			</ul>
 		</nav>
 	</div>
 
-	<div class="mx-auto mt-12 w-full max-w-7xl border-t border-violet-400/20 pt-5 text-sm text-mist-100/65">
-		© {year} {name}. Built with SvelteKit.
+	<div
+		class="mx-auto mt-12 w-full max-w-7xl border-t border-violet-400/20 pt-5 text-sm text-mist-100/65"
+	>
+		© {year}
+		{name}. Built with SvelteKit.
 	</div>
 </footer>

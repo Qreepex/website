@@ -20,8 +20,16 @@
 body {
 	min-height: 100vh;
 	background:
-		radial-gradient(80% 60% at 12% 6%, color-mix(in oklab, var(--color-electric-500) 25%, transparent), transparent),
-		radial-gradient(80% 60% at 88% 12%, color-mix(in oklab, var(--color-violet-500) 28%, transparent), transparent),
+		radial-gradient(
+			80% 60% at 12% 6%,
+			color-mix(in oklab, var(--color-electric-500) 25%, transparent),
+			transparent
+		),
+		radial-gradient(
+			80% 60% at 88% 12%,
+			color-mix(in oklab, var(--color-violet-500) 28%, transparent),
+			transparent
+		),
 		linear-gradient(180deg, var(--color-space-900) 0%, var(--color-space-950) 65%);
 	color: var(--color-mist-100);
 	font-family: Inter, 'Segoe UI', system-ui, sans-serif;
@@ -90,6 +98,12 @@ body {
 		background-clip: text;
 	}
 
+	.title-gradient-vivid {
+		background-image: linear-gradient(105deg, #00f0ff 0%, #2979ff 42%, #c026d3 100%);
+		color: transparent;
+		background-clip: text;
+	}
+
 	.grid-overlay {
 		background-image:
 			linear-gradient(
@@ -130,4 +144,28 @@ body {
 		animation-iteration-count: 1 !important;
 		transition-duration: 0.01ms !important;
 	}
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+	width: 6px;
+}
+
+::-webkit-scrollbar-track {
+	background: var(--color-anthracite-900);
+}
+
+::-webkit-scrollbar-thumb {
+	background: linear-gradient(180deg, #00f0ff 0%, #2979ff 50%, #c026d3 100%);
+	border-radius: 99px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: linear-gradient(180deg, #33f5ff 0%, #5294ff 50%, #d946ef 100%);
+}
+
+/* Firefox */
+* {
+	scrollbar-width: thin;
+	scrollbar-color: #2979ff var(--color-anthracite-900);
 }
