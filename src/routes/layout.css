@@ -146,26 +146,48 @@ body {
 	}
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
+/* Custom scrollbar: thumb indicator only */
+*::-webkit-scrollbar {
 	width: 6px;
+	height: 6px;
+	background: transparent !important;
+	-webkit-appearance: none;
 }
 
-::-webkit-scrollbar-track {
-	background: var(--color-anthracite-900);
+*::-webkit-scrollbar-track,
+*::-webkit-scrollbar-track-piece,
+*::-webkit-scrollbar-corner {
+	background: transparent !important;
+	border: none;
+	box-shadow: none;
+	-webkit-appearance: none;
 }
 
-::-webkit-scrollbar-thumb {
-	background: linear-gradient(180deg, #00f0ff 0%, #2979ff 50%, #c026d3 100%);
-	border-radius: 99px;
+*::-webkit-scrollbar-button {
+	display: none;
+	width: 0;
+	height: 0;
+	background: transparent !important;
+	-webkit-appearance: none;
 }
 
-::-webkit-scrollbar-thumb:hover {
-	background: linear-gradient(180deg, #33f5ff 0%, #5294ff 50%, #d946ef 100%);
+*::-webkit-scrollbar-resizer {
+	background: transparent !important;
+	-webkit-appearance: none;
+}
+
+*::-webkit-scrollbar-thumb {
+	background: #2979ff;
+	border-radius: 9999px;
+	border: none;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+	background: #2979ff;
 }
 
 /* Firefox */
 * {
 	scrollbar-width: thin;
-	scrollbar-color: #2979ff var(--color-anthracite-900);
+	scrollbar-color: #2979ff transparent;
 }
