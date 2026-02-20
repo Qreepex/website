@@ -1,12 +1,15 @@
 <section id="about" class="section-dark-b relative px-6 py-24 sm:px-10 lg:px-16">
 	<div data-animate class="mx-auto grid w-full max-w-7xl gap-10 md:grid-cols-[1.5fr_1fr]">
 		<div>
-			<p class="mb-3 text-xs font-semibold tracking-[0.2em] text-electric-400 uppercase">About Me</p>
+			<p class="mb-3 text-xs font-semibold tracking-[0.2em] text-electric-400 uppercase">Whos dis guy</p>
 			<h2 class="mb-6 text-3xl font-bold text-mist-100 sm:text-4xl">Two worlds. One workflow.</h2>
 			<p class="max-w-3xl text-base leading-relaxed text-mist-100/86">
 				I work at the intersection of software engineering and live production technology. On the
 				software side, I build scalable backend and fullstack applications using cloud-native
-				architecture, typed systems and practical AI. On the event side, I program lighting
+				architecture. 
+				<br>
+				<br>
+				On the event side, I program lighting
 				systems and support show-critical infrastructure with a focus on precision, reliability
 				and speed.
 			</p>

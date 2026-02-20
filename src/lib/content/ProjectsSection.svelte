@@ -37,7 +37,7 @@
 	let eventRigs = $state<EventRig[]>([]);
 
 	let activeMode = $state<'dev' | 'event'>('dev');
-	const modeLabel = $derived(activeMode === 'dev' ? 'Developer Projects' : 'Event Tech Projects');
+	const modeLabel = $derived(activeMode === 'dev' ? 'Developer Projects' : 'Event Tech References');
 	const displayedProjects = $derived(activeMode === 'dev' ? devProjects : eventProjects);
 
 	const devGradientClasses: readonly GradientPreset[] = [
@@ -434,31 +434,63 @@
 						data-project-card
 						class="absolute inset-0 grid items-center gap-8 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,0.65fr)] lg:gap-12"
 					>
-						<div class="self-center">
-							<p class={projectMetaClass}>
-								{String(index + 1).padStart(2, '0')} · {project.domain}
-							</p>
-							<h3 class={`${projectTitleClass} ${activeMode === 'dev' ? gradientClassFor(index) : ''}`}>
-								{project.title}
-							</h3>
-							<p class="mt-5 max-w-5xl text-lg leading-relaxed font-medium text-mist-100 sm:text-xl">
-								{project.description}
-							</p>
-							<div class="mt-5 flex flex-wrap gap-2.5">
-								{#each project.tech as technology}
-									<span class={techTagClass}>{technology}</span>
-								{/each}
+						{#if project.url}
+							<a href={project.url} target="_blank" rel="noopener noreferrer" class="self-center group cursor-pointer">
+								<p class={projectMetaClass}>
+									{String(index + 1).padStart(2, '0')} · {project.domain}								{#if project.former}
+									<span class="ml-2 rounded-sm border border-mist-100/35 bg-mist-100/10 px-2 py-0.5 text-[10px] font-semibold tracking-wider text-mist-100/65 uppercase">Former</span>
+								{/if}								</p>
+								<h3 class={`${projectTitleClass} ${activeMode === 'dev' ? gradientClassFor(index) : ''} group-hover:opacity-80 transition-opacity`}>
+									{project.title}
+								</h3>
+								<p class="mt-5 max-w-5xl text-lg leading-relaxed font-medium text-mist-100 sm:text-xl">
+									{project.description}
+								</p>
+								<div class="mt-5 flex flex-wrap gap-2.5">
+									{#each project.tech as technology}
+										<span class={techTagClass}>{technology}</span>
+									{/each}
+								</div>
+							</a>
+						{:else}
+							<div class="self-center">
+								<p class={projectMetaClass}>
+									{String(index + 1).padStart(2, '0')} · {project.domain}								{#if project.former}
+									<span class="ml-2 rounded-sm border border-mist-100/35 bg-mist-100/10 px-2 py-0.5 text-[10px] font-semibold tracking-wider text-mist-100/65 uppercase">Former</span>
+								{/if}								</p>
+								<h3 class={`${projectTitleClass} ${activeMode === 'dev' ? gradientClassFor(index) : ''}`}>
+									{project.title}
+								</h3>
+								<p class="mt-5 max-w-5xl text-lg leading-relaxed font-medium text-mist-100 sm:text-xl">
+									{project.description}
+								</p>
+								<div class="mt-5 flex flex-wrap gap-2.5">
+									{#each project.tech as technology}
+										<span class={techTagClass}>{technology}</span>
+									{/each}
+								</div>
 							</div>
-						</div>
+						{/if}
 
-						<div class="relative hidden h-full min-h-80 items-center lg:flex">
-							<img
-								src={project.image}
-								alt={project.title}
-								class="my-auto h-auto max-h-105 w-full rounded-xl border border-mist-100/20 object-cover"
-								loading={index === 0 ? 'eager' : 'lazy'}
-							/>
-						</div>
+						{#if project.url}
+							<a href={project.url} target="_blank" rel="noopener noreferrer" class="relative hidden h-full min-h-80 items-center lg:flex group">
+								<img
+									src={project.image}
+									alt={project.title}
+									class="my-auto h-auto max-h-105 w-full rounded-xl border border-mist-100/20 object-cover group-hover:opacity-80 transition-opacity cursor-pointer"
+									loading={index === 0 ? 'eager' : 'lazy'}
+								/>
+							</a>
+						{:else}
+							<div class="relative hidden h-full min-h-80 items-center lg:flex">
+								<img
+									src={project.image}
+									alt={project.title}
+									class="my-auto h-auto max-h-105 w-full rounded-xl border border-mist-100/20 object-cover"
+									loading={index === 0 ? 'eager' : 'lazy'}
+								/>
+							</div>
+						{/if}
 					</article>
 				{/each}
 			</div>

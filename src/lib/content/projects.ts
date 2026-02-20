@@ -4,16 +4,19 @@ export type Project = {
 	description: string;
 	tech: string[];
 	image: string;
+	url?: string;
+	former?: boolean;
 };
 
 export const devProjects: Project[] = [
 	{
-		title: 'Atlas API Gateway',
-		domain: 'Cloud Platform',
+		title: 'EazyAutodelete',
+		domain: 'Discord Bot',
 		description:
-			'High-throughput API gateway with policy-driven routing, request shaping and tenant-aware observability.',
-		tech: ['Go', 'Kubernetes', 'NATS', 'TypeScript'],
-		image: '/media/projects/atlas-api-gateway.svg'
+			'Widely used Auto Delete bot for Discord, built with a focus on reliability, configurability and user-friendly design used by over 31,000 communities reaching 18 mio. users worldwide.',
+		tech: ['Go', 'Kubernetes', 'REST', 'Sharding', "High Availability"],
+		image: '/media/projects/atlas-api-gateway.svg',
+		url: 'https://eazyautodelete.xyz'
 	},
 	{
 		title: 'Neon Compute Studio',
@@ -21,7 +24,8 @@ export const devProjects: Project[] = [
 		description:
 			'Developer workspace for prompt pipelines, model evaluation and deployment-ready AI workflow automation.',
 		tech: ['Rust', 'Python', 'WebAssembly', 'PostgreSQL'],
-		image: '/media/projects/neon-compute-studio.svg'
+		image: '/media/projects/neon-compute-studio.svg',
+		url: '#'
 	},
 	{
 		title: 'Pulse Realtime Core',
@@ -29,7 +33,9 @@ export const devProjects: Project[] = [
 		description:
 			'Event-driven core service coordinating low-latency pipelines and resilient background workers at scale.',
 		tech: ['Java', 'gRPC', 'Redis', 'Kafka'],
-		image: '/media/projects/pulse-realtime-core.svg'
+		image: '/media/projects/pulse-realtime-core.svg',
+		url: '#',
+		former: true
 	}
 ];
 
@@ -40,7 +46,8 @@ export const eventProjects: Project[] = [
 		description:
 			'Cue-based lighting programming workflow for festival and touring environments with reliable handover paths.',
 		tech: ['grandMA3', 'Lighting Design', 'Timecode', 'DMX'],
-		image: '/media/projects/lumen-show-programmer.svg'
+		image: '/media/projects/lumen-show-programmer.svg',
+		url: '#'
 	},
 	{
 		title: 'StagePulse Runtime',
@@ -48,7 +55,8 @@ export const eventProjects: Project[] = [
 		description:
 			'Realtime trigger runtime coordinating audio, video and lighting transitions with millisecond-level consistency.',
 		tech: ['Show Networking', 'L-Acoustics', 'SMPTE', 'OSC'],
-		image: '/media/projects/stagepulse-runtime.svg'
+		image: '/media/projects/stagepulse-runtime.svg',
+		url: '#'
 	},
 	{
 		title: 'Venue Signal Mesh',
@@ -56,6 +64,7 @@ export const eventProjects: Project[] = [
 		description:
 			'Operational network blueprint for show-critical signal flow, redundancy and rapid fault isolation on site.',
 		tech: ['Art-Net', 'sACN', 'VLAN', 'Live Systems'],
-		image: '/media/projects/venue-signal-mesh.svg'
+		image: '/media/projects/venue-signal-mesh.svg',
+		url: '#'
 	}
 ];
