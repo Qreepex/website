@@ -4,6 +4,9 @@
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
 	import Footer from '$lib/page/Footer.svelte';
 	import Navbar from '$lib/page/Navbar.svelte';
+	import AboutSection from '$lib/content/AboutSection.svelte';
+	import SkillsSection from '$lib/content/SkillsSection.svelte';
+	import ProjectsSection from '$lib/content/ProjectsSection.svelte';
 
 	gsap.registerPlugin(ScrollTrigger);
 
@@ -490,114 +493,9 @@
 		</div>
 	</section>
 
-	<section id="about" class="section-dark-b relative px-6 py-24 sm:px-10 lg:px-16">
-		<div data-animate class="mx-auto grid w-full max-w-7xl gap-10 md:grid-cols-[1.5fr_1fr]">
-			<div>
-				<p class="mb-3 text-xs font-semibold tracking-[0.2em] text-electric-400 uppercase">
-					About Me
-				</p>
-				<h2 class="mb-6 text-3xl font-bold text-mist-100 sm:text-4xl">Two worlds. One workflow.</h2>
-				<p class="max-w-3xl text-base leading-relaxed text-mist-100/86">
-					I work at the intersection of software engineering and live production technology. On the
-					software side, I build scalable backend and fullstack applications using cloud-native
-					architecture, typed systems and practical AI. On the event side, I program lighting
-					systems and support show-critical infrastructure with a focus on precision, reliability
-					and speed.
-				</p>
-			</div>
-			<div class="space-y-6 border-l border-electric-400/25 pl-6">
-				<div>
-					<p class="text-electric-300 text-xs tracking-[0.16em] uppercase">Primary Focus</p>
-					<p class="mt-2 text-lg font-semibold">Cloud-Native Engineering</p>
-				</div>
-				<div>
-					<p class="text-xs tracking-[0.16em] text-violet-300 uppercase">Live Domain</p>
-					<p class="mt-2 text-lg font-semibold">Lighting Control Systems</p>
-				</div>
-			</div>
-		</div>
-
-		<div class="wave-separator text-anthracite-900">
-			<svg
-				viewBox="0 0 1440 170"
-				class="h-23 w-full"
-				preserveAspectRatio="none"
-				aria-hidden="true"
-			>
-				<path
-					fill="currentColor"
-					d="M0,32L48,53.3C96,75,192,117,288,128C384,139,480,117,576,106.7C672,96,768,96,864,106.7C960,117,1056,139,1152,144C1248,149,1344,139,1392,133.3L1440,128L1440,171L1392,171C1344,171,1248,171,1152,171C1056,171,960,171,864,171C768,171,672,171,576,171C480,171,384,171,288,171C192,171,96,171,48,171L0,171Z"
-				></path>
-			</svg>
-		</div>
-	</section>
-
-	<section id="skills" class="section-dark-a relative px-6 py-24 sm:px-10 lg:px-16">
-		<div class="mx-auto w-full max-w-7xl">
-			<div class="mb-12">
-				<p class="text-xs font-semibold tracking-[0.2em] text-electric-400 uppercase">Skills</p>
-				<h2 class="mt-2 text-3xl font-bold sm:text-4xl">
-					Production-grade software and stage technology expertise.
-				</h2>
-			</div>
-
-			{#each skillGroups as group}
-				<div data-animate class="border-t border-electric-400/25 py-8 last:border-b">
-					<h3 class="mb-4 text-xl font-semibold text-mist-100">{group.title}</h3>
-					<div class="flex flex-wrap gap-2.5">
-						{#each group.items as item}
-							<span
-								class="rounded-lg border border-electric-400/35 bg-black/25 px-3 py-1.5 text-sm text-mist-100/90"
-								>{item}</span
-							>
-						{/each}
-					</div>
-				</div>
-			{/each}
-		</div>
-
-		<div class="wave-separator text-anthracite-800">
-			<svg
-				viewBox="0 0 1440 170"
-				class="h-23 w-full"
-				preserveAspectRatio="none"
-				aria-hidden="true"
-			>
-				<path
-					fill="currentColor"
-					d="M0,128L60,112C120,96,240,64,360,53.3C480,43,600,53,720,69.3C840,85,960,107,1080,112C1200,117,1320,107,1380,101.3L1440,96L1440,171L1380,171C1320,171,1200,171,1080,171C960,171,840,171,720,171C600,171,480,171,360,171C240,171,120,171,60,171L0,171Z"
-				></path>
-			</svg>
-		</div>
-	</section>
-
-	<section id="projects" class="section-dark-b px-6 py-24 sm:px-10 lg:px-16">
-		<div class="mx-auto w-full max-w-7xl">
-			<div class="mb-10">
-				<p class="text-xs font-semibold tracking-[0.2em] text-electric-400 uppercase">Projects</p>
-				<h2 class="mt-2 text-3xl font-bold sm:text-4xl">
-					Selected builds and experimental concepts.
-				</h2>
-			</div>
-
-			{#each projects as project}
-				<article data-animate class="border-t border-violet-400/28 py-8 last:border-b">
-					<p class="text-xs tracking-[0.14em] text-cyan-300 uppercase">{project.domain}</p>
-					<h3 class="mt-2 text-2xl font-semibold text-mist-100">{project.title}</h3>
-					<p class="mt-3 max-w-4xl text-sm leading-relaxed text-mist-100/80">
-						{project.description}
-					</p>
-					<div class="mt-5 flex flex-wrap gap-2">
-						{#each project.tech as technology}
-							<span class="rounded-md bg-violet-500/18 px-2.5 py-1 text-xs text-violet-200"
-								>{technology}</span
-							>
-						{/each}
-					</div>
-				</article>
-			{/each}
-		</div>
-	</section>
+	<AboutSection />
+	<SkillsSection {skillGroups} />
+	<ProjectsSection {projects} />
 
 	<div id="footer">
 		<Footer
