@@ -35,6 +35,85 @@ body {
 	font-family: Inter, 'Segoe UI', system-ui, sans-serif;
 }
 
+body.is-loading {
+	overflow: hidden;
+}
+
+.loading-screen {
+	position: fixed;
+	inset: 0;
+	z-index: 9999;
+	display: grid;
+	place-items: center;
+	overflow: hidden;
+	background: linear-gradient(180deg, var(--color-anthracite-900) 0%, #090c11 100%);
+}
+
+.loading-screen::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background-image:
+		linear-gradient(
+			to right,
+			color-mix(in oklab, var(--color-electric-400) 24%, transparent) 1px,
+			transparent 1px
+		),
+		linear-gradient(
+			to bottom,
+			color-mix(in oklab, var(--color-violet-400) 20%, transparent) 1px,
+			transparent 1px
+		);
+	background-size: 56px 56px;
+	animation: grid-shift 12s linear infinite;
+	opacity: 0.2;
+	pointer-events: none;
+}
+
+.loading-screen::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background:
+		radial-gradient(
+			circle at 20% 22%,
+			color-mix(in oklab, var(--color-electric-500) 26%, transparent) 0%,
+			transparent 55%
+		),
+		linear-gradient(
+			180deg,
+			color-mix(in oklab, var(--color-anthracite-900) 82%, transparent) 0%,
+			var(--color-anthracite-900) 90%
+		);
+	pointer-events: none;
+}
+
+.loading-screen__content {
+	position: relative;
+	z-index: 1;
+	display: grid;
+	gap: 0.75rem;
+	justify-items: center;
+}
+
+.loading-screen__spinner {
+	height: 2.5rem;
+	width: 2.5rem;
+	border-radius: 9999px;
+	border: 3px solid color-mix(in oklab, white 20%, transparent);
+	border-top-color: var(--color-electric-400);
+	animation: spin 0.8s linear infinite;
+}
+
+.loading-screen__label {
+	font-size: 0.875rem;
+	font-weight: 600;
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+	color: var(--color-mist-100);
+	opacity: 0.85;
+}
+
 @keyframes float {
 	0%,
 	100% {
@@ -63,6 +142,12 @@ body {
 	}
 	100% {
 		background-position: 0 56px;
+	}
+}
+
+@keyframes spin {
+	to {
+		transform: rotate(360deg);
 	}
 }
 

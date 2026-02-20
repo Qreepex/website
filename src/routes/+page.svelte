@@ -88,9 +88,13 @@
 		{ label: 'Links', href: '#footer' }
 	];
 
+	const APP_READY_EVENT = 'app:ready';
+
 	onMount(() => {
 		let glitchStart: ReturnType<typeof setTimeout> | null = null;
+		let typingTimer: ReturnType<typeof setTimeout> | null = null;
 		let stopGlitch: () => void = () => {};
+		let startHeroTyping: () => void = () => {};
 
 		if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
 			ScrollTrigger.create({
@@ -107,11 +111,6 @@
 				'[data-hero-eyebrow]',
 				{ y: 20, opacity: 0 },
 				{ y: 0, opacity: 1, duration: 0.8, ease: 'power2.out' }
-			);
-			gsap.fromTo(
-				'[data-hero-line1]',
-				{ y: 60, opacity: 0 },
-				{ y: 0, opacity: 1, delay: 0.12, duration: 1, ease: 'power3.out' }
 			);
 
 			// Start line2 near the bottom of the viewport, transparent
@@ -170,6 +169,7 @@
 			let glitchTimer: ReturnType<typeof setInterval> | null = null;
 			let isEventMode = false;
 			let isGlitching = false;
+			let hasTypedLine1 = false;
 
 			// Dev-mode: vivid spectrum gradient on line 1
 			const devGradient =
@@ -183,6 +183,57 @@
 			}
 
 			applyDevMode();
+
+			function typeLine1(onComplete?: () => void) {
+				if (!line1El || hasTypedLine1) {
+					onComplete?.();
+					return;
+				}
+
+				if ($fxDisabled) {
+					hasTypedLine1 = true;
+					line1El.textContent = originalLine1;
+					typingTimer = null;
+					onComplete?.();
+					return;
+				}
+
+				hasTypedLine1 = true;
+				line1El.textContent = '';
+
+				let index = 0;
+				const nextDelay = (char: string) => {
+					if (char === ' ') return 45 + Math.random() * 75;
+					if (Math.random() < 0.18) return 55 + Math.random() * 65;
+					return 18 + Math.random() * 52;
+				};
+
+				const step = () => {
+					if (!line1El) {
+						onComplete?.();
+						return;
+					}
+					if ($fxDisabled) {
+						line1El.textContent = originalLine1;
+						typingTimer = null;
+						onComplete?.();
+						return;
+					}
+
+					index += 1;
+					line1El.textContent = originalLine1.slice(0, index);
+
+					if (index < originalLine1.length) {
+						typingTimer = setTimeout(step, nextDelay(originalLine1[index - 1]));
+						return;
+					}
+
+					typingTimer = null;
+					onComplete?.();
+				};
+
+				typingTimer = setTimeout(step, 70 + Math.random() * 110);
+			}
 
 			function scramble(text: string): string {
 				return text
@@ -288,7 +339,18 @@
 				if (!isGlitching && !$fxDisabled) runBurst();
 			}
 
-			glitchStart = setTimeout(() => { if (!$fxDisabled) runBurst(); }, 1250);
+			startHeroTyping = () => {
+				typeLine1(() => {
+					glitchStart = setTimeout(() => {
+						if (!$fxDisabled) runBurst();
+					}, 1250);
+				});
+			};
+
+			if (!document.body.classList.contains('is-loading')) startHeroTyping();
+			else {
+				window.addEventListener(APP_READY_EVENT, startHeroTyping, { once: true });
+			}
 
 			ScrollTrigger.create({
 				trigger: '[data-hero-pin]',
@@ -332,6 +394,8 @@
 
 		return () => {
 			if (glitchStart) clearTimeout(glitchStart);
+			if (typingTimer) clearTimeout(typingTimer);
+			window.removeEventListener(APP_READY_EVENT, startHeroTyping);
 			stopGlitch();
 			observer.disconnect();
 			ScrollTrigger.getAll().forEach((t) => t.kill());
@@ -383,9 +447,9 @@
 				></div>
 				<p
 					data-hero-eyebrow
-					class="mb-3 text-lg font-medium tracking-widest text-electric-400 sm:text-xl"
+					class="mb-3 text-lg font-medium tracking-widest text-electric-400 sm:text-xl ps-2"
 				>
-					Hey, I'm Ben
+					Hey, I'm Ben!
 				</p>
 
 				<div class="leading-[0.88] font-black tracking-tighter">
@@ -411,10 +475,10 @@
 			</div>
 		</div>
 
-		<div class="wave-separator text-[var(--color-anthracite-800)]">
+		<div class="wave-separator text-anthracite-800">
 			<svg
 				viewBox="0 0 1440 170"
-				class="h-[88px] w-full"
+				class="h-22 w-full"
 				preserveAspectRatio="none"
 				aria-hidden="true"
 			>
@@ -453,10 +517,10 @@
 			</div>
 		</div>
 
-		<div class="wave-separator text-[var(--color-anthracite-900)]">
+		<div class="wave-separator text-anthracite-900">
 			<svg
 				viewBox="0 0 1440 170"
-				class="h-[92px] w-full"
+				class="h-23 w-full"
 				preserveAspectRatio="none"
 				aria-hidden="true"
 			>
@@ -492,10 +556,10 @@
 			{/each}
 		</div>
 
-		<div class="wave-separator text-[var(--color-anthracite-800)]">
+		<div class="wave-separator text-anthracite-800">
 			<svg
 				viewBox="0 0 1440 170"
-				class="h-[92px] w-full"
+				class="h-23 w-full"
 				preserveAspectRatio="none"
 				aria-hidden="true"
 			>
