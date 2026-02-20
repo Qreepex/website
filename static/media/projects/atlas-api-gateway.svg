@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+  <title id="title">Atlas API Gateway</title>
+  <desc id="desc">Abstract cloud platform illustration</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#bg)"/>
+  <rect x="120" y="150" width="960" height="500" rx="28" fill="#0b1220" stroke="#60a5fa" stroke-opacity="0.5"/>
+  <path d="M220 510C350 420 470 420 600 510C730 600 850 600 980 510" fill="none" stroke="#22d3ee" stroke-width="18"/>
+  <text x="160" y="250" fill="#dbeafe" font-size="58" font-family="Inter,Segoe UI,sans-serif" font-weight="800">ATLAS API GATEWAY</text>
+</svg>

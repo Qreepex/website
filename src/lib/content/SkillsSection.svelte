@@ -7,7 +7,7 @@
 	let { skillGroups }: { skillGroups: SkillGroup[] } = $props();
 </script>
 
-<section id="skills" class="section-dark-a relative px-6 py-24 sm:px-10 lg:px-16">
+<section id="skills" class="section-dark-b relative px-6 py-24 sm:px-10 lg:px-16">
 	<div class="mx-auto w-full max-w-7xl">
 		<div class="mb-12">
 			<p class="text-xs font-semibold tracking-[0.2em] text-electric-400 uppercase">Skills</p>

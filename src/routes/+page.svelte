@@ -49,29 +49,6 @@
 		}
 	];
 
-	const projects = [
-		{
-			title: 'Aurora Control Mesh',
-			domain: 'Cloud + Event Ops',
-			description:
-				'Placeholder project for a distributed control plane connecting venue hardware telemetry with real-time cloud dashboards.',
-			tech: ['Go', 'Kubernetes', 'NATS', 'TypeScript']
-		},
-		{
-			title: 'Lumen AI Programmer',
-			domain: 'Lighting + AI',
-			description:
-				'Placeholder concept for AI-assisted fixture programming that proposes cues and transitions for live shows.',
-			tech: ['Rust', 'Python', 'WebAssembly', 'grandMA3']
-		},
-		{
-			title: 'StagePulse Runtime',
-			domain: 'Realtime Systems',
-			description:
-				'Placeholder runtime orchestrating video, audio and lighting trigger timelines with millisecond precision.',
-			tech: ['Java', 'gRPC', 'Redis', 'L-Acoustics']
-		}
-	];
 
 	const profileLinks = [
 		{ label: 'GitHub', href: 'https://github.com/', external: true },
@@ -494,8 +471,8 @@
 	</section>
 
 	<AboutSection />
+	<ProjectsSection />
 	<SkillsSection {skillGroups} />
-	<ProjectsSection {projects} />
 
 	<div id="footer">
 		<Footer
