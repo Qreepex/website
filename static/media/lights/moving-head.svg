@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220" role="img" aria-label="Moving head stage light">
+  <defs>
+    <linearGradient id="body" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#535d70"/>
+      <stop offset="100%" stop-color="#1c2431"/>
+    </linearGradient>
+    <linearGradient id="lens" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#67e8f9"/>
+      <stop offset="100%" stop-color="#22d3ee"/>
+    </linearGradient>
+  </defs>
+
+  <ellipse cx="110" cy="198" rx="70" ry="15" fill="#0a0d12" opacity="0.35"/>
+
+  <rect x="64" y="156" width="92" height="32" rx="8" fill="url(#body)" stroke="#8f9bb0" stroke-opacity="0.45"/>
+  <rect x="74" y="136" width="72" height="26" rx="7" fill="#2b3547"/>
+
+  <rect x="55" y="74" width="24" height="82" rx="12" fill="#303b50"/>
+  <rect x="141" y="74" width="24" height="82" rx="12" fill="#303b50"/>
+
+  <rect x="76" y="56" width="68" height="86" rx="18" fill="url(#body)" stroke="#a9b4c7" stroke-opacity="0.45"/>
+  <circle cx="110" cy="100" r="22" fill="#111827" stroke="#a5f3fc" stroke-width="6" stroke-opacity="0.75"/>
+  <circle cx="110" cy="100" r="11" fill="url(#lens)"/>
+
+  <circle cx="88" cy="68" r="4" fill="#f59e0b"/>
+  <circle cx="132" cy="68" r="4" fill="#10b981"/>
+</svg>
