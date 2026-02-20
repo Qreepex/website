@@ -33,46 +33,43 @@
 	class:is-scrolled={scrolled}
 	class:past-hero={pastHero}
 >
-	<!-- Inner bar: full-width by default, condenses to a pill when past hero -->
-	<div
-		class="nav-inner relative flex w-full items-center px-5 py-3 sm:px-8 lg:px-12 transition-all duration-500"
-		class:nav-condensed={pastHero}
-	>
-		<!-- Brand: far left -->
+	<!-- Ben left · spacer · Links right · FX pinned far right -->
+	<div class="nav-inner relative flex w-full items-center py-3">
+
 		<a
 			href="#"
 			class="brand-label text-sm font-bold tracking-[0.18em] uppercase transition-all duration-500"
+			class:brand-condensed={pastHero}
 			class:brand-scrolled={pastHero}
 		>
 			{brand}
 		</a>
 
-		<!-- Spacer: full-width unless condensed -->
-		<div class="nav-spacer flex-1 transition-all duration-500"></div>
+		<div class="flex-1"></div>
 
-		<!-- Nav links + toggle: immediately right of brand when condensed -->
-		<div class="flex items-center">
-			<nav aria-label="Primary">
-				<ul class="flex items-center gap-5 sm:gap-6">
-					{#each links as link}
-						<li>
-							<a
-								href={link.href}
-								class="nav-link text-sm tracking-wide transition-all duration-300"
-								class:nav-link-bright={pastHero}
-							>
-								{link.label}
-							</a>
-						</li>
-					{/each}
-				</ul>
-			</nav>
+		<nav
+			aria-label="Primary"
+			class="links-group transition-all duration-500"
+			class:links-condensed={pastHero}
+		>
+			<ul class="flex items-center gap-5 sm:gap-6">
+				{#each links as link}
+					<li>
+						<a
+							href={link.href}
+							class="nav-link text-sm tracking-wide transition-colors duration-300"
+							class:nav-link-bright={pastHero}
+						>
+							{link.label}
+						</a>
+					</li>
+				{/each}
+			</ul>
+		</nav>
 
-			<!-- FX toggle: right next to the links -->
-			<span class="ml-5">
-				<FxToggle />
-			</span>
-		</div>
+		<div class="fx-gap transition-all duration-500" class:fx-gap-condensed={pastHero}></div>
+		<FxToggle />
+
 	</div>
 </header>
 
@@ -151,18 +148,22 @@
 		color: #fff;
 	}
 
-	/* Condensed bar: when past hero, constrain width + center, collapse spacer */
-	.nav-condensed {
-		max-width: 52rem;
-		margin-left: auto;
-		margin-right: auto;
-		padding-left: 1.25rem;
-		padding-right: 1.25rem;
+	.nav-inner {
+		padding-left: 1.5rem;
+		padding-right: 1.5rem;
 	}
-	/* Spacer collapses when condensed, pulling links toward the brand */
-	.nav-condensed .nav-spacer {
-		flex: 0 0 1.75rem;
-	}
+	@media (min-width: 640px)  { .nav-inner { padding-left: 2.5rem;  padding-right: 2.5rem; } }
+	@media (min-width: 1024px) { .nav-inner { padding-left: 4rem;    padding-right: 4rem;   } }
+
+	/* Ben: default at left edge, slides inward a bit after hero */
+	.brand-condensed { margin-left: 10vw; }
+
+	/* Links group: default at right edge (against FX gap), slides inward after hero */
+	.links-group { margin-right: 0; }
+	.links-condensed { margin-right: 10vw; }
+
+	/* Gap between links and FX toggle — fixed, not animated */
+	.fx-gap { width: 1.25rem; flex-shrink: 0; }
 
 	/* FX toggle styles live in FxToggle.svelte */
 </style>
