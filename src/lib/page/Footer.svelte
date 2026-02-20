@@ -6,7 +6,7 @@
 	};
 
 	let {
-		name = 'Ben Sc',
+		name = 'Ben',
 		promo = 'Fullstack development meets event technology. Available for ambitious digital and live production projects.',
 		profileLinks = [
 			{ label: 'GitHub', href: 'https://github.com/', external: true },

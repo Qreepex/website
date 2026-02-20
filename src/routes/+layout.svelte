@@ -52,7 +52,7 @@
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
-	<title>Ben Sc | Fullstack Developer & Event Lighting Technician</title>
+	<title>Ben | Fullstack Developer & Event Lighting Technician</title>
 	<meta
 		name="description"
 		content="Personal portfolio showcasing fullstack development, cloud-native engineering, AI work, and event lighting technology expertise."

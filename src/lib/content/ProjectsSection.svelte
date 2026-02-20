@@ -210,8 +210,8 @@
 	const sectionTitleGradientClass = $derived(gradientClassFor(activeProjectIndex));
 	const sectionTitleClass = $derived(
 		activeMode === 'dev'
-			? `mt-3 bg-clip-text text-5xl font-black tracking-[-0.04em] text-transparent uppercase ${sectionTitleGradientClass} sm:text-6xl lg:text-7xl xl:text-8xl`
-			: 'mt-3 text-5xl font-black tracking-[-0.04em] text-mist-100 uppercase sm:text-6xl lg:text-7xl xl:text-8xl'
+			? `bg-clip-text text-5xl font-black tracking-[-0.04em] text-transparent uppercase ${sectionTitleGradientClass} sm:text-6xl lg:text-7xl xl:text-8xl`
+			: 'text-5xl font-black tracking-[-0.04em] text-mist-100 uppercase sm:text-6xl lg:text-7xl xl:text-8xl'
 	);
 	const projectMetaClass = $derived(
 		activeMode === 'dev'
@@ -225,13 +225,13 @@
 	);
 	const devToggleClass = $derived(
 		activeMode === 'dev'
-			? 'rounded-lg px-4 py-2 transition-colors bg-electric-500/45 text-mist-100'
-			: 'rounded-lg px-4 py-2 transition-colors text-mist-100/78 hover:bg-electric-500/20'
+			? 'rounded-lg px-4 py-2 transition-colors bg-electric-500/45 text-mist-100 cursor-pointer'
+			: 'rounded-lg px-4 py-2 transition-colors text-mist-100/78 hover:bg-electric-500/20 cursor-pointer'
 	);
 	const eventToggleClass = $derived(
 		activeMode === 'event'
-			? 'rounded-lg px-4 py-2 transition-colors bg-violet-500/45 text-mist-100'
-			: 'rounded-lg px-4 py-2 transition-colors text-mist-100/78 hover:bg-violet-500/20'
+			? 'rounded-lg px-4 py-2 transition-colors bg-violet-500/45 text-mist-100 cursor-pointer'
+			: 'rounded-lg px-4 py-2 transition-colors text-mist-100/78 hover:bg-violet-500/20 cursor-pointer'
 	);
 	const techTagClass = $derived(
 		activeMode === 'dev'
@@ -395,9 +395,8 @@
 		</div>
 	{/if}
 	<div class="w-full">
-		<div class="mb-8 flex flex-wrap items-start justify-between gap-6 sm:mb-10">
+		<div class="mb-8 flex flex-wrap items-center justify-between gap-6 sm:mb-10">
 			<div class="relative z-10">
-				<p class="text-xs font-semibold tracking-[0.22em] text-electric-300 uppercase">Projects</p>
 				<h2 class={sectionTitleClass}>
 					{modeLabel}
 				</h2>
@@ -409,7 +408,7 @@
 			</div>
 
 			<div class="relative z-10 ml-auto rounded-xl border border-mist-100/25 bg-anthracite-900/70 p-1.5">
-				<div class="flex items-center gap-1 text-xs font-bold tracking-wide uppercase">
+				<div class="flex items-center gap-1 text-xs font-bold tracking-wide uppercase cursor-pointer">
 					<button
 						type="button"
 						class={devToggleClass}

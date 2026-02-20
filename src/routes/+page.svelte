@@ -476,7 +476,7 @@
 
 	<div id="footer">
 		<Footer
-			name="Ben Sc"
+			name="Ben"
 			promo="Cloud-native developer and event lighting technician focused on robust software, modern infrastructure, and high-energy live experiences."
 			{profileLinks}
 			{legalLinks}
