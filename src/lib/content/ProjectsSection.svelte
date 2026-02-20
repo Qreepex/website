@@ -7,16 +7,139 @@
 
 	gsap.registerPlugin(ScrollTrigger);
 
+	type GradientPreset = {
+		className: string;
+		background: string;
+	};
+
 	let sectionEl: HTMLElement | null = null;
 	let projectCards: HTMLElement[] = [];
 	let projectsPinTrigger: ScrollTrigger | null = null;
-	let activeProjectIndex = 0;
+	let activeProjectIndex = $state(0);
+	let assignedGradients = $state<GradientPreset[]>([]);
+	let backgroundLayerA: HTMLDivElement | null = null;
+	let backgroundLayerB: HTMLDivElement | null = null;
+	let activeBackgroundLayer: 'a' | 'b' = 'a';
 
 	let activeMode = $state<'dev' | 'event'>('dev');
 	const modeLabel = $derived(activeMode === 'dev' ? 'Developer Projects' : 'Event Tech Projects');
 	const displayedProjects = $derived(activeMode === 'dev' ? devProjects : eventProjects);
-	const headingClass = $derived(activeMode === 'dev' ? 'text-electric-300' : 'text-violet-300');
-	const projectTitleClass = $derived(activeMode === 'dev' ? 'text-electric-300' : 'text-violet-300');
+
+	const devGradientClasses: readonly GradientPreset[] = [
+		{
+			className: 'bg-gradient-to-r from-red-400 via-fuchsia-500 to-violet-400',
+			background: 'linear-gradient(100deg, rgba(248,113,113,1) 0%, rgba(217,70,239,1) 55%, rgba(167,139,250,1) 100%)'
+		},
+		{
+			className: 'bg-gradient-to-r from-violet-400 via-purple-400 to-cyan-400',
+			background: 'linear-gradient(100deg, rgba(167,139,250,1) 0%, rgba(192,132,252,1) 52%, rgba(34,211,238,1) 100%)'
+		},
+		{
+			className: 'bg-gradient-to-r from-rose-400 via-violet-500 to-cyan-300',
+			background: 'linear-gradient(100deg, rgba(251,113,133,1) 0%, rgba(139,92,246,1) 50%, rgba(103,232,249,1) 100%)'
+		},
+		{
+			className: 'bg-gradient-to-r from-orange-400 via-red-500 to-violet-500',
+			background: 'linear-gradient(100deg, rgba(251,146,60,1) 0%, rgba(239,68,68,1) 48%, rgba(139,92,246,1) 100%)'
+		},
+		{
+			className: 'bg-gradient-to-r from-red-500 via-orange-400 to-violet-400',
+			background: 'linear-gradient(100deg, rgba(239,68,68,1) 0%, rgba(251,146,60,1) 45%, rgba(167,139,250,1) 100%)'
+		},
+		{
+			className: 'bg-gradient-to-r from-orange-300 via-fuchsia-500 to-cyan-400',
+			background: 'linear-gradient(100deg, rgba(253,186,116,1) 0%, rgba(217,70,239,1) 56%, rgba(34,211,238,1) 100%)'
+		},
+		{
+			className: 'bg-gradient-to-r from-red-400 via-purple-500 to-cyan-300',
+			background: 'linear-gradient(100deg, rgba(248,113,113,1) 0%, rgba(168,85,247,1) 52%, rgba(103,232,249,1) 100%)'
+		}
+	] as const;
+
+	const eventGradientClasses: readonly GradientPreset[] = [
+		{
+			className: 'bg-gradient-to-r from-red-500 via-violet-500 to-cyan-400',
+			background: 'linear-gradient(100deg, rgba(239,68,68,1) 0%, rgba(139,92,246,1) 52%, rgba(34,211,238,1) 100%)'
+		},
+		{
+			className: 'bg-gradient-to-r from-violet-500 via-fuchsia-400 to-cyan-300',
+			background: 'linear-gradient(100deg, rgba(139,92,246,1) 0%, rgba(232,121,249,1) 55%, rgba(103,232,249,1) 100%)'
+		},
+		{
+			className: 'bg-gradient-to-r from-red-400 via-purple-500 to-cyan-400',
+			background: 'linear-gradient(100deg, rgba(248,113,113,1) 0%, rgba(168,85,247,1) 50%, rgba(34,211,238,1) 100%)'
+		},
+		{
+			className: 'bg-gradient-to-r from-orange-400 via-red-500 to-violet-500',
+			background: 'linear-gradient(100deg, rgba(251,146,60,1) 0%, rgba(239,68,68,1) 48%, rgba(139,92,246,1) 100%)'
+		},
+		{
+			className: 'bg-gradient-to-r from-red-500 via-orange-400 to-cyan-400',
+			background: 'linear-gradient(100deg, rgba(239,68,68,1) 0%, rgba(251,146,60,1) 46%, rgba(34,211,238,1) 100%)'
+		},
+		{
+			className: 'bg-gradient-to-r from-orange-300 via-violet-500 to-cyan-300',
+			background: 'linear-gradient(100deg, rgba(253,186,116,1) 0%, rgba(139,92,246,1) 52%, rgba(103,232,249,1) 100%)'
+		},
+		{
+			className: 'bg-gradient-to-r from-red-400 via-fuchsia-500 to-cyan-400',
+			background: 'linear-gradient(100deg, rgba(248,113,113,1) 0%, rgba(217,70,239,1) 55%, rgba(34,211,238,1) 100%)'
+		}
+	] as const;
+
+	function gradientClassFor(index: number): string {
+		const assigned = assignedGradients[index];
+		if (assigned) return assigned.className;
+		const gradients = activeMode === 'dev' ? devGradientClasses : eventGradientClasses;
+		return gradients[index % gradients.length].className;
+	}
+
+	function gradientBackgroundFor(index: number): string {
+		const assigned = assignedGradients[index];
+		if (assigned) return assigned.background;
+		const gradients = activeMode === 'dev' ? devGradientClasses : eventGradientClasses;
+		return gradients[index % gradients.length].background;
+	}
+
+	function assignRandomGradientsForProjects() {
+		const gradients = [...(activeMode === 'dev' ? devGradientClasses : eventGradientClasses)];
+		const assignments: GradientPreset[] = [];
+
+		for (let index = 0; index < displayedProjects.length; index += 1) {
+			if (gradients.length === 0) {
+				gradients.push(...(activeMode === 'dev' ? devGradientClasses : eventGradientClasses));
+			}
+
+			const randomIndex = Math.floor(Math.random() * gradients.length);
+			const [selected] = gradients.splice(randomIndex, 1);
+			if (selected) assignments.push(selected);
+		}
+
+		assignedGradients = assignments;
+	}
+
+	function crossfadeBackground(gradient: string) {
+		const active = activeBackgroundLayer === 'a' ? backgroundLayerA : backgroundLayerB;
+		const inactive = activeBackgroundLayer === 'a' ? backgroundLayerB : backgroundLayerA;
+		if (!active || !inactive) return;
+
+		inactive.style.backgroundImage = gradient;
+		gsap.to(inactive, { opacity: 0.12, duration: 0.35, ease: 'power2.out', overwrite: 'auto' });
+		gsap.to(active, { opacity: 0, duration: 0.35, ease: 'power2.out', overwrite: 'auto' });
+		activeBackgroundLayer = activeBackgroundLayer === 'a' ? 'b' : 'a';
+	}
+
+	function fadeBackgroundToBase() {
+		if (!backgroundLayerA || !backgroundLayerB) return;
+		gsap.to([backgroundLayerA, backgroundLayerB], {
+			opacity: 0,
+			duration: 0.35,
+			ease: 'power2.out',
+			overwrite: 'auto'
+		});
+	}
+
+	const sectionTitleGradientClass = $derived(gradientClassFor(activeProjectIndex));
 	const devToggleClass = $derived(
 		activeMode === 'dev'
 			? 'rounded-lg px-4 py-2 transition-colors bg-electric-500/45 text-mist-100'
@@ -33,8 +156,12 @@
 			: 'rounded-md border border-violet-400/45 px-2.5 py-1 text-xs font-semibold bg-violet-500/24 text-violet-100'
 	);
 
-	async function setupProjectsFlyIn() {
+	async function setupProjectsFlyIn(options: { randomizeGradients?: boolean } = {}) {
 		if (!sectionEl) return;
+
+		if (options.randomizeGradients || assignedGradients.length !== displayedProjects.length) {
+			assignRandomGradientsForProjects();
+		}
 
 		projectsPinTrigger?.kill();
 		projectsPinTrigger = null;
@@ -65,6 +192,18 @@
 			scrub: 0.22,
 			anticipatePin: 1,
 			...(projectCards.length > 1 ? { snap: 1 / steps } : {}),
+			onEnter: () => {
+				crossfadeBackground(gradientBackgroundFor(activeProjectIndex));
+			},
+			onEnterBack: () => {
+				crossfadeBackground(gradientBackgroundFor(activeProjectIndex));
+			},
+			onLeave: () => {
+				fadeBackgroundToBase();
+			},
+			onLeaveBack: () => {
+				fadeBackgroundToBase();
+			},
 			onUpdate(self) {
 				const nextIndex = Math.round(self.progress * steps);
 				if (nextIndex === activeProjectIndex) return;
@@ -75,6 +214,7 @@
 
 				activeProjectIndex = nextIndex;
 				if (!incoming) return;
+				crossfadeBackground(gradientBackgroundFor(nextIndex));
 
 				gsap.killTweensOf([outgoing, incoming]);
 
@@ -111,23 +251,27 @@
 		if (activeMode === mode) return;
 		activeMode = mode;
 		await tick();
-		await setupProjectsFlyIn();
+		await setupProjectsFlyIn({ randomizeGradients: true });
 	}
 
 	onMount(() => {
-		void setupProjectsFlyIn();
+		void setupProjectsFlyIn({ randomizeGradients: true });
 
 		return () => {
 			projectsPinTrigger?.kill();
 			projectsPinTrigger = null;
 			gsap.killTweensOf(projectCards);
+			fadeBackgroundToBase();
 		};
 	});
 
 	$effect(() => {
 		$fxDisabled;
 		if (!sectionEl) return;
-		void tick().then(setupProjectsFlyIn);
+		void (async () => {
+			await tick();
+			await setupProjectsFlyIn();
+		})();
 	});
 </script>
 
@@ -137,12 +281,20 @@
 	id="projects"
 	class="relative w-full overflow-hidden bg-anthracite-900 px-6 pt-16 pb-20 sm:px-10 sm:pt-18 sm:pb-22 lg:px-16 lg:pt-20"
 >
+	<div
+		bind:this={backgroundLayerA}
+		class="pointer-events-none absolute inset-0 z-0 opacity-0"
+	></div>
+	<div
+		bind:this={backgroundLayerB}
+		class="pointer-events-none absolute inset-0 z-0 opacity-0"
+	></div>
 	<div class="w-full">
 		<div class="mb-8 flex flex-wrap items-start justify-between gap-6 sm:mb-10">
 			<div class="relative z-10">
 				<p class="text-xs font-semibold tracking-[0.22em] text-electric-300 uppercase">Projects</p>
 				<h2
-					class={`mt-3 text-5xl font-black tracking-[-0.04em] uppercase ${headingClass} sm:text-6xl lg:text-7xl xl:text-8xl`}
+					class={`mt-3 bg-clip-text text-5xl font-black tracking-[-0.04em] text-transparent uppercase ${sectionTitleGradientClass} sm:text-6xl lg:text-7xl xl:text-8xl`}
 				>
 					{modeLabel}
 				</h2>
@@ -185,7 +337,7 @@
 								{String(index + 1).padStart(2, '0')} · {project.domain}
 							</p>
 							<h3
-								class={`mt-4 text-4xl font-black tracking-[-0.02em] uppercase ${projectTitleClass} sm:text-5xl lg:text-6xl`}
+								class={`mt-4 bg-clip-text text-4xl font-black tracking-[-0.02em] text-transparent uppercase ${gradientClassFor(index)} sm:text-5xl lg:text-6xl`}
 							>
 								{project.title}
 							</h3>
