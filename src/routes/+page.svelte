@@ -7,6 +7,27 @@
 
 	gsap.registerPlugin(ScrollTrigger);
 
+	// ── FX store ─────────────────────────────────────────────────────────
+	import { fxDisabled } from '$lib/stores/reducedMotion';
+
+	// Module-level refs so the $effect can reach inside onMount closures
+	let _stopFn: () => void = () => {};
+	let _videoElRef: HTMLVideoElement | null = null;
+	let _isEventModeRef = { value: false };
+
+	$effect(() => {
+		const rm = $fxDisabled;
+		if (!_videoElRef) return;
+		if (rm) {
+			_videoElRef.pause();
+			_stopFn();
+		} else {
+			// Re-enable: play video only if in event mode, otherwise glitch restarts naturally
+			if (_isEventModeRef.value) _videoElRef.play().catch(() => {});
+		}
+	});
+	// ─────────────────────────────────────────────────────────────────────
+
 	const skillGroups = [
 		{
 			title: 'Fullstack & Platform',
@@ -63,9 +84,8 @@
 
 	const navLinks = [
 		{ label: 'About', href: '#about' },
-		{ label: 'Skills', href: '#skills' },
 		{ label: 'Projects', href: '#projects' },
-		{ label: 'Contact', href: '#footer' }
+		{ label: 'Links', href: '#footer' }
 	];
 
 	onMount(() => {
@@ -124,6 +144,7 @@
 			const videoEl = document.querySelector<HTMLVideoElement>('[data-hero-video]');
 			const overlayEl = document.querySelector<HTMLElement>('[data-hero-overlay]');
 			const scrimEl = document.querySelector<HTMLElement>('[data-hero-text-scrim]');
+			_videoElRef = videoEl;
 			gsap.set(videoEl, { opacity: 0 });
 
 			// — Glitch / hack effect on line 1 —
@@ -187,11 +208,13 @@
 					line1El.style.fontFamily = '';
 				}
 			};
+			// Store a delegate so the $effect can invoke the real stopGlitch
+			_stopFn = () => stopGlitch();
 
 			// One scrambled variant per burst, reused across all steps.
 			// Each step: show glitch 50–150 ms, then normal 50–115 ms.
 			function runBurst() {
-				if (!line1El || isEventMode) return;
+				if (!line1El || isEventMode || $fxDisabled) return;
 				isGlitching = true;
 
 				const steps = 3 + Math.floor(Math.random() * 8); // 3–10
@@ -199,7 +222,7 @@
 				let currentTimer: ReturnType<typeof setTimeout>;
 
 				function scheduleNext(step: number) {
-					if (isEventMode) {
+					if (isEventMode || $fxDisabled) {
 						// Aborted mid-burst — restore cleanly
 						line1El!.textContent = originalLine1;
 						line1El!.style.fontFamily = '';
@@ -236,6 +259,7 @@
 			function transitionToEventMode() {
 				if (isEventMode) return;
 				isEventMode = true;
+				_isEventModeRef.value = true;
 				stopGlitch();
 				clearDevMode();
 				gsap.killTweensOf(overlayEl);
@@ -253,6 +277,7 @@
 			function transitionToDevMode() {
 				if (!isEventMode) return;
 				isEventMode = false;
+				_isEventModeRef.value = false;
 				gsap.killTweensOf(videoEl);
 				gsap.killTweensOf(overlayEl);
 				gsap.killTweensOf(scrimEl);
@@ -260,10 +285,10 @@
 				gsap.set(overlayEl, { opacity: 1 });
 				gsap.set(scrimEl, { opacity: 0 });
 				applyDevMode();
-				if (!isGlitching) runBurst();
+				if (!isGlitching && !$fxDisabled) runBurst();
 			}
 
-			glitchStart = setTimeout(runBurst, 1250);
+			glitchStart = setTimeout(() => { if (!$fxDisabled) runBurst(); }, 1250);
 
 			ScrollTrigger.create({
 				trigger: '[data-hero-pin]',
@@ -315,7 +340,7 @@
 </script>
 
 <main class="relative isolate overflow-x-clip">
-	<Navbar brand="Ben Sc" links={navLinks} />
+	<Navbar brand="Ben" links={navLinks} />
 
 	<section
 		data-hero-pin
