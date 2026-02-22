@@ -57,6 +57,11 @@
 		let typingTimer: ReturnType<typeof setTimeout> | null = null;
 		let stopGlitch: () => void = () => {};
 		let startHeroTyping: () => void = () => {};
+		let heroPinTrigger: ScrollTrigger | null = null;
+		let contentScrubTrigger: ScrollTrigger | null = null;
+		let removeFirstScrollListeners: () => void = () => {};
+		let isReverseResetRunning = false;
+		let reverseResetTween: gsap.core.Timeline | null = null;
 
 		if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
 			ScrollTrigger.create({
@@ -76,30 +81,33 @@
 			);
 
 			// Start line2 near the bottom of the viewport, transparent
-			gsap.set('[data-hero-line2]', { y: window.innerHeight * 0.72, opacity: 0 });
+			const getLine2StartY = () => window.innerHeight * 0.72;
+			gsap.set('[data-hero-line2]', { y: getLine2StartY(), opacity: 0 });
+			gsap.set('[data-hero-content]', { y: 0, scale: 1, transformOrigin: 'left top' });
 
-			// Timeline: travel up from bottom + fade in, slam content to top, then long dwell
-			const pinTl = gsap.timeline();
-			pinTl
-				// Phase 1: line2 travels up from bottom (~33% of total scroll)
+			// Phase 1: trigger-only intro (line2 snaps in + video starts)
+			const introTl = gsap.timeline({ paused: true });
+			introTl
 				.to('[data-hero-line2]', {
-					y: 0,
+					y: -18,
 					opacity: 1,
-					ease: 'power2.out',
-					duration: 1
+					ease: 'power4.out',
+					duration: 0.24
 				})
-				// Phase 2: brief pause (~3%)
-				.to('[data-hero-line2]', { duration: 0.1 })
-				// Phase 3: content slams to top + shrinks so video breathes (~12%)
+				.add(() => transitionToEventMode(), 0.16)
+				.to('[data-hero-line2]', { y: 0, duration: 0.1, ease: 'power2.out' })
+				;
+
+			// Phase 2: user-controlled scroll motion (move/shrink to top-left)
+			const scrollTl = gsap.timeline({ paused: true });
+			scrollTl
 				.to('[data-hero-content]', {
 					y: () => -(window.innerHeight * 0.2),
 					scale: 0.42,
 					transformOrigin: 'left top',
-					duration: 0.35,
-					ease: 'power3.in'
-				})
-				// Phase 4: long dwell — users sit in event-tech mode (~52%)
-				.to('[data-hero-content]', { duration: 1.6 });
+					duration: 1,
+					ease: 'power2.out'
+				});
 
 			// — Video starts hidden; fades in when event-tech line arrives —
 			const videoEl = document.querySelector<HTMLVideoElement>('[data-hero-video]');
@@ -294,9 +302,14 @@
 				gsap.killTweensOf(videoEl);
 				gsap.killTweensOf(overlayEl);
 				gsap.killTweensOf(scrimEl);
-				gsap.set(videoEl, { opacity: 0, filter: 'brightness(1) saturate(1)' });
-				gsap.set(overlayEl, { opacity: 1 });
-				gsap.set(scrimEl, { opacity: 0 });
+				gsap.to(videoEl, {
+					opacity: 0,
+					filter: 'brightness(1) saturate(1)',
+					duration: 0.22,
+					ease: 'power1.inOut'
+				});
+				gsap.to(overlayEl, { opacity: 1, duration: 0.22, ease: 'power1.inOut' });
+				gsap.to(scrimEl, { opacity: 0, duration: 0.2, ease: 'power1.inOut' });
 				applyDevMode();
 				if (!isGlitching && !$fxDisabled) runBurst();
 			}
@@ -314,21 +327,134 @@
 				window.addEventListener(APP_READY_EVENT, startHeroTyping, { once: true });
 			}
 
-			ScrollTrigger.create({
+			let firstScrollSequenceTriggered = false;
+
+			function resetHeroSequenceState() {
+				if (isReverseResetRunning) return;
+				if (!firstScrollSequenceTriggered && !isEventMode) return;
+
+				introTl.pause();
+				scrollTl.pause();
+				if (contentScrubTrigger) {
+					contentScrubTrigger.kill();
+					contentScrubTrigger = null;
+				}
+
+				if (reverseResetTween) {
+					reverseResetTween.kill();
+					reverseResetTween = null;
+				}
+				isReverseResetRunning = true;
+				transitionToDevMode();
+
+				reverseResetTween = gsap.timeline({
+					onComplete() {
+						isReverseResetRunning = false;
+						firstScrollSequenceTriggered = false;
+						reverseResetTween = null;
+					}
+				});
+
+				reverseResetTween
+					.to(
+						'[data-hero-content]',
+						{ y: 0, scale: 1, duration: 0.18, ease: 'power2.out' },
+						0
+					)
+					.to(
+						'[data-hero-line2]',
+						{ y: getLine2StartY(), opacity: 0, duration: 0.28, ease: 'power2.in' },
+						0
+					);
+			}
+
+			function enableScrollControlPhase() {
+				if (contentScrubTrigger) return;
+				const startAt = window.scrollY + 8;
+				const endAt = startAt + 1700;
+				contentScrubTrigger = ScrollTrigger.create({
+					start: startAt,
+					end: endAt,
+					scrub: 0.35,
+					animation: scrollTl,
+					onLeaveBack() {
+						resetHeroSequenceState();
+					}
+				});
+			}
+
+			function triggerHeroSequence() {
+				if (firstScrollSequenceTriggered) return;
+				firstScrollSequenceTriggered = true;
+				introTl.eventCallback('onComplete', enableScrollControlPhase);
+				introTl.play(0);
+			}
+
+			function onFirstUserScrollIntent(event?: KeyboardEvent) {
+				if (firstScrollSequenceTriggered || isReverseResetRunning) return;
+				if (event) {
+					const isScrollKey =
+						event.key === 'ArrowDown' ||
+						event.key === 'PageDown' ||
+						event.key === ' ' ||
+						event.key === 'End';
+					if (!isScrollKey) return;
+				}
+				triggerHeroSequence();
+			}
+
+			let lastScrollY = window.scrollY;
+			let touchStartY: number | null = null;
+
+			const onWheel = (event: WheelEvent) => {
+				if (event.deltaY > 0) onFirstUserScrollIntent();
+				else if (window.scrollY <= 2) resetHeroSequenceState();
+			};
+
+			const onTouchStart = (event: TouchEvent) => {
+				touchStartY = event.touches[0]?.clientY ?? null;
+			};
+
+			const onTouchMove = (event: TouchEvent) => {
+				if (touchStartY == null) return;
+				const currentY = event.touches[0]?.clientY ?? touchStartY;
+				const delta = touchStartY - currentY;
+				if (delta > 3) onFirstUserScrollIntent();
+				else if (delta < -3 && window.scrollY <= 2) resetHeroSequenceState();
+				touchStartY = currentY;
+			};
+
+			const onScroll = () => {
+				const currentY = window.scrollY;
+				const isScrollingDown = currentY > lastScrollY + 0.5;
+				const isScrollingUp = currentY < lastScrollY - 0.5;
+				lastScrollY = currentY;
+				if (isScrollingDown) onFirstUserScrollIntent();
+				else if (isScrollingUp && currentY <= 2) resetHeroSequenceState();
+			};
+
+			const onFirstUserKeydown = (event: KeyboardEvent) => onFirstUserScrollIntent(event);
+			window.addEventListener('wheel', onWheel, { passive: true });
+			window.addEventListener('touchstart', onTouchStart, { passive: true });
+			window.addEventListener('touchmove', onTouchMove, { passive: true });
+			window.addEventListener('scroll', onScroll, { passive: true });
+			window.addEventListener('keydown', onFirstUserKeydown);
+			removeFirstScrollListeners = () => {
+				window.removeEventListener('wheel', onWheel);
+				window.removeEventListener('touchstart', onTouchStart);
+				window.removeEventListener('touchmove', onTouchMove);
+				window.removeEventListener('scroll', onScroll);
+				window.removeEventListener('keydown', onFirstUserKeydown);
+			};
+
+			heroPinTrigger = ScrollTrigger.create({
 				trigger: '[data-hero-pin]',
 				start: 'top top',
 				end: '+=2800',
-				scrub: 0.8,
 				pin: true,
 				anticipatePin: 1,
-				animation: pinTl,
-				onUpdate(self) {
-					// Video snaps when line2 is at ~90% of its travel (phase 1 ends at ~0.328)
-					// Hysteresis: enter at 0.295, leave at 0.18
-					if (self.progress >= 0.295) transitionToEventMode();
-					else if (self.progress < 0.18) transitionToDevMode();
-					// Stop glitch while line 2 is mid-travel
-					else if (isGlitching) stopGlitch();
+				onLeaveBack() {
+					resetHeroSequenceState();
 				}
 			});
 		}
@@ -357,6 +483,9 @@
 		return () => {
 			if (glitchStart) clearTimeout(glitchStart);
 			if (typingTimer) clearTimeout(typingTimer);
+			if (reverseResetTween) reverseResetTween.kill();
+			if (contentScrubTrigger) contentScrubTrigger.kill();
+			removeFirstScrollListeners();
 			window.removeEventListener(APP_READY_EVENT, startHeroTyping);
 			stopGlitch();
 			observer.disconnect();
