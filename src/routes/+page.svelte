@@ -13,6 +13,7 @@
 
 	// ── FX store ─────────────────────────────────────────────────────────
 	import { fxDisabled } from '$lib/stores/reducedMotion';
+	import { APP_READY_EVENT } from '$lib';
 
 	// Module-level refs so the $effect can reach inside onMount closures
 	let _stopFn: () => void = () => {};
@@ -31,26 +32,6 @@
 		}
 	});
 	// ─────────────────────────────────────────────────────────────────────
-
-	const profileLinks = [
-		{ label: 'GitHub', href: 'https://github.com/', external: true },
-		{ label: 'LinkedIn', href: 'https://linkedin.com/', external: true },
-		{ label: 'X / Twitter', href: 'https://x.com/', external: true }
-	];
-
-	const legalLinks = [
-		{ label: 'Impressum', href: '/impressum' },
-		{ label: 'Datenschutz', href: '/privacy' },
-		{ label: 'Kontakt', href: '/contact' }
-	];
-
-	const navLinks = [
-		{ label: 'About', href: '#about' },
-		{ label: 'Projects', href: '#projects' },
-		{ label: 'Links', href: '#footer' }
-	];
-
-	const APP_READY_EVENT = 'app:ready';
 
 	onMount(() => {
 		let glitchStart: ReturnType<typeof setTimeout> | null = null;
@@ -95,19 +76,17 @@
 					duration: 0.24
 				})
 				.add(() => transitionToEventMode(), 0.16)
-				.to('[data-hero-line2]', { y: 0, duration: 0.1, ease: 'power2.out' })
-				;
+				.to('[data-hero-line2]', { y: 0, duration: 0.1, ease: 'power2.out' });
 
 			// Phase 2: user-controlled scroll motion (move/shrink to top-left)
 			const scrollTl = gsap.timeline({ paused: true });
-			scrollTl
-				.to('[data-hero-content]', {
-					y: () => -(window.innerHeight * 0.2),
-					scale: 0.42,
-					transformOrigin: 'left top',
-					duration: 1,
-					ease: 'power2.out'
-				});
+			scrollTl.to('[data-hero-content]', {
+				y: () => -(window.innerHeight * 0.2),
+				scale: 0.42,
+				transformOrigin: 'left top',
+				duration: 1,
+				ease: 'power2.out'
+			});
 
 			// — Video starts hidden; fades in when event-tech line arrives —
 			const videoEl = document.querySelector<HTMLVideoElement>('[data-hero-video]');
@@ -356,11 +335,7 @@
 				});
 
 				reverseResetTween
-					.to(
-						'[data-hero-content]',
-						{ y: 0, scale: 1, duration: 0.18, ease: 'power2.out' },
-						0
-					)
+					.to('[data-hero-content]', { y: 0, scale: 1, duration: 0.18, ease: 'power2.out' }, 0)
 					.to(
 						'[data-hero-line2]',
 						{ y: getLine2StartY(), opacity: 0, duration: 0.28, ease: 'power2.in' },
@@ -495,7 +470,7 @@
 </script>
 
 <main class="relative isolate overflow-x-clip">
-	<Navbar brand="Ben" links={navLinks} />
+	<Navbar />
 
 	<section
 		data-hero-pin
@@ -538,7 +513,7 @@
 				></div>
 				<p
 					data-hero-eyebrow
-					class="mb-3 text-lg font-medium tracking-widest text-electric-400 sm:text-xl ps-2"
+					class="mb-3 ps-2 text-lg font-medium tracking-widest text-electric-400 sm:text-xl"
 				>
 					Hey, I'm Ben!
 				</p>
@@ -567,12 +542,7 @@
 		</div>
 
 		<div class="wave-separator text-anthracite-800">
-			<svg
-				viewBox="0 0 1440 170"
-				class="h-22 w-full"
-				preserveAspectRatio="none"
-				aria-hidden="true"
-			>
+			<svg viewBox="0 0 1440 170" class="h-22 w-full" preserveAspectRatio="none" aria-hidden="true">
 				<path
 					fill="currentColor"
 					d="M0,96L60,90.7C120,85,240,75,360,80C480,85,600,107,720,122.7C840,139,960,149,1080,138.7C1200,128,1320,96,1380,80L1440,64L1440,171L1380,171C1320,171,1200,171,1080,171C960,171,840,171,720,171C600,171,480,171,360,171C240,171,120,171,60,171L0,171Z"
@@ -586,11 +556,6 @@
 	<SkillsSection {skillGroups} />
 
 	<div id="footer">
-		<Footer
-			name="Ben"
-			promo="Cloud-native developer and event lighting technician focused on robust software, modern infrastructure, and high-energy live experiences."
-			{profileLinks}
-			{legalLinks}
-		/>
+		<Footer />
 	</div>
 </main>

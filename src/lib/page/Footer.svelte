@@ -5,20 +5,19 @@
 		external?: boolean;
 	};
 
-	let {
-		name = 'Ben',
-		promo = 'Fullstack development meets event technology. Available for ambitious digital and live production projects.',
+	let name = 'Ben',
+		promo =
+			'Fullstack development meets event technology. Available for ambitious digital and live production projects.',
 		profileLinks = [
-			{ label: 'GitHub', href: 'https://github.com/', external: true },
-			{ label: 'LinkedIn', href: 'https://linkedin.com/', external: true },
-			{ label: 'Instagram', href: 'https://instagram.com/', external: true }
+			{ label: 'GitHub', href: 'https://qrpx.link/gh', external: true },
+			{ label: 'LinkedIn', href: 'https://qrpx.link/in', external: true },
+			{ label: 'Instagram', href: 'https://qrpx.link/ig', external: true }
 		] as FooterLink[],
 		legalLinks = [
 			{ label: 'Impressum', href: '/impressum' },
 			{ label: 'Privacy', href: '/privacy' },
-			{ label: 'Contact', href: '/contact' }
-		] as FooterLink[]
-	} = $props();
+			{ label: 'Contact', href: '/reach-me' }
+		] as FooterLink[];
 
 	const year = new Date().getFullYear();
 </script>

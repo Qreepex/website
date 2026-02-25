@@ -7,10 +7,12 @@
 		href: string;
 	};
 
-	let {
-		brand = 'Ben',
-		links = [] as NavLink[]
-	} = $props();
+	let brand = 'Ben',
+		links = [
+			{ label: 'About', href: '#about' },
+			{ label: 'Projects', href: '#projects' },
+			{ label: 'Links', href: '#footer' }
+		] as NavLink[];
 
 	let scrolled = $state(false);
 	let pastHero = $state(false);
@@ -35,7 +37,6 @@
 >
 	<!-- Ben left · spacer · Links right · FX pinned far right -->
 	<div class="nav-inner relative flex w-full items-center py-3">
-
 		<a
 			href="#"
 			class="brand-label text-sm font-bold tracking-[0.18em] uppercase transition-all duration-500"
@@ -69,7 +70,6 @@
 
 		<div class="fx-gap transition-all duration-500" class:fx-gap-condensed={pastHero}></div>
 		<FxToggle />
-
 	</div>
 </header>
 
@@ -152,18 +152,37 @@
 		padding-left: 1.5rem;
 		padding-right: 1.5rem;
 	}
-	@media (min-width: 640px)  { .nav-inner { padding-left: 2.5rem;  padding-right: 2.5rem; } }
-	@media (min-width: 1024px) { .nav-inner { padding-left: 4rem;    padding-right: 4rem;   } }
+	@media (min-width: 640px) {
+		.nav-inner {
+			padding-left: 2.5rem;
+			padding-right: 2.5rem;
+		}
+	}
+	@media (min-width: 1024px) {
+		.nav-inner {
+			padding-left: 4rem;
+			padding-right: 4rem;
+		}
+	}
 
 	/* Ben: default at left edge, slides inward a bit after hero */
-	.brand-condensed { margin-left: 10vw; }
+	.brand-condensed {
+		margin-left: 10vw;
+	}
 
 	/* Links group: default at right edge (against FX gap), slides inward after hero */
-	.links-group { margin-right: 0; }
-	.links-condensed { margin-right: 10vw; }
+	.links-group {
+		margin-right: 0;
+	}
+	.links-condensed {
+		margin-right: 10vw;
+	}
 
 	/* Gap between links and FX toggle — fixed, not animated */
-	.fx-gap { width: 1.25rem; flex-shrink: 0; }
+	.fx-gap {
+		width: 1.25rem;
+		flex-shrink: 0;
+	}
 
 	/* FX toggle styles live in FxToggle.svelte */
 </style>
