@@ -2,7 +2,6 @@
 	import { onMount } from 'svelte';
 	import { writable } from 'svelte/store';
 	import './layout.css';
-	import favicon from '$lib/assets/favicon.svg';
 
 	let { children } = $props();
 	const isLoading = writable(true);
@@ -51,7 +50,7 @@
 </script>
 
 <svelte:head>
-	<link rel="icon" href={favicon} />
+	<link rel="icon" />
 	<title>Ben | Fullstack Developer & Event Lighting Technician</title>
 	<meta
 		name="description"
