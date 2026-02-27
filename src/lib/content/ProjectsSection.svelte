@@ -31,6 +31,8 @@
 	gsap.registerPlugin(ScrollTrigger);
 
 	let sectionEl: HTMLElement | null = null;
+	let devPanelEl: HTMLElement | null = null;
+	let eventPanelEl: HTMLElement | null = null;
 	let projectCards: HTMLElement[] = [];
 	let projectsPinTrigger: ScrollTrigger | null = null;
 	let activeProjectIndex = $state(0);
@@ -46,8 +48,6 @@
 	let entryProtectionTimer: ReturnType<typeof setTimeout> | null = null;
 
 	let activeMode = $state<ProjectsMode>('dev');
-	const modeLabel = $derived(PROJECTS_MODE_LABELS[activeMode]);
-	const modeDescription = $derived(PROJECTS_MODE_DESCRIPTIONS[activeMode]);
 	const displayedProjects = $derived(activeMode === 'dev' ? devProjects : eventProjects);
 
 	function assignRandomGradientsForProjects() {
@@ -124,16 +124,19 @@
 		activeProjectIndex = index;
 	}
 
-	const sectionTitleGradientClass = $derived(
-		gradientClassForIndex(activeProjectIndex, assignedGradients, activeMode)
+	const devSectionTitleGradientClass = $derived(
+		gradientClassForIndex(activeProjectIndex, assignedGradients, 'dev')
 	);
-	const sectionTitleClass = $derived(
+	const devSectionTitleClass = $derived(
 		activeMode === 'dev' && !devBackgroundActive
 			? 'text-5xl font-black tracking-[-0.04em] text-mist-100 uppercase sm:text-6xl lg:text-7xl xl:text-8xl'
-			: sectionTitleClassForMode(activeMode, sectionTitleGradientClass)
+			: sectionTitleClassForMode('dev', devSectionTitleGradientClass)
 	);
-	const projectMetaClass = $derived(projectMetaClassForMode(activeMode));
-	const techTagClass = $derived(techTagClassForMode(activeMode));
+	const eventSectionTitleClass = sectionTitleClassForMode('event', '');
+	const devProjectMetaClass = projectMetaClassForMode('dev');
+	const eventProjectMetaClass = projectMetaClassForMode('event');
+	const devTechTagClass = techTagClassForMode('dev');
+	const eventTechTagClass = techTagClassForMode('event');
 
 	async function setupProjectsFlyIn(options: { randomizeGradients?: boolean } = {}) {
 		if (!sectionEl) return;
@@ -147,7 +150,10 @@
 		projectsPinTrigger = null;
 		gsap.killTweensOf(projectCards);
 
-		projectCards = Array.from(sectionEl.querySelectorAll<HTMLElement>('[data-project-card]'));
+		const activePanel = activeMode === 'dev' ? devPanelEl : eventPanelEl;
+		if (!activePanel) return;
+
+		projectCards = Array.from(activePanel.querySelectorAll<HTMLElement>('[data-project-card]'));
 		if (projectCards.length === 0) return;
 
 		if ($fxDisabled) {
@@ -333,28 +339,66 @@
 	<div class="w-full">
 		<div class="mb-8 flex flex-wrap items-center justify-between gap-6 sm:mb-10">
 			<div class="relative z-10">
-				<h2 class={sectionTitleClass}>
-					{modeLabel}
-				</h2>
-				<p class="mt-4 max-w-4xl text-base font-semibold text-mist-100 sm:text-lg">
-					{modeDescription}
-				</p>
+				<div
+					class={`project-mode-panel ${activeMode === 'dev' ? 'is-active' : ''}`}
+					aria-hidden={activeMode !== 'dev'}
+				>
+					<h2 class={devSectionTitleClass}>
+						{PROJECTS_MODE_LABELS.dev}
+					</h2>
+					<p class="mt-4 max-w-4xl text-base font-semibold text-mist-100 sm:text-lg">
+						{PROJECTS_MODE_DESCRIPTIONS.dev}
+					</p>
+				</div>
+				<div
+					class={`project-mode-panel ${activeMode === 'event' ? 'is-active' : ''}`}
+					aria-hidden={activeMode !== 'event'}
+				>
+					<h2 class={eventSectionTitleClass}>
+						{PROJECTS_MODE_LABELS.event}
+					</h2>
+					<p class="mt-4 max-w-4xl text-base font-semibold text-mist-100 sm:text-lg">
+						{PROJECTS_MODE_DESCRIPTIONS.event}
+					</p>
+				</div>
 			</div>
 
 			<ProjectsModeToggle {activeMode} onSwitch={switchMode} />
 		</div>
 
 		<div class="relative z-10 h-[62vh] min-h-105 sm:mt-6 sm:h-[66vh] lg:h-[70vh]">
-			<div class="relative h-full w-full">
-				{#each displayedProjects as project, index}
+			<div
+				bind:this={devPanelEl}
+				class={`project-mode-panel relative h-full w-full ${activeMode === 'dev' ? 'is-active' : ''}`}
+				aria-hidden={activeMode !== 'dev'}
+			>
+				{#each devProjects as project, index}
 					<ProjectItem
 						{project}
 						{index}
-						{activeMode}
-						{projectMetaClass}
-						projectTitleClass={projectTitleClassForMode(activeMode, project)}
-						{techTagClass}
-						gradientClass={gradientClassForIndex(index, assignedGradients, activeMode, project)}
+						activeMode="dev"
+						projectMetaClass={devProjectMetaClass}
+						projectTitleClass={projectTitleClassForMode('dev', project)}
+						techTagClass={devTechTagClass}
+						gradientClass={gradientClassForIndex(index, assignedGradients, 'dev', project)}
+						gradientStyle={projectGradientTextStyle(project)}
+					/>
+				{/each}
+			</div>
+			<div
+				bind:this={eventPanelEl}
+				class={`project-mode-panel relative h-full w-full ${activeMode === 'event' ? 'is-active' : ''}`}
+				aria-hidden={activeMode !== 'event'}
+			>
+				{#each eventProjects as project, index}
+					<ProjectItem
+						{project}
+						{index}
+						activeMode="event"
+						projectMetaClass={eventProjectMetaClass}
+						projectTitleClass={projectTitleClassForMode('event', project)}
+						techTagClass={eventTechTagClass}
+						gradientClass={gradientClassForIndex(index, assignedGradients, 'event', project)}
 						gradientStyle={projectGradientTextStyle(project)}
 					/>
 				{/each}
@@ -366,3 +410,13 @@
 {#if activeMode === 'dev' && showSmallerProjects}
 	<SmallerProjectsSection />
 {/if}
+
+<style>
+	.project-mode-panel {
+		display: none;
+	}
+
+	.project-mode-panel.is-active {
+		display: block;
+	}
+</style>
