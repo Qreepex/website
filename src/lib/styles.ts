@@ -124,6 +124,8 @@ export function gradientBackgroundFor(
 	mode: ProjectsMode,
 	project?: ProjectColorConfig
 ): string {
+	if (mode === 'dev' && projectHasSolidColor(project)) return '';
+
 	const customGradient = mode === 'dev' ? (project?.gradient ?? null) : null;
 	if (customGradient) return customGradient;
 

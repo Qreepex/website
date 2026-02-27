@@ -40,6 +40,10 @@
 	let activeBackgroundLayer: 'a' | 'b' = 'a';
 	let eventRigs = $state<EventRig[]>([]);
 	let showSmallerProjects = $state(false);
+	let devBackgroundActive = $state(false);
+	let entryProtectionActive = $state(false);
+	let entryProtectionAnchorIndex = 0;
+	let entryProtectionTimer: ReturnType<typeof setTimeout> | null = null;
 
 	let activeMode = $state<ProjectsMode>('dev');
 	const modeLabel = $derived(PROJECTS_MODE_LABELS[activeMode]);
@@ -56,6 +60,13 @@
 
 	function crossfadeBackground(gradient: string) {
 		if (activeMode !== 'dev') {
+			devBackgroundActive = false;
+			fadeBackgroundToBase();
+			return;
+		}
+
+		if (!gradient) {
+			devBackgroundActive = false;
 			fadeBackgroundToBase();
 			return;
 		}
@@ -64,6 +75,7 @@
 		const inactive = activeBackgroundLayer === 'a' ? backgroundLayerB : backgroundLayerA;
 		if (!active || !inactive) return;
 
+		devBackgroundActive = true;
 		inactive.style.backgroundImage = gradient;
 		gsap.to(inactive, { opacity: 0.12, duration: 0.35, ease: 'power2.out', overwrite: 'auto' });
 		gsap.to(active, { opacity: 0, duration: 0.35, ease: 'power2.out', overwrite: 'auto' });
@@ -80,11 +92,45 @@
 		});
 	}
 
+	function clearEntryProtectionTimer() {
+		if (entryProtectionTimer) {
+			clearTimeout(entryProtectionTimer);
+			entryProtectionTimer = null;
+		}
+	}
+
+	function startEntryProtection(durationMs: number, anchorIndex: number) {
+		entryProtectionAnchorIndex = anchorIndex;
+		entryProtectionActive = true;
+		clearEntryProtectionTimer();
+		entryProtectionTimer = setTimeout(() => {
+			entryProtectionActive = false;
+			entryProtectionTimer = null;
+		}, durationMs);
+	}
+
+	function stopEntryProtection() {
+		entryProtectionActive = false;
+		clearEntryProtectionTimer();
+	}
+
+	function showOnlyProjectCard(index: number) {
+		projectCards.forEach((card, cardIndex) => {
+			gsap.set(card, {
+				autoAlpha: cardIndex === index ? 1 : 0,
+				yPercent: cardIndex === index ? 0 : 26
+			});
+		});
+		activeProjectIndex = index;
+	}
+
 	const sectionTitleGradientClass = $derived(
 		gradientClassForIndex(activeProjectIndex, assignedGradients, activeMode)
 	);
 	const sectionTitleClass = $derived(
-		sectionTitleClassForMode(activeMode, sectionTitleGradientClass)
+		activeMode === 'dev' && !devBackgroundActive
+			? 'text-5xl font-black tracking-[-0.04em] text-mist-100 uppercase sm:text-6xl lg:text-7xl xl:text-8xl'
+			: sectionTitleClassForMode(activeMode, sectionTitleGradientClass)
 	);
 	const projectMetaClass = $derived(projectMetaClassForMode(activeMode));
 	const techTagClass = $derived(techTagClassForMode(activeMode));
@@ -109,24 +155,21 @@
 			return;
 		}
 
-		gsap.set(projectCards, {
-			autoAlpha: 0,
-			yPercent: 26
-		});
-		gsap.set(projectCards[0], { autoAlpha: 1, yPercent: 0 });
-		activeProjectIndex = 0;
+		showOnlyProjectCard(0);
+		devBackgroundActive = false;
 
-		const steps = Math.max(projectCards.length - 1, 1);
+		const entryProtectionDurationMs = 450;
 
 		projectsPinTrigger = ScrollTrigger.create({
 			trigger: sectionEl,
 			start: 'top top',
-			end: `+=${projectCards.length * 900}`,
+			end: `+=${projectCards.length * 450}`,
 			pin: true,
 			scrub: 0.22,
 			anticipatePin: 1,
-			...(projectCards.length > 1 ? { snap: 1 / steps } : {}),
 			onEnter: () => {
+				startEntryProtection(entryProtectionDurationMs, 0);
+				showOnlyProjectCard(0);
 				if (activeMode === 'dev')
 					crossfadeBackground(
 						gradientBackgroundForIndex(
@@ -139,6 +182,9 @@
 				else fadeBackgroundToBase();
 			},
 			onEnterBack: () => {
+				const lastProjectIndex = projectCards.length - 1;
+				startEntryProtection(entryProtectionDurationMs, lastProjectIndex);
+				showOnlyProjectCard(lastProjectIndex);
 				if (activeMode === 'dev')
 					crossfadeBackground(
 						gradientBackgroundForIndex(
@@ -151,22 +197,35 @@
 				else fadeBackgroundToBase();
 			},
 			onLeave: () => {
+				stopEntryProtection();
 				fadeBackgroundToBase();
 			},
 			onLeaveBack: () => {
+				stopEntryProtection();
 				fadeBackgroundToBase();
 			},
 			onUpdate(self) {
-				const initialHoldProgress = 0.05;
-				const normalizedProgress =
-					self.progress <= initialHoldProgress
-						? 0
-						: (self.progress - initialHoldProgress) / (1 - initialHoldProgress);
-				const nextIndex = Math.min(
+				if (entryProtectionActive) {
+					const shouldKeepProtected =
+						entryProtectionAnchorIndex === 0 ? self.progress <= 0.015 : self.progress >= 0.985;
+					if (shouldKeepProtected) {
+						if (activeProjectIndex !== entryProtectionAnchorIndex)
+							showOnlyProjectCard(entryProtectionAnchorIndex);
+						return;
+					}
+					stopEntryProtection();
+				}
+
+				const normalizedProgress = self.progress;
+				const targetIndex = Math.min(
 					projectCards.length - 1,
 					Math.floor(normalizedProgress * projectCards.length)
 				);
-				if (nextIndex === activeProjectIndex) return;
+				if (targetIndex === activeProjectIndex) return;
+
+				const nextIndex = activeProjectIndex + Math.sign(targetIndex - activeProjectIndex);
+				if (nextIndex < 0 || nextIndex >= projectCards.length) return;
+
 				const scrollDirection = self.direction >= 0 ? 1 : -1;
 
 				const outgoing = projectCards[activeProjectIndex];
@@ -218,6 +277,7 @@
 	async function switchMode(mode: 'dev' | 'event') {
 		if (activeMode === mode) return;
 		showSmallerProjects = false;
+		devBackgroundActive = false;
 		activeMode = mode;
 		if (mode === 'event') assignRandomEventRigs();
 		await tick();
@@ -238,6 +298,7 @@
 		return () => {
 			projectsPinTrigger?.kill();
 			projectsPinTrigger = null;
+			stopEntryProtection();
 			gsap.killTweensOf(projectCards);
 			fadeBackgroundToBase();
 		};
