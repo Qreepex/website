@@ -1,7 +1,24 @@
 <script lang="ts">
 	import type { SkillGroup } from '$lib/content/skills';
+	import { fxDisabled } from '$lib/stores/reducedMotion';
 
 	let { skillGroups }: { skillGroups: SkillGroup[] } = $props();
+
+	const featuredSkills = $derived(
+		skillGroups.flatMap((group) =>
+			group.items
+				.filter((item) => item.featured && item.description)
+				.map((item) => ({
+					name: item.name,
+					description: item.description ?? '',
+					groupTitle: group.title
+				}))
+		)
+			.slice(0, 4)
+	);
+
+	const shadowText = 'Skills '.repeat(80).trim();
+
 </script>
 
 <section id="skills" class="section-dark-b relative overflow-hidden px-6 py-24 sm:px-10 lg:px-16">
@@ -14,25 +31,72 @@
 
 	<div class="mx-auto w-full max-w-7xl">
 		<div class="relative mb-14">
-			<p
-				class="pointer-events-none absolute -top-9 left-0 text-5xl font-black tracking-[-0.06em] text-mist-100/5 uppercase sm:text-7xl lg:text-8xl"
+			<div
+				class="pointer-events-none absolute -top-10 left-1/2 w-screen -translate-x-1/2 overflow-hidden select-none"
+				class:fx-paused={$fxDisabled}
 			>
-				Skills
-			</p>
+				<p class="skills-band skills-band-left text-5xl font-black tracking-[-0.06em] text-mist-100/5 uppercase sm:text-7xl lg:text-8xl">
+					<span>{shadowText}</span>
+					<span aria-hidden="true">{shadowText}</span>
+				</p>
+				<p class="skills-band skills-band-right -mt-2 text-5xl font-black tracking-[-0.06em] text-mist-100/5 uppercase sm:text-7xl lg:text-8xl">
+					<span>{shadowText}</span>
+					<span aria-hidden="true">{shadowText}</span>
+				</p>
+			</div>
 			<p class="text-xs font-semibold tracking-[0.2em] text-electric-400 uppercase">Skills</p>
 			<h2
 				class="mt-3 bg-linear-to-r from-red-400 via-violet-400 to-cyan-300 bg-clip-text text-4xl font-black tracking-[-0.03em] text-transparent uppercase sm:text-5xl lg:text-6xl"
 			>
-				Production-grade software expression.
+				Cloud-native engineering for real production systems.
 			</h2>
-			<p class="mt-5 max-w-4xl text-base font-semibold text-mist-100/90 sm:text-lg">
-				Built for delivery under pressure across apps, APIs, infrastructure, and production systems.
+			<p class="mt-5 max-w-5xl text-base font-semibold text-mist-100/90 sm:text-lg">
+				Senior full-stack development focused on TypeScript, Go, Node.js and microservices architecture.
+				Strong in cloud native infrastructure, API integrations, CI/CD delivery, observability, compliance,
+				and scalable backend systems.
 			</p>
 		</div>
 
+		{#if featuredSkills.length > 0}
+			<div class="mb-12">
+				<p class="text-xs font-semibold tracking-[0.2em] text-violet-300/90 uppercase">Core strengths</p>
+				<div class="mt-5 grid gap-4 sm:grid-cols-2">
+					{#each featuredSkills as skill}
+						<article
+							class="relative overflow-hidden rounded-2xl bg-mist-100/4 p-5 shadow-[0_0_0_1px_rgba(120,140,255,0.18),0_14px_40px_rgba(10,12,28,0.35)]"
+						>
+							<div class="pointer-events-none absolute -top-8 -right-8 h-24 w-24 rounded-full bg-electric-400/15 blur-2xl"></div>
+							<div>
+								<p class="text-[11px] font-black tracking-[0.16em] text-electric-300/90 uppercase">
+									{skill.groupTitle}
+								</p>
+								<div class="relative mt-2">
+									<p
+										class="pointer-events-none absolute -top-15 -right-5 text-4xl text-right font-black tracking-[-0.05em] text-mist-100/6 uppercase sm:text-5xl"
+									>
+										<span class="block whitespace-nowrap" style="transform: translateX(0px);">{skill.name}</span>
+										<span class="block whitespace-nowrap" style="transform: translateX(8px);">{skill.name}</span>
+										<span class="block whitespace-nowrap" style="transform: translateX(16px);">{skill.name}</span>
+										<span class="block whitespace-nowrap" style="transform: translateX(24px);">{skill.name}</span>
+										<span class="block whitespace-nowrap" style="transform: translateX(32px);">{skill.name}</span>
+									</p>
+									<h3 class="relative text-xl font-black tracking-[-0.02em] text-mist-100 uppercase sm:text-2xl">
+										{skill.name}
+									</h3>
+								</div>
+							</div>
+							<p class="mt-2 text-sm leading-relaxed font-semibold text-mist-100/84 sm:text-base">
+								{skill.description}
+							</p>
+						</article>
+					{/each}
+				</div>
+			</div>
+		{/if}
+
 		<div class="space-y-8">
 			{#each skillGroups as group, index}
-				<div data-animate class="border-y border-electric-400/25 py-8">
+				<div data-animate class="border-b border-electric-400/25 py-8 first:border-t">
 					<div class="grid gap-6 lg:grid-cols-[minmax(0,0.38fr)_minmax(0,1fr)] lg:gap-10">
 						<div>
 							<p class="text-xs font-bold tracking-[0.22em] text-electric-400/90 uppercase">
@@ -43,14 +107,19 @@
 							>
 								{group.title}
 							</h3>
+							<p class="mt-3 max-w-sm text-sm leading-relaxed font-semibold text-mist-100/75">
+								{group.description}
+							</p>
 						</div>
 
-						<ul class="flex flex-wrap items-center gap-x-5 gap-y-3 pt-1">
+						<ul class="flex flex-wrap content-start items-start self-start gap-x-2 gap-y-3 pt-1 sm:gap-x-2.5">
 							{#each group.items as item}
 								<li
-									class="relative pr-5 text-sm font-bold tracking-[0.11em] text-mist-100/92 uppercase after:absolute after:top-1/2 after:right-0 after:h-1.5 after:w-1.5 after:-translate-y-1/2 after:rounded-full after:bg-electric-400/70 last:pr-0 last:after:hidden sm:text-base"
+									class={`inline-flex items-center rounded-lg border px-3 py-2 text-sm leading-tight font-semibold tracking-normal cursor-pointer ${item.featured
+										? 'border-electric-300/70 bg-electric-300/12 text-electric-100'
+										: 'border-mist-100/20 bg-mist-100/5 text-mist-100/90'}`}
 								>
-									{item}
+									{item.name}
 								</li>
 							{/each}
 						</ul>
@@ -60,3 +129,56 @@
 		</div>
 	</div>
 </section>
+
+<style>
+	.skills-band {
+		display: flex;
+		width: max-content;
+		white-space: nowrap;
+		will-change: transform;
+	}
+
+	.skills-band span {
+		padding-right: 2rem;
+	}
+
+	.skills-band-left {
+		animation: skills-marquee-left 128s linear infinite;
+	}
+
+	.skills-band-right {
+		animation: skills-marquee-right 128s linear infinite;
+	}
+
+	.fx-paused .skills-band-left,
+	.fx-paused .skills-band-right {
+		animation-play-state: paused;
+	}
+
+	@keyframes skills-marquee-left {
+		from {
+			transform: translateX(0);
+		}
+
+		to {
+			transform: translateX(-50%);
+		}
+	}
+
+	@keyframes skills-marquee-right {
+		from {
+			transform: translateX(-50%);
+		}
+
+		to {
+			transform: translateX(0);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.skills-band-left,
+		.skills-band-right {
+			animation: none;
+		}
+	}
+</style>

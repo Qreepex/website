@@ -163,7 +163,7 @@
 		projectsPinTrigger = ScrollTrigger.create({
 			trigger: sectionEl,
 			start: 'top top',
-			end: `+=${projectCards.length * 450}`,
+			end: `+=${projectCards.length * 550}`,
 			pin: true,
 			scrub: 0.22,
 			anticipatePin: 1,

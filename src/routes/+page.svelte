@@ -34,6 +34,9 @@
 	// ─────────────────────────────────────────────────────────────────────
 
 	onMount(() => {
+		const HERO_PIN_DISTANCE = 1400;
+		const HERO_SCRUB_DISTANCE = 800;
+
 		let glitchStart: ReturnType<typeof setTimeout> | null = null;
 		let typingTimer: ReturnType<typeof setTimeout> | null = null;
 		let stopGlitch: () => void = () => {};
@@ -48,7 +51,7 @@
 			ScrollTrigger.create({
 				trigger: '[data-hero-pin]',
 				start: 'top top',
-				end: '+=2800',
+				end: `+=${HERO_PIN_DISTANCE}`,
 				pin: true,
 				anticipatePin: 1
 			});
@@ -84,7 +87,7 @@
 				y: () => -(window.innerHeight * 0.2),
 				scale: 0.42,
 				transformOrigin: 'left top',
-				duration: 1,
+				duration: 0.5,
 				ease: 'power2.out'
 			});
 
@@ -346,11 +349,11 @@
 			function enableScrollControlPhase() {
 				if (contentScrubTrigger) return;
 				const startAt = window.scrollY + 8;
-				const endAt = startAt + 1700;
+				const endAt = startAt + HERO_SCRUB_DISTANCE;
 				contentScrubTrigger = ScrollTrigger.create({
 					start: startAt,
 					end: endAt,
-					scrub: 0.35,
+					scrub: 0.2,
 					animation: scrollTl,
 					onLeaveBack() {
 						resetHeroSequenceState();
@@ -425,7 +428,7 @@
 			heroPinTrigger = ScrollTrigger.create({
 				trigger: '[data-hero-pin]',
 				start: 'top top',
-				end: '+=2800',
+				end: `+=${HERO_PIN_DISTANCE}`,
 				pin: true,
 				anticipatePin: 1,
 				onLeaveBack() {

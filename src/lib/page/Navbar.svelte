@@ -20,7 +20,7 @@
 	function handleScroll() {
 		scrolled = window.scrollY > 10;
 		// Hero is min-h-screen + 2800px pin; past that = past video
-		pastHero = window.scrollY > window.innerHeight + 2600;
+		pastHero = window.scrollY > window.innerHeight + 1000;
 	}
 
 	onMount(() => {
