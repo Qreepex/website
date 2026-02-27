@@ -159,9 +159,7 @@
 	);
 	const eventSectionTitleClass = sectionTitleClassForMode('event', '');
 	const devProjectMetaClass = projectMetaClassForMode('dev');
-	const eventProjectMetaClass = projectMetaClassForMode('event');
 	const devTechTagClass = techTagClassForMode('dev');
-	const eventTechTagClass = techTagClassForMode('event');
 
 	async function setupProjectsFlyIn(options: { randomizeGradients?: boolean } = {}) {
 		if (!sectionEl) return;
@@ -317,9 +315,7 @@
 		if (activeMode === mode) return;
 		const switchingFromDevToEvent = activeMode === 'dev' && mode === 'event';
 		const projectsSectionTop =
-			switchingFromDevToEvent && projectsPinTrigger
-				? Math.max(projectsPinTrigger.start, 0)
-				: null;
+			switchingFromDevToEvent && projectsPinTrigger ? Math.max(projectsPinTrigger.start, 0) : null;
 		if (projectsSectionTop !== null && projectsPinTrigger) {
 			projectsPinTrigger.scroll(projectsSectionTop);
 		}

@@ -35,19 +35,40 @@ export const eventTechOverview: string[] = [
 	'I also build stage setups, work with L-Acoustics speaker systems, and operate sound desks in live production environments.'
 ];
 
-export const eventShowcaseImages: { src: string; alt: string }[] = [
-	{ src: '/media/events/event-01.jpg', alt: 'Event setup 01' },
-	{ src: '/media/events/event-02.jpg', alt: 'Event setup 02' },
-	{ src: '/media/events/event-03.jpg', alt: 'Event setup 03' },
-	{ src: '/media/events/event-04.jpg', alt: 'Event setup 04' },
-	{ src: '/media/events/event-05.jpg', alt: 'Event setup 05' },
-	{ src: '/media/events/event-06.jpg', alt: 'Event setup 06' },
-	{ src: '/media/events/event-07.jpg', alt: 'Event setup 07' },
-	{ src: '/media/events/event-08.jpg', alt: 'Event setup 08' },
-	{ src: '/media/events/event-09.jpg', alt: 'Event setup 09' },
-	{ src: '/media/events/event-10.jpg', alt: 'Event setup 10' },
-	{ src: '/media/events/event-11.jpg', alt: 'Event setup 11' },
-	{ src: '/media/events/event-12.jpg', alt: 'Event setup 12' }
+export const eventShowcaseImages: {
+	src: string;
+	alt: string;
+	credit?: string;
+	creditUrl?: string;
+}[] = [
+	{ src: '/media/events/2025-xmas-klinkrade.webp', alt: 'Klinkrade Xmas laser show 2024' },
+	{
+		src: '/media/events/2024-xmas-klinkrade.webp',
+		alt: 'Klinkrade Xmas event 2024'
+	},
+	{ src: '/media/events/2025-firmenevent.webp', alt: 'Corporate event production 2025' },
+	{ src: '/media/events/2025-foh-traum-gmbh-kiel.webp', alt: 'FOH setup Traum GmbH Kiel 2025' },
+	{ src: '/media/events/2025-hohenhorn-foh.webp', alt: 'FOH and lighting in Hohenhorn 2025' },
+	{
+		src: '/media/events/2025-mai-butterflies-stadtpark.webp',
+		alt: 'Butterflies Stadtpark show 2025',
+		credit: 'Joel Abraham',
+		creditUrl: 'https://instagram.com/fotograf.und.so'
+	},
+	{ src: '/media/events/2025-mai-traum-gmbh-kiel.webp', alt: 'Traum GmbH Kiel show in May 2025' },
+	{
+		src: '/media/events/2025-stadtpark-pyro.webp',
+		alt: 'Stadtpark pyro and lights show 2025',
+		credit: 'Joel Abraham',
+		creditUrl: 'https://instagram.com/fotograf.und.so'
+	},
+	{ src: '/media/events/2025-trailer.webp', alt: 'Event trailer setup 2025' },
+	{
+		src: '/media/events/2025-trecker-treck-hohenhorn-ballerndorf.webp',
+		alt: 'Trecker Treck Hohenhorn Ballerndorf 2025'
+	},
+	{ src: '/media/events/2025-treckerrennen-trittau.webp', alt: 'Treckerrennen Trittau 2025' },
+	{ src: '/media/events/2025-woderkant-kiel.webp', alt: 'Woderkant Kiel event 2025' }
 ];
 
 const EVENT_RIG_FIXTURES: EventRig['fixture'][] = [

@@ -5,20 +5,20 @@
 	let { skillGroups }: { skillGroups: SkillGroup[] } = $props();
 
 	const featuredSkills = $derived(
-		skillGroups.flatMap((group) =>
-			group.items
-				.filter((item) => item.featured && item.description)
-				.map((item) => ({
-					name: item.name,
-					description: item.description ?? '',
-					groupTitle: group.title
-				}))
-		)
+		skillGroups
+			.flatMap((group) =>
+				group.items
+					.filter((item) => item.featured && item.description)
+					.map((item) => ({
+						name: item.name,
+						description: item.description ?? '',
+						groupTitle: group.title
+					}))
+			)
 			.slice(0, 4)
 	);
 
 	const shadowText = 'Skills '.repeat(80).trim();
-
 </script>
 
 <section id="skills" class="section-dark-b relative overflow-hidden px-6 py-24 sm:px-10 lg:px-16">
@@ -35,11 +35,15 @@
 				class="pointer-events-none absolute -top-10 left-1/2 w-screen -translate-x-1/2 overflow-hidden select-none"
 				class:fx-paused={$fxDisabled}
 			>
-				<p class="skills-band skills-band-left text-5xl font-black tracking-[-0.06em] text-mist-100/5 uppercase sm:text-7xl lg:text-8xl">
+				<p
+					class="skills-band skills-band-left text-5xl font-black tracking-[-0.06em] text-mist-100/5 uppercase sm:text-7xl lg:text-8xl"
+				>
 					<span>{shadowText}</span>
 					<span aria-hidden="true">{shadowText}</span>
 				</p>
-				<p class="skills-band skills-band-right -mt-2 text-5xl font-black tracking-[-0.06em] text-mist-100/5 uppercase sm:text-7xl lg:text-8xl">
+				<p
+					class="skills-band skills-band-right -mt-2 text-5xl font-black tracking-[-0.06em] text-mist-100/5 uppercase sm:text-7xl lg:text-8xl"
+				>
 					<span>{shadowText}</span>
 					<span aria-hidden="true">{shadowText}</span>
 				</p>
@@ -51,36 +55,52 @@
 				Cloud-native engineering for real production systems.
 			</h2>
 			<p class="mt-5 max-w-5xl text-base font-semibold text-mist-100/90 sm:text-lg">
-				Senior full-stack development focused on TypeScript, Go, Node.js and microservices architecture.
-				Strong in cloud native infrastructure, API integrations, CI/CD delivery, observability, compliance,
-				and scalable backend systems.
+				Senior full-stack development focused on TypeScript, Go, Node.js and microservices
+				architecture. Strong in cloud native infrastructure, API integrations, CI/CD delivery,
+				observability, compliance, and scalable backend systems.
 			</p>
 		</div>
 
 		{#if featuredSkills.length > 0}
 			<div class="mb-12">
-				<p class="text-xs font-semibold tracking-[0.2em] text-violet-300/90 uppercase">Core strengths</p>
+				<p class="text-xs font-semibold tracking-[0.2em] text-violet-300/90 uppercase">
+					Core strengths
+				</p>
 				<div class="mt-5 grid gap-4 sm:grid-cols-2">
 					{#each featuredSkills as skill}
 						<article
 							class="relative overflow-hidden rounded-2xl bg-mist-100/4 p-5 shadow-[0_0_0_1px_rgba(120,140,255,0.18),0_14px_40px_rgba(10,12,28,0.35)]"
 						>
-							<div class="pointer-events-none absolute -top-8 -right-8 h-24 w-24 rounded-full bg-electric-400/15 blur-2xl"></div>
+							<div
+								class="pointer-events-none absolute -top-8 -right-8 h-24 w-24 rounded-full bg-electric-400/15 blur-2xl"
+							></div>
 							<div>
-								<p class="text-[11px] font-black tracking-[0.16em] text-electric-300/90 uppercase">
+								<p class="text-electric-300/90 text-[11px] font-black tracking-[0.16em] uppercase">
 									{skill.groupTitle}
 								</p>
 								<div class="relative mt-2">
 									<p
-										class="pointer-events-none absolute -top-15 -right-5 text-4xl text-right font-black tracking-[-0.05em] text-mist-100/6 uppercase sm:text-5xl"
+										class="pointer-events-none absolute -top-15 -right-5 text-right text-4xl font-black tracking-[-0.05em] text-mist-100/6 uppercase sm:text-5xl"
 									>
-										<span class="block whitespace-nowrap" style="transform: translateX(0px);">{skill.name}</span>
-										<span class="block whitespace-nowrap" style="transform: translateX(8px);">{skill.name}</span>
-										<span class="block whitespace-nowrap" style="transform: translateX(16px);">{skill.name}</span>
-										<span class="block whitespace-nowrap" style="transform: translateX(24px);">{skill.name}</span>
-										<span class="block whitespace-nowrap" style="transform: translateX(32px);">{skill.name}</span>
+										<span class="block whitespace-nowrap" style="transform: translateX(0px);"
+											>{skill.name}</span
+										>
+										<span class="block whitespace-nowrap" style="transform: translateX(8px);"
+											>{skill.name}</span
+										>
+										<span class="block whitespace-nowrap" style="transform: translateX(16px);"
+											>{skill.name}</span
+										>
+										<span class="block whitespace-nowrap" style="transform: translateX(24px);"
+											>{skill.name}</span
+										>
+										<span class="block whitespace-nowrap" style="transform: translateX(32px);"
+											>{skill.name}</span
+										>
 									</p>
-									<h3 class="relative text-xl font-black tracking-[-0.02em] text-mist-100 uppercase sm:text-2xl">
+									<h3
+										class="relative text-xl font-black tracking-[-0.02em] text-mist-100 uppercase sm:text-2xl"
+									>
 										{skill.name}
 									</h3>
 								</div>
@@ -112,12 +132,16 @@
 							</p>
 						</div>
 
-						<ul class="flex flex-wrap content-start items-start self-start gap-x-2 gap-y-3 pt-1 sm:gap-x-2.5">
+						<ul
+							class="flex flex-wrap content-start items-start gap-x-2 gap-y-3 self-start pt-1 sm:gap-x-2.5"
+						>
 							{#each group.items as item}
 								<li
-									class={`inline-flex items-center rounded-lg border px-3 py-2 text-sm leading-tight font-semibold tracking-normal cursor-pointer ${item.featured
-										? 'border-electric-300/70 bg-electric-300/12 text-electric-100'
-										: 'border-mist-100/20 bg-mist-100/5 text-mist-100/90'}`}
+									class={`inline-flex cursor-pointer items-center rounded-lg border px-3 py-2 text-sm leading-tight font-semibold tracking-normal ${
+										item.featured
+											? 'border-electric-300/70 bg-electric-300/12 text-electric-100'
+											: 'border-mist-100/20 bg-mist-100/5 text-mist-100/90'
+									}`}
 								>
 									{item.name}
 								</li>

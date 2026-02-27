@@ -24,3 +24,7 @@ vite.config.ts.timestamp-*
 
 
 www
+
+**/*.mp4
+**/*.jpg
+**/*.jpeg

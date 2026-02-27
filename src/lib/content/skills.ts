@@ -79,10 +79,10 @@ export const skillGroups: SkillGroup[] = [
 			{ name: 'Google APIs' },
 			{ name: 'YouTube APIs' },
 			{ name: 'Payment Integrations (Paddle, Stripe)', featured: true },
-						{ name: 'React', featured: true },
+			{ name: 'React', featured: true },
 			{ name: 'Svelte / SvelteKit', featured: true },
 			{ name: 'CSS / Sass' },
-			{ name: 'Tailwind / Bootstrap' },
+			{ name: 'Tailwind / Bootstrap' }
 		]
 	},
 	{
@@ -112,7 +112,7 @@ export const skillGroups: SkillGroup[] = [
 			{ name: 'GitHub Actions' },
 			{ name: 'Build & Release Pipelines' },
 			{ name: 'GDPR / DSGVO / Compliance', featured: true },
-			{ name: 'ISO 27001 Familiarity' },
+			{ name: 'ISO 27001 Familiarity' }
 		]
 	}
 ];
