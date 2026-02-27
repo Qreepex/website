@@ -1,22 +1,16 @@
 <script lang="ts">
-	let {
-		overview,
-		images
-	}: {
-		overview: string[];
-		images: { src: string; alt: string; credit?: string; creditUrl?: string }[];
-	} = $props();
+	import { eventShowcaseImages, eventTechOverview } from '$lib/content';
 </script>
 
 <div class="relative z-10">
 	<div class="max-w-5xl space-y-4">
-		{#each overview as sentence}
+		{#each eventTechOverview as sentence}
 			<p class="text-base leading-relaxed font-medium text-mist-100 sm:text-lg">{sentence}</p>
 		{/each}
 	</div>
 
 	<div class="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-		{#each images.slice(0, 12) as image, index}
+		{#each eventShowcaseImages.slice(0, 12) as image, index}
 			<figure
 				class="group relative aspect-4/3 overflow-hidden rounded-xl border border-mist-100/20 bg-anthracite-800/80"
 			>

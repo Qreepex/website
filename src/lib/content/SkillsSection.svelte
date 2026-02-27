@@ -48,7 +48,9 @@
 					<span aria-hidden="true">{shadowText}</span>
 				</p>
 			</div>
-			<p class="text-xs font-semibold tracking-[0.2em] text-electric-400 uppercase">Skills</p>
+			<p class="text-xs font-semibold tracking-[0.2em] text-electric-400 uppercase">
+				Developer Skills
+			</p>
 			<h2
 				class="mt-3 bg-linear-to-r from-red-400 via-violet-400 to-cyan-300 bg-clip-text text-4xl font-black tracking-[-0.03em] text-transparent uppercase sm:text-5xl lg:text-6xl"
 			>

@@ -82,7 +82,8 @@ export const skillGroups: SkillGroup[] = [
 			{ name: 'React', featured: true },
 			{ name: 'Svelte / SvelteKit', featured: true },
 			{ name: 'CSS / Sass' },
-			{ name: 'Tailwind / Bootstrap' }
+			{ name: 'Tailwind / Bootstrap' },
+			{ name: 'Capacitator', featured: true }
 		]
 	},
 	{

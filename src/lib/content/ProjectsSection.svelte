@@ -34,7 +34,7 @@
 	gsap.registerPlugin(ScrollTrigger);
 
 	let sectionEl: HTMLElement | null = null;
-	let devPanelEl: HTMLElement | null = null;
+	let devPanelEl = $state<HTMLElement | null>(null);
 	let projectCards: HTMLElement[] = [];
 	let projectsPinTrigger: ScrollTrigger | null = null;
 	let activeProjectIndex = $state(0);
@@ -423,7 +423,7 @@
 <section
 	bind:this={sectionEl}
 	id="projects"
-	class="relative w-full overflow-hidden bg-anthracite-900 px-6 pt-16 pb-20 sm:px-10 sm:pt-18 sm:pb-22 lg:px-16 lg:pt-20"
+	class="relative w-full overflow-hidden bg-anthracite-900 px-6 pt-16 pb-16 sm:px-10 sm:pt-18 lg:px-16 lg:pt-20"
 >
 	<div
 		bind:this={backgroundLayerA}
@@ -489,7 +489,15 @@
 			</div>
 		{:else}
 			<div class="relative z-10 sm:mt-6">
-				<EventTechGallery overview={eventTechOverview} images={eventShowcaseImages} />
+				<EventTechGallery />
+				<div class="mt-8 flex justify-center sm:mt-10">
+					<a
+						href="/event-tech"
+						class="inline-flex items-center rounded-lg border border-mist-100/30 bg-mist-100/8 px-5 py-3 text-sm font-bold tracking-[0.12em] text-mist-100 uppercase transition-colors hover:border-mist-100/50 hover:bg-mist-100/14"
+					>
+						More about Ben as an Event Tech
+					</a>
+				</div>
 			</div>
 		{/if}
 	</div>

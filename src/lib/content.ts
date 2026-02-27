@@ -85,13 +85,13 @@ const EVENT_RIG_BEAMS: EventRig['beamClass'][] = [
 	'event-beam-red'
 ];
 
-export function createRandomEventRigs(rigCount = 9): EventRig[] {
+export function createRandomEventRigs(rigCount = 45): EventRig[] {
 	const rigs: EventRig[] = [];
 
 	for (let index = 0; index < rigCount; index += 1) {
 		const fixture = EVENT_RIG_FIXTURES[Math.floor(Math.random() * EVENT_RIG_FIXTURES.length)];
 		const beamClass = EVENT_RIG_BEAMS[Math.floor(Math.random() * EVENT_RIG_BEAMS.length)];
-		const top = 14 + Math.random() * 70;
+		const top = 10 + Math.random() * 90;
 		const left = 8 + Math.random() * 84;
 		const size = 62 + Math.random() * 34;
 		const duration = 4.1 + Math.random() * 3.1;
@@ -122,150 +122,75 @@ export function createRandomEventRigs(rigCount = 9): EventRig[] {
 export const devProjects: Project[] = [
 	{
 		title: 'EazyAutodelete',
-		domain: 'Discord Bot',
+		domain: 'Discord Bot, since 2020',
 		description:
 			'Widely used Auto Delete bot for Discord, built with a focus on reliability, configurability and user-friendly design used by over 31,000 communities reaching 18 mio. users worldwide.',
-		tech: ['Go', 'Kubernetes', 'REST', 'Sharding', 'High Availability'],
+		tech: [
+			'Go',
+			'Kubernetes',
+			'REST',
+			'Sharding',
+			'High Availability',
+			'Temporal.io',
+			'Redis',
+			'MongoDB'
+		],
 		image: '/media/reference/eazyautodelete-logo.webp',
 		color: '#5865f2',
 		url: 'https://eazyautodelete.xyz'
 	},
 	{
 		title: 'Full Stack Dev @ ENERPARC AG',
-		domain: 'Full Stack Developer for Renewable Energies',
+		domain: 'Full Stack Developer for Renewable Energies, since 2025',
 		description:
 			'At Enerparc, I build high available system to monitor and collect data from hundreds of solar parks and run real time analysis on it as well as process it for long term storage and Machine learning applications.',
 		tech: ['Rust', 'TypeScript', 'Cloud Native', 'Kubernetes'],
 		image: '/media/reference/logo_enerparc.png',
 		url: 'https://enerparc.de',
-		color: '#004682',
+		color: '#004682'
 	},
 	{
-		title: 'Pulse Realtime Core',
-		domain: 'Distributed Systems',
+		title: 'WaterMe.app',
+		domain: 'Mobile/Web App, since 2025',
 		description:
-			'Event-driven core service coordinating low-latency pipelines and resilient background workers at scale.',
-		tech: ['Java', 'gRPC', 'Redis', 'Kafka'],
-		image: '/media/projects/pulse-realtime-core.svg',
-		url: '#',
-		former: true
-	}
-];
-
-export const eventProjects: Project[] = [
-	{
-		title: 'Lumen Show Programmer',
-		domain: 'Lighting Control',
-		description:
-			'Cue-based lighting programming workflow for festival and touring environments with reliable handover paths.',
-		tech: ['grandMA3', 'Lighting Design', 'Timecode', 'DMX'],
-		image: '/media/projects/lumen-show-programmer.svg',
-		url: '#'
-	},
-	{
-		title: 'StagePulse Runtime',
-		domain: 'Show Synchronization',
-		description:
-			'Realtime trigger runtime coordinating audio, video and lighting transitions with millisecond-level consistency.',
-		tech: ['Show Networking', 'L-Acoustics', 'SMPTE', 'OSC'],
-		image: '/media/projects/stagepulse-runtime.svg',
-		url: '#'
-	},
-	{
-		title: 'Venue Signal Mesh',
-		domain: 'Production Infrastructure',
-		description:
-			'Operational network blueprint for show-critical signal flow, redundancy and rapid fault isolation on site.',
-		tech: ['Art-Net', 'sACN', 'VLAN', 'Live Systems'],
-		image: '/media/projects/venue-signal-mesh.svg',
-		url: '#'
+			'App to track Plants and their watering needs, built with a focus on delightful UI, reliability and helpful features to make plant care easier and more enjoyable.',
+		tech: ['MongoDB', 'Capacitator', 'Go', 'SvelteKit', 'Tailwind CSS'],
+		image: '/media/reference/water-me-app.svg',
+		url: 'https://water-me.app',
+		color: '#00ee57'
 	}
 ];
 
 export const smallerDevProjects: SmallerProject[] = [
 	{
-		title: 'Webhook Relay',
-		domain: 'Automation',
+		title: 'EazyAutodelete Dashboard',
+		domain: 'Web Development',
 		description:
-			'Lightweight relay service for validating, transforming and forwarding incoming webhooks.',
-		tech: ['TypeScript', 'Cloudflare Workers', 'Queues'],
-		url: '#'
+			'Complex dashboard for managing configurations for EazyAutodelet. Full CRUD Operations on highly nested and relational data models with real-time validation.',
+		tech: ['SvelteKit', 'Cloudflare Workers', 'CRUD'],
+		url: 'https://dash.eazyautodelete.xyz'
 	},
 	{
-		title: 'Ops Snapshot',
-		domain: 'Observability',
+		title: 'BTE Germany',
+		domain: 'Discord Bot',
 		description:
-			'Daily rollup dashboard that summarizes incidents, deploy health and service-level drift.',
-		tech: ['SvelteKit', 'PostgreSQL', 'Grafana']
+			'Discord Bot to manage FTP Uploads, Google Spreadsheets, Discord Threads and more throughout the onboarding process of new members in the BTE Germany Discord Server.',
+		tech: ['Discord.JS', 'TypeScript', 'Google APIs', 'FTP'],
+		url: 'https://bte-germany.de'
 	},
 	{
-		title: 'Cache Primer',
-		domain: 'Performance',
+		title: 'NaaIhr Community Anti Raid Tool',
+		domain: 'Community Protection',
 		description:
-			'Pre-warm and invalidation utility for edge caches across static and API-heavy routes.',
-		tech: ['Go', 'Redis', 'Cron']
+			'Tool with Captcha handling and automatic detection of raid patterns to protect the NaaIhr Community Discord Server from raids and spam attacks.',
+		tech: ['JavaScript', 'Captcha', 'Detection Algorithms'],
+		url: 'https://naaihr.de'
 	},
 	{
-		title: 'Tenant Seed',
-		domain: 'Internal Tooling',
+		title: 'Tjan Portal - Community Platform',
+		domain: 'Community Platform',
 		description:
-			'Template-based tenant bootstrapper with policy defaults and baseline feature flags.',
-		tech: ['Node.js', 'Prisma', 'CLI']
-	},
-	{
-		title: 'Mailflow Guard',
-		domain: 'Messaging',
-		description:
-			'Rule engine for transactional email routing, suppression and fallback provider handling.',
-		tech: ['Python', 'FastAPI', 'Celery'],
-		url: '#'
-	},
-	{
-		title: 'Schema Delta Bot',
-		domain: 'Developer Experience',
-		description: 'PR bot that posts schema diffs with migration hints before review starts.',
-		tech: ['GitHub Actions', 'Rust', 'PostgreSQL']
-	},
-	{
-		title: 'Job Replay',
-		domain: 'Reliability',
-		description:
-			'Controlled replay utility for failed queue messages with trace-linked audit output.',
-		tech: ['Kafka', 'Java', 'OpenTelemetry']
-	},
-	{
-		title: 'Asset Fingerprint',
-		domain: 'Build Pipeline',
-		description: 'Artifact versioning helper that tracks static bundle lineage across releases.',
-		tech: ['Vite', 'Node.js', 'CI/CD']
-	},
-	{
-		title: 'Flag Drift Watch',
-		domain: 'Feature Control',
-		description:
-			'Compares feature flag states across environments and reports unsafe divergence early.',
-		tech: ['TypeScript', 'Redis', 'Scheduler']
-	},
-	{
-		title: 'Query Cost Lens',
-		domain: 'Database Ops',
-		description:
-			'Ranks high-cost SQL statements and links them to endpoints for fast optimization loops.',
-		tech: ['PostgreSQL', 'SvelteKit', 'OpenTelemetry']
-	},
-	{
-		title: 'Deploy Gate',
-		domain: 'Release Safety',
-		description:
-			'Pre-release quality gate combining smoke checks, rollback criteria and release notes checks.',
-		tech: ['GitHub Actions', 'Bash', 'Node.js']
-	},
-	{
-		title: 'Media Proxy Lite',
-		domain: 'Edge Services',
-		description:
-			'Resizes and caches remote media on demand with route-level cache control presets.',
-		tech: ['Cloudflare Workers', 'KV', 'Image Resizing'],
-		url: '#'
+			'A platform for Twitch Streamer Tjan to engange with his community for submission forms, music status and more, built with a focus on reliability and ease of use for both the streamer and the community.',
+		tech: ['Node.js', 'Twitch API', 'OAuth2']
 	}
 ];
