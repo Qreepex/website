@@ -29,6 +29,27 @@ export const PROJECTS_MODE_DESCRIPTIONS: Record<ProjectsMode, string> = {
 		'Show-critical systems for lighting, networking and realtime production orchestration. Engineered for pressure, precision and zero compromise.'
 };
 
+export const eventTechOverview: string[] = [
+	'I build LIVE light shows and fully timecoded shows for lighting and lasers to deliver that WOW moment to all guests!',
+	'I mainly work with grandMA3 (and sometimes grandMA2), program laser workflows in Pangolin Beyond, and handle networked show control with technologies like Art-Net.',
+	'I also build stage setups, work with L-Acoustics speaker systems, and operate sound desks in live production environments.'
+];
+
+export const eventShowcaseImages: { src: string; alt: string }[] = [
+	{ src: '/media/events/event-01.jpg', alt: 'Event setup 01' },
+	{ src: '/media/events/event-02.jpg', alt: 'Event setup 02' },
+	{ src: '/media/events/event-03.jpg', alt: 'Event setup 03' },
+	{ src: '/media/events/event-04.jpg', alt: 'Event setup 04' },
+	{ src: '/media/events/event-05.jpg', alt: 'Event setup 05' },
+	{ src: '/media/events/event-06.jpg', alt: 'Event setup 06' },
+	{ src: '/media/events/event-07.jpg', alt: 'Event setup 07' },
+	{ src: '/media/events/event-08.jpg', alt: 'Event setup 08' },
+	{ src: '/media/events/event-09.jpg', alt: 'Event setup 09' },
+	{ src: '/media/events/event-10.jpg', alt: 'Event setup 10' },
+	{ src: '/media/events/event-11.jpg', alt: 'Event setup 11' },
+	{ src: '/media/events/event-12.jpg', alt: 'Event setup 12' }
+];
+
 const EVENT_RIG_FIXTURES: EventRig['fixture'][] = [
 	'/media/lights/moving-head.svg',
 	'/media/lights/retro-par.svg',

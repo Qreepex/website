@@ -7,7 +7,8 @@
 		PROJECTS_MODE_LABELS,
 		createRandomEventRigs,
 		devProjects,
-		eventProjects,
+		eventShowcaseImages,
+		eventTechOverview,
 		type EventRig
 	} from '$lib/content';
 	import {
@@ -24,6 +25,7 @@
 	import { fxDisabled } from '$lib/stores/reducedMotion';
 	import SmallerProjectsSection from '$lib/content/SmallerProjectsSection.svelte';
 	import EventRigsOverlay from '$lib/content/EventRigsOverlay.svelte';
+	import EventTechGallery from '$lib/content/EventTechGallery.svelte';
 	import ProjectItem from '$lib/content/ProjectItem.svelte';
 	import ProjectsModeToggle from '$lib/content/ProjectsModeToggle.svelte';
 	import type { ProjectsMode } from '$lib/types';
@@ -32,7 +34,6 @@
 
 	let sectionEl: HTMLElement | null = null;
 	let devPanelEl: HTMLElement | null = null;
-	let eventPanelEl: HTMLElement | null = null;
 	let projectCards: HTMLElement[] = [];
 	let projectsPinTrigger: ScrollTrigger | null = null;
 	let activeProjectIndex = $state(0);
@@ -46,12 +47,36 @@
 	let entryProtectionActive = $state(false);
 	let entryProtectionAnchorIndex = 0;
 	let entryProtectionTimer: ReturnType<typeof setTimeout> | null = null;
+	let projectsInView = $state(false);
+	let sectionObserver: IntersectionObserver | null = null;
+	let onHashChange: (() => void) | null = null;
 
 	let activeMode = $state<ProjectsMode>('dev');
-	const displayedProjects = $derived(activeMode === 'dev' ? devProjects : eventProjects);
+
+	const MODE_HASH: Record<ProjectsMode, '#dev' | '#event-tech'> = {
+		dev: '#dev',
+		event: '#event-tech'
+	};
+
+	function modeFromHash(hash: string): ProjectsMode | null {
+		if (hash === '#dev') return 'dev';
+		if (hash === '#event-tech') return 'event';
+		return null;
+	}
+
+	function replaceHashForMode(mode: ProjectsMode) {
+		if (typeof window === 'undefined') return;
+		const nextHash = MODE_HASH[mode];
+		if (window.location.hash === nextHash) return;
+		window.history.replaceState(
+			window.history.state,
+			document.title,
+			`${window.location.pathname}${window.location.search}${nextHash}`
+		);
+	}
 
 	function assignRandomGradientsForProjects() {
-		assignedGradients = assignRandomGradients(displayedProjects.length, activeMode);
+		assignedGradients = assignRandomGradients(devProjects.length, 'dev');
 	}
 
 	function assignRandomEventRigs() {
@@ -140,17 +165,25 @@
 
 	async function setupProjectsFlyIn(options: { randomizeGradients?: boolean } = {}) {
 		if (!sectionEl) return;
+		if (activeMode !== 'dev') {
+			projectsPinTrigger?.kill();
+			projectsPinTrigger = null;
+			stopEntryProtection();
+			gsap.killTweensOf(projectCards);
+			fadeBackgroundToBase();
+			projectCards = [];
+			return;
+		}
 
-		if (options.randomizeGradients || assignedGradients.length !== displayedProjects.length) {
+		if (options.randomizeGradients || assignedGradients.length !== devProjects.length) {
 			assignRandomGradientsForProjects();
 		}
-		if (activeMode === 'event' && eventRigs.length === 0) assignRandomEventRigs();
 
 		projectsPinTrigger?.kill();
 		projectsPinTrigger = null;
 		gsap.killTweensOf(projectCards);
 
-		const activePanel = activeMode === 'dev' ? devPanelEl : eventPanelEl;
+		const activePanel = devPanelEl;
 		if (!activePanel) return;
 
 		projectCards = Array.from(activePanel.querySelectorAll<HTMLElement>('[data-project-card]'));
@@ -182,7 +215,7 @@
 							activeProjectIndex,
 							assignedGradients,
 							activeMode,
-							displayedProjects[activeProjectIndex]
+							devProjects[activeProjectIndex]
 						)
 					);
 				else fadeBackgroundToBase();
@@ -197,7 +230,7 @@
 							activeProjectIndex,
 							assignedGradients,
 							activeMode,
-							displayedProjects[activeProjectIndex]
+							devProjects[activeProjectIndex]
 						)
 					);
 				else fadeBackgroundToBase();
@@ -245,7 +278,7 @@
 							nextIndex,
 							assignedGradients,
 							activeMode,
-							displayedProjects[nextIndex]
+							devProjects[nextIndex]
 						)
 					);
 
@@ -282,12 +315,31 @@
 
 	async function switchMode(mode: 'dev' | 'event') {
 		if (activeMode === mode) return;
+		const switchingFromDevToEvent = activeMode === 'dev' && mode === 'event';
+		const projectsSectionTop =
+			switchingFromDevToEvent && projectsPinTrigger
+				? Math.max(projectsPinTrigger.start, 0)
+				: null;
+		if (projectsSectionTop !== null && projectsPinTrigger) {
+			projectsPinTrigger.scroll(projectsSectionTop);
+		}
 		showSmallerProjects = false;
 		devBackgroundActive = false;
 		activeMode = mode;
 		if (mode === 'event') assignRandomEventRigs();
 		await tick();
-		await setupProjectsFlyIn({ randomizeGradients: true });
+		if (mode === 'dev') {
+			await setupProjectsFlyIn({ randomizeGradients: true });
+		} else {
+			projectsPinTrigger?.kill();
+			projectsPinTrigger = null;
+			stopEntryProtection();
+			gsap.killTweensOf(projectCards);
+			fadeBackgroundToBase();
+			if (projectsSectionTop !== null) {
+				window.scrollTo({ top: projectsSectionTop, behavior: 'auto' });
+			}
+		}
 		showSmallerProjects = mode === 'dev';
 		await tick();
 		ScrollTrigger.refresh();
@@ -295,13 +347,56 @@
 
 	onMount(() => {
 		void (async () => {
+			const initialMode = typeof window === 'undefined' ? null : modeFromHash(window.location.hash);
+			if (initialMode) {
+				activeMode = initialMode;
+				if (initialMode === 'event') assignRandomEventRigs();
+			}
+
 			await setupProjectsFlyIn({ randomizeGradients: true });
 			showSmallerProjects = activeMode === 'dev';
 			await tick();
 			ScrollTrigger.refresh();
+
+			if (sectionEl) {
+				sectionObserver = new IntersectionObserver(
+					(entries) => {
+						const [entry] = entries;
+						if (!entry) return;
+						const inView = entry.isIntersecting && entry.intersectionRatio >= 0.35;
+						projectsInView = inView;
+						if (inView) replaceHashForMode(activeMode);
+					},
+					{ threshold: [0.2, 0.35, 0.5] }
+				);
+
+				sectionObserver.observe(sectionEl);
+
+				if (initialMode) {
+					window.requestAnimationFrame(() => {
+						if (!sectionEl) return;
+						const targetTop = sectionEl.getBoundingClientRect().top + window.scrollY;
+						window.scrollTo({ top: targetTop, behavior: 'auto' });
+					});
+				}
+
+				onHashChange = () => {
+					const requestedMode = modeFromHash(window.location.hash);
+					if (!requestedMode || requestedMode === activeMode) return;
+					void switchMode(requestedMode);
+				};
+
+				window.addEventListener('hashchange', onHashChange);
+			}
 		})();
 
 		return () => {
+			sectionObserver?.disconnect();
+			sectionObserver = null;
+			if (onHashChange) {
+				window.removeEventListener('hashchange', onHashChange);
+				onHashChange = null;
+			}
 			projectsPinTrigger?.kill();
 			projectsPinTrigger = null;
 			stopEntryProtection();
@@ -311,8 +406,14 @@
 	});
 
 	$effect(() => {
+		activeMode;
+		if (!projectsInView) return;
+		replaceHashForMode(activeMode);
+	});
+
+	$effect(() => {
 		$fxDisabled;
-		if (!sectionEl) return;
+		if (!sectionEl || activeMode !== 'dev') return;
 		void (async () => {
 			await tick();
 			await setupProjectsFlyIn();
@@ -366,44 +467,32 @@
 			<ProjectsModeToggle {activeMode} onSwitch={switchMode} />
 		</div>
 
-		<div class="relative z-10 h-[62vh] min-h-105 sm:mt-6 sm:h-[66vh] lg:h-[70vh]">
-			<div
-				bind:this={devPanelEl}
-				class={`project-mode-panel relative h-full w-full ${activeMode === 'dev' ? 'is-active' : ''}`}
-				aria-hidden={activeMode !== 'dev'}
-			>
-				{#each devProjects as project, index}
-					<ProjectItem
-						{project}
-						{index}
-						activeMode="dev"
-						projectMetaClass={devProjectMetaClass}
-						projectTitleClass={projectTitleClassForMode('dev', project)}
-						techTagClass={devTechTagClass}
-						gradientClass={gradientClassForIndex(index, assignedGradients, 'dev', project)}
-						gradientStyle={projectGradientTextStyle(project)}
-					/>
-				{/each}
+		{#if activeMode === 'dev'}
+			<div class="relative z-10 h-[62vh] min-h-105 sm:mt-6 sm:h-[66vh] lg:h-[70vh]">
+				<div
+					bind:this={devPanelEl}
+					class={`project-mode-panel relative h-full w-full ${activeMode === 'dev' ? 'is-active' : ''}`}
+					aria-hidden={activeMode !== 'dev'}
+				>
+					{#each devProjects as project, index}
+						<ProjectItem
+							{project}
+							{index}
+							activeMode="dev"
+							projectMetaClass={devProjectMetaClass}
+							projectTitleClass={projectTitleClassForMode('dev', project)}
+							techTagClass={devTechTagClass}
+							gradientClass={gradientClassForIndex(index, assignedGradients, 'dev', project)}
+							gradientStyle={projectGradientTextStyle(project)}
+						/>
+					{/each}
+				</div>
 			</div>
-			<div
-				bind:this={eventPanelEl}
-				class={`project-mode-panel relative h-full w-full ${activeMode === 'event' ? 'is-active' : ''}`}
-				aria-hidden={activeMode !== 'event'}
-			>
-				{#each eventProjects as project, index}
-					<ProjectItem
-						{project}
-						{index}
-						activeMode="event"
-						projectMetaClass={eventProjectMetaClass}
-						projectTitleClass={projectTitleClassForMode('event', project)}
-						techTagClass={eventTechTagClass}
-						gradientClass={gradientClassForIndex(index, assignedGradients, 'event', project)}
-						gradientStyle={projectGradientTextStyle(project)}
-					/>
-				{/each}
+		{:else}
+			<div class="relative z-10 sm:mt-6">
+				<EventTechGallery overview={eventTechOverview} images={eventShowcaseImages} />
 			</div>
-		</div>
+		{/if}
 	</div>
 </section>
 
