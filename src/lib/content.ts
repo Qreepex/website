@@ -19,7 +19,7 @@ export type EventRig = {
 };
 
 export const PROJECTS_MODE_LABELS: Record<ProjectsMode, string> = {
-	dev: 'Developer Projects',
+	dev: 'Developer Reference',
 	event: 'Event Tech References'
 };
 
@@ -126,18 +126,19 @@ export const devProjects: Project[] = [
 		description:
 			'Widely used Auto Delete bot for Discord, built with a focus on reliability, configurability and user-friendly design used by over 31,000 communities reaching 18 mio. users worldwide.',
 		tech: ['Go', 'Kubernetes', 'REST', 'Sharding', 'High Availability'],
-		image: '/media/projects/atlas-api-gateway.svg',
+		image: '/media/reference/eazyautodelete-logo.webp',
 		color: '#5865f2',
 		url: 'https://eazyautodelete.xyz'
 	},
 	{
-		title: 'Neon Compute Studio',
-		domain: 'AI Tooling',
+		title: 'Full Stack Dev @ ENERPARC AG',
+		domain: 'Full Stack Developer for Renewable Energies',
 		description:
-			'Developer workspace for prompt pipelines, model evaluation and deployment-ready AI workflow automation.',
-		tech: ['Rust', 'Python', 'WebAssembly', 'PostgreSQL'],
-		image: '/media/projects/neon-compute-studio.svg',
-		url: '#'
+			'At Enerparc, I build high available system to monitor and collect data from hundreds of solar parks and run real time analysis on it as well as process it for long term storage and Machine learning applications.',
+		tech: ['Rust', 'TypeScript', 'Cloud Native', 'Kubernetes'],
+		image: '/media/reference/logo_enerparc.png',
+		url: 'https://enerparc.de',
+		color: '#004682',
 	},
 	{
 		title: 'Pulse Realtime Core',

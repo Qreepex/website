@@ -87,6 +87,36 @@ export function gradientsForMode(mode: ProjectsMode): readonly GradientPreset[] 
 
 type ProjectColorConfig = Pick<Project, 'color' | 'gradient'>;
 
+function softColorStop(color: string): string {
+	const shortHexMatch = color.match(/^#([\da-fA-F]{3})$/);
+	if (shortHexMatch) {
+		const [redHex, greenHex, blueHex] = shortHexMatch[1]
+			.split('')
+			.map((channel) => `${channel}${channel}`);
+		const red = Number.parseInt(redHex, 16);
+		const green = Number.parseInt(greenHex, 16);
+		const blue = Number.parseInt(blueHex, 16);
+		const mixedRed = Math.round(red * 0.72 + 12 * 0.28);
+		const mixedGreen = Math.round(green * 0.72 + 15 * 0.28);
+		const mixedBlue = Math.round(blue * 0.72 + 20 * 0.28);
+		return `rgb(${mixedRed}, ${mixedGreen}, ${mixedBlue})`;
+	}
+
+	const longHexMatch = color.match(/^#([\da-fA-F]{6})$/);
+	if (longHexMatch) {
+		const hex = longHexMatch[1];
+		const red = Number.parseInt(hex.slice(0, 2), 16);
+		const green = Number.parseInt(hex.slice(2, 4), 16);
+		const blue = Number.parseInt(hex.slice(4, 6), 16);
+		const mixedRed = Math.round(red * 0.72 + 12 * 0.28);
+		const mixedGreen = Math.round(green * 0.72 + 15 * 0.28);
+		const mixedBlue = Math.round(blue * 0.72 + 20 * 0.28);
+		return `rgb(${mixedRed}, ${mixedGreen}, ${mixedBlue})`;
+	}
+
+	return `color-mix(in srgb, ${color} 72%, rgb(12, 15, 20) 28%)`;
+}
+
 export function projectHasSolidColor(project?: ProjectColorConfig): boolean {
 	return Boolean(project?.color && !project?.gradient);
 }
@@ -124,10 +154,15 @@ export function gradientBackgroundFor(
 	mode: ProjectsMode,
 	project?: ProjectColorConfig
 ): string {
-	if (mode === 'dev' && projectHasSolidColor(project)) return '';
+	if (mode === 'dev') {
+		if (project?.color) {
+			return `linear-gradient(135deg, ${softColorStop(project.color)} 0%, rgb(12, 15, 20) 100%)`;
+		}
 
-	const customGradient = mode === 'dev' ? (project?.gradient ?? null) : null;
-	if (customGradient) return customGradient;
+		if (project?.gradient) {
+			return project.gradient;
+		}
+	}
 
 	const assigned = assignedGradients[index];
 	if (assigned) return assigned.background;

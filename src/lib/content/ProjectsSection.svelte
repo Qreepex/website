@@ -15,6 +15,7 @@
 		assignRandomGradientsForProjects as assignRandomGradients,
 		gradientBackgroundFor as gradientBackgroundForIndex,
 		gradientClassFor as gradientClassForIndex,
+		projectHasSolidColor,
 		projectGradientTextStyle,
 		projectMetaClass as projectMetaClassForMode,
 		projectTitleClass as projectTitleClassForMode,
@@ -152,11 +153,13 @@
 	const devSectionTitleGradientClass = $derived(
 		gradientClassForIndex(activeProjectIndex, assignedGradients, 'dev')
 	);
+	const activeDevProject = $derived(devProjects[activeProjectIndex]);
 	const devSectionTitleClass = $derived(
-		activeMode === 'dev' && !devBackgroundActive
+		activeMode === 'dev' && !devBackgroundActive && !projectHasSolidColor(activeDevProject)
 			? 'text-5xl font-black tracking-[-0.04em] text-mist-100 uppercase sm:text-6xl lg:text-7xl xl:text-8xl'
-			: sectionTitleClassForMode('dev', devSectionTitleGradientClass)
+			: sectionTitleClassForMode('dev', devSectionTitleGradientClass, activeDevProject)
 	);
+	const devSectionTitleStyle = $derived(projectGradientTextStyle(activeDevProject));
 	const eventSectionTitleClass = sectionTitleClassForMode('event', '');
 	const devProjectMetaClass = projectMetaClassForMode('dev');
 	const devTechTagClass = techTagClassForMode('dev');
@@ -440,7 +443,7 @@
 					class={`project-mode-panel ${activeMode === 'dev' ? 'is-active' : ''}`}
 					aria-hidden={activeMode !== 'dev'}
 				>
-					<h2 class={devSectionTitleClass}>
+					<h2 class={devSectionTitleClass} style={devSectionTitleStyle}>
 						{PROJECTS_MODE_LABELS.dev}
 					</h2>
 					<p class="mt-4 max-w-4xl text-base font-semibold text-mist-100 sm:text-lg">

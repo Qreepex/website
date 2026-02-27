@@ -95,7 +95,7 @@
 			<img
 				src={project.image}
 				alt={project.title}
-				class="my-auto h-auto max-h-105 w-full cursor-pointer rounded-xl border border-mist-100/20 object-cover transition-opacity group-hover:opacity-80"
+				class="my-auto h-auto max-h-105 w-full cursor-pointer rounded-xl object-cover transition-opacity group-hover:opacity-80"
 				loading={index === 0 ? 'eager' : 'lazy'}
 			/>
 		</a>

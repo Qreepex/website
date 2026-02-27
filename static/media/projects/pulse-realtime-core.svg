@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
-  <title id="title">Pulse Realtime Core</title>
-  <desc id="desc">Abstract distributed systems illustration</desc>
-  <rect width="1200" height="800" fill="#0f172a"/>
-  <rect x="100" y="140" width="1000" height="520" rx="30" fill="#0b1220" stroke="#22d3ee" stroke-opacity="0.55"/>
-  <path d="M160 450H280L330 320L420 560L520 260L600 520L700 340L780 500L860 390H1040" fill="none" stroke="#60a5fa" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
-  <text x="150" y="240" fill="#dbeafe" font-size="56" font-family="Inter,Segoe UI,sans-serif" font-weight="800">PULSE REALTIME CORE</text>
-</svg>
