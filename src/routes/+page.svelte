@@ -13,7 +13,7 @@
 
 	// ── FX store ─────────────────────────────────────────────────────────
 	import { fxDisabled } from '$lib/stores/reducedMotion';
-	import { APP_READY_EVENT } from '$lib';
+	import { APP_READY_EVENT, ASSETS_HOST } from '$lib';
 
 	// Module-level refs so the $effect can reach inside onMount closures
 	let _stopFn: () => void = () => {};
@@ -517,8 +517,8 @@
 			poster="/media/hero-poster.svg"
 			aria-hidden="true"
 		>
-			<source src="/media/hero-placeholder.webm" type="video/webm" />
-			<source src="/media/hero-placeholder.mp4" type="video/mp4" />
+			<source src={ASSETS_HOST + "/hero.webm"} type="video/webm" />
+			<source src={ASSETS_HOST + "/hero.mp4"} type="video/mp4" />
 		</video>
 		<div
 			data-hero-overlay
