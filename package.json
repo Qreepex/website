@@ -30,6 +30,7 @@
 	"dependencies": {
 		"@sveltejs/adapter-static": "^3.0.10",
 		"gsap": "^3.14.2",
+		"masonry-layout": "^4.2.2",
 		"wrangler": "^4.68.1"
 	}
 }

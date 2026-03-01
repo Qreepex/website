@@ -1,3 +1,4 @@
+import { ASSETS_HOST } from '$lib';
 import type { Project, ProjectsMode, SmallerProject } from './types';
 
 export type EventRig = {
@@ -41,34 +42,56 @@ export const eventShowcaseImages: {
 	credit?: string;
 	creditUrl?: string;
 }[] = [
-	{ src: '/media/events/2025-xmas-klinkrade.webp', alt: 'Klinkrade Xmas laser show 2024' },
 	{
-		src: '/media/events/2024-xmas-klinkrade.webp',
+		src: ASSETS_HOST + '/event-showcase/pics/own/2025-xmas-klinkrade.webp',
+		alt: 'Klinkrade Xmas laser show 2024'
+	},
+	{
+		src: ASSETS_HOST + '/event-showcase/pics/worked/2024-xmas-klinkrade-2.webp',
 		alt: 'Klinkrade Xmas event 2024'
 	},
-	{ src: '/media/events/2025-firmenevent.webp', alt: 'Corporate event production 2025' },
-	{ src: '/media/events/2025-foh-traum-gmbh-kiel.webp', alt: 'FOH setup Traum GmbH Kiel 2025' },
-	{ src: '/media/events/2025-hohenhorn-foh.webp', alt: 'FOH and lighting in Hohenhorn 2025' },
 	{
-		src: '/media/events/2025-mai-butterflies-stadtpark.webp',
+		src: ASSETS_HOST + '/event-showcase/pics/own/2025-firmenevent.webp',
+		alt: 'Corporate event production 2025'
+	},
+	{
+		src: ASSETS_HOST + '/event-showcase/pics/own/2025-ely-oaks-mai-traum-gmbh-kiel.webp',
+		alt: 'FOH setup Traum GmbH Kiel 2025'
+	},
+	{
+		src: ASSETS_HOST + '/event-showcase/pics/own/2025-trecker-treck-hohenhorn-foh.webp',
+		alt: 'FOH and lighting in Hohenhorn 2025'
+	},
+	{
+		src: ASSETS_HOST + '/event-showcase/pics/own/2025-butterflies-stadtpark-pyro.webp',
 		alt: 'Butterflies Stadtpark show 2025',
 		credit: 'Joel Abraham',
 		creditUrl: 'https://instagram.com/fotograf.und.so'
 	},
-	{ src: '/media/events/2025-mai-traum-gmbh-kiel.webp', alt: 'Traum GmbH Kiel show in May 2025' },
 	{
-		src: '/media/events/2025-stadtpark-pyro.webp',
-		alt: 'Stadtpark pyro and lights show 2025',
-		credit: 'Joel Abraham',
-		creditUrl: 'https://instagram.com/fotograf.und.so'
+		src: ASSETS_HOST + '/event-showcase/pics/own/2025-ely-oaks-foh-traum-gmbh-kiel.webp',
+		alt: 'Traum GmbH Kiel show in May 2025'
 	},
-	{ src: '/media/events/2025-trailer.webp', alt: 'Event trailer setup 2025' },
 	{
-		src: '/media/events/2025-trecker-treck-hohenhorn-ballerndorf.webp',
+		src: ASSETS_HOST + '/event-showcase/pics/own/2025-gf-36.webp',
+		alt: 'XXL Party @ Große Freiheit 36'
+	},
+	{
+		src: ASSETS_HOST + '/event-showcase/pics/own/2025-trailer.webp',
+		alt: 'Event trailer setup 2025'
+	},
+	{
+		src: ASSETS_HOST + '/event-showcase/pics/own/2025-trecker-treck-hohenhorn-ballerndorf.webp',
 		alt: 'Trecker Treck Hohenhorn Ballerndorf 2025'
 	},
-	{ src: '/media/events/2025-treckerrennen-trittau.webp', alt: 'Treckerrennen Trittau 2025' },
-	{ src: '/media/events/2025-woderkant-kiel.webp', alt: 'Woderkant Kiel event 2025' }
+	{
+		src: ASSETS_HOST + '/event-showcase/pics/own/2025-treckerrennen-trittau.webp',
+		alt: 'Treckerrennen Trittau 2025'
+	},
+	{
+		src: ASSETS_HOST + '/event-showcase/pics/own/2025-woderkant-kiel.webp',
+		alt: 'Woderkant Kiel event 2025'
+	}
 ];
 
 const EVENT_RIG_FIXTURES: EventRig['fixture'][] = [

@@ -473,8 +473,6 @@
 </script>
 
 <main class="relative isolate overflow-x-clip">
-	<Navbar />
-
 	<section
 		data-hero-pin
 		class="section-dark-a relative flex min-h-screen flex-col items-center justify-center overflow-hidden"
@@ -557,8 +555,4 @@
 	<AboutSection />
 	<ProjectsSection />
 	<SkillsSection {skillGroups} />
-
-	<div id="footer">
-		<Footer />
-	</div>
 </main>

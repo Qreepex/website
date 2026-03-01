@@ -2,6 +2,8 @@
 	import { onMount } from 'svelte';
 	import { writable } from 'svelte/store';
 	import './layout.css';
+	import Footer from '$lib/page/Footer.svelte';
+	import Navbar from '$lib/page/Navbar.svelte';
 
 	let { children } = $props();
 	const isLoading = writable(true);
@@ -71,6 +73,8 @@
 	/>
 </svelte:head>
 
+<Navbar />
+
 {#if $isLoading}
 	<div class="loading-screen" role="status" aria-live="polite" aria-label="Page loading">
 		<div class="loading-screen__content">
@@ -81,3 +85,5 @@
 {/if}
 
 {@render children()}
+
+<Footer />

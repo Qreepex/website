@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import FxToggle from '$lib/components/FxToggle.svelte';
+	import { page } from '$app/state';
 
 	type NavLink = {
 		label: string;
@@ -9,21 +10,29 @@
 
 	let brand = 'Ben',
 		links = [
-			{ label: 'About', href: '#about' },
-			{ label: 'Projects', href: '#projects' },
-			{ label: 'Links', href: '#footer' }
+			{ label: 'About', href: '/ben' },
+			{ label: 'Event Tech', href: '/event-tech' },
+			{ label: 'Projects', href: '/#projects' },
+			{ label: 'Links', href: '/links' }
 		] as NavLink[];
 
 	let scrolled = $state(false);
 	let pastHero = $state(false);
+	let isHomePage = $state(true);
 
 	function handleScroll() {
 		scrolled = window.scrollY > 10;
+		if (!isHomePage) {
+			pastHero = true;
+			return;
+		}
+
 		// Hero is min-h-screen + 2800px pin; past that = past video
 		pastHero = window.scrollY > window.innerHeight + 1000;
 	}
 
 	onMount(() => {
+		isHomePage = page.url.pathname === '/';
 		handleScroll();
 		window.addEventListener('scroll', handleScroll, { passive: true });
 		return () => window.removeEventListener('scroll', handleScroll);
@@ -38,7 +47,7 @@
 	<!-- Ben left · spacer · Links right · FX pinned far right -->
 	<div class="nav-inner relative flex w-full items-center py-3">
 		<a
-			href="#"
+			href="/"
 			class="brand-label text-sm font-bold tracking-[0.18em] uppercase transition-all duration-500"
 			class:brand-condensed={pastHero}
 			class:brand-scrolled={pastHero}
