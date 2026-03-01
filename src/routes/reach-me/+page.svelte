@@ -2,10 +2,15 @@
 	import HighlightCard from '$lib/components/HighlightCard.svelte';
 	import HeaderSection from '$lib/page/HeaderSection.svelte';
 	import PageContent from '$lib/page/PageContent.svelte';
+
+	const pageTitle = 'Contact Me | Fullstack Developer & Event Tech in Hamburg';
+	const pageDescription =
+		'Contact me for cloud-native fullstack engineering projects and freelance event technology support in Germany, including lighting and laser productions.';
 </script>
 
 <svelte:head>
-	<title>Reach Me | Ben</title>
+	<title>{pageTitle}</title>
+	<meta name="description" content={pageDescription} />
 </svelte:head>
 
 <HeaderSection title="Reach Me" subtitle="Interested in my work? Need help with a project?" />

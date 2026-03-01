@@ -2,14 +2,15 @@
 	import EventShowcaseGallery from '$lib/content/EventShowcaseGallery.svelte';
 	import HeaderSection from '$lib/page/HeaderSection.svelte';
 	import PageContent from '$lib/page/PageContent.svelte';
+
+	const pageTitle = 'My Event Tech in Hamburg | Lighting and Laser Technician';
+	const pageDescription =
+		'This is my event technology showcase including lighting programming, laser-supported live productions, show networking and stage systems.';
 </script>
 
 <svelte:head>
-	<title>Event Tech | Ben</title>
-	<meta
-		name="description"
-		content="Event tech showcase with lighting, laser, sound and stage production media from real shows."
-	/>
+	<title>{pageTitle}</title>
+	<meta name="description" content={pageDescription} />
 </svelte:head>
 
 <HeaderSection

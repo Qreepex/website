@@ -242,26 +242,26 @@ export const links: Link[] = [
 	},
 	{
 		label: 'Email',
-		url: 'mailto:ben@schiemann.work',
+		url: 'mailto:ben@schiemann.work'
 	},
 	{
 		label: 'Spotify',
-		url: 'https://open.spotify.com/user/p05pj1y7mue9lpqpt8dfbccmu',
+		url: 'https://open.spotify.com/user/p05pj1y7mue9lpqpt8dfbccmu'
 	},
 	{
 		label: 'Twitch',
-		url: 'https://twitch.tv/qreepex',
+		url: 'https://twitch.tv/qreepex'
 	},
 	{
 		label: 'Reddit',
-		url: 'https://reddit.com/user/qreepex',
+		url: 'https://reddit.com/user/qreepex'
 	},
 	{
 		label: 'Steam',
-		url: 'https://steamcommunity.com/id/qreepex',
+		url: 'https://steamcommunity.com/id/qreepex'
 	},
 	{
 		label: 'X',
-		url: 'https://x.com/qreepex',
+		url: 'https://x.com/qreepex'
 	}
 ];

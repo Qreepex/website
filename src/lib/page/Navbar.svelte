@@ -10,6 +10,7 @@
 
 	let brand = 'Ben',
 		links = [
+			{ label: 'Home', href: '/' },
 			{ label: 'About', href: '/ben' },
 			{ label: 'Dev Projects', href: '/#dev' },
 			{ label: 'Event Tech', href: '/event-tech' },

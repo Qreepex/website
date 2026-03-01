@@ -1,10 +1,14 @@
 <script>
 	import HeaderSection from '$lib/page/HeaderSection.svelte';
 	import PageContent from '$lib/page/PageContent.svelte';
+
+	const pageTitle = 'My Impressum | Ben Schiemann';
+	const pageDescription = 'This is my legal notice and provider information for this website.';
 </script>
 
 <svelte:head>
-	<title>Impressum | Ben</title>
+	<title>{pageTitle}</title>
+	<meta name="description" content={pageDescription} />
 </svelte:head>
 
 <HeaderSection title="Impressum" />

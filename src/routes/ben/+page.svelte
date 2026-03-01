@@ -1,10 +1,15 @@
 <script>
 	import HeaderSection from '$lib/page/HeaderSection.svelte';
 	import PageContent from '$lib/page/PageContent.svelte';
+
+	const pageTitle = 'About Me | Fullstack Developer & Event Technician in Hamburg';
+	const pageDescription =
+		'Learn more about me: I am a Hamburg-based fullstack developer focused on cloud-native engineering and an event technician specialized in lighting and lasers.';
 </script>
 
 <svelte:head>
-	<title>About me | Ben</title>
+	<title>{pageTitle}</title>
+	<meta name="description" content={pageDescription} />
 </svelte:head>
 
 <HeaderSection title="About me" subtitle="Ill write more about me at some point, I promise!" />

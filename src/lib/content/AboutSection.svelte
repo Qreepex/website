@@ -2,17 +2,17 @@
 	<div data-animate class="mx-auto grid w-full max-w-7xl gap-10 md:grid-cols-[1.5fr_1fr]">
 		<div>
 			<p class="mb-3 text-xs font-semibold tracking-[0.2em] text-electric-400 uppercase">
-				Whos dis guy
+				About me
 			</p>
 			<h2 class="mb-6 text-3xl font-bold text-mist-100 sm:text-4xl">Two worlds. One workflow.</h2>
 			<p class="max-w-3xl text-base leading-relaxed text-mist-100/86">
-				I work at the intersection of software engineering and live production technology. On the
-				software side, I build scalable backend and fullstack applications using cloud-native
-				architecture.
+				I work at the intersection of software engineering and live production technology in
+				Hamburg, Germany. On the software side, I build scalable backend and fullstack applications
+				with cloud-native architecture and production-first reliability.
 				<br />
 				<br />
-				On the event side, I program lighting systems and support show-critical infrastructure with a
-				focus on precision, reliability and speed.
+				On the event side, I program lighting systems, operate laser-ready workflows and support show-critical
+				infrastructure with a focus on precision, reliability and speed.
 			</p>
 		</div>
 		<div class="space-y-6 border-l border-electric-400/25 pl-6">
@@ -22,7 +22,7 @@
 			</div>
 			<div>
 				<p class="text-xs tracking-[0.16em] text-violet-300 uppercase">Live Domain</p>
-				<p class="mt-2 text-lg font-semibold">Lighting Control Systems</p>
+				<p class="mt-2 text-lg font-semibold">Lighting & Laser Show Technology</p>
 			</div>
 		</div>
 	</div>

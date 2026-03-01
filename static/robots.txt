@@ -1,3 +1,25 @@
 # allow crawling everything by default
 User-agent: *
 Disallow:
+
+# explicitly allow major AI/user agents for indexing and retrieval
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+Host: schiemann.work
+Sitemap: https://schiemann.work/sitemap.xml

@@ -51,6 +51,7 @@
 	let projectsInView = $state(false);
 	let sectionObserver: IntersectionObserver | null = null;
 	let onHashChange: (() => void) | null = null;
+	let autoHashFromScroll = false;
 
 	let activeMode = $state<ProjectsMode>('dev');
 
@@ -65,15 +66,28 @@
 		return null;
 	}
 
-	function replaceHashForMode(mode: ProjectsMode) {
+	function replaceHashForMode(mode: ProjectsMode, options: { autoFromScroll?: boolean } = {}) {
 		if (typeof window === 'undefined') return;
 		const nextHash = MODE_HASH[mode];
 		if (window.location.hash === nextHash) return;
+		autoHashFromScroll = options.autoFromScroll === true;
 		window.history.replaceState(
 			window.history.state,
 			document.title,
 			`${window.location.pathname}${window.location.search}${nextHash}`
 		);
+	}
+
+	function clearProjectsHashIfAutoSet() {
+		if (typeof window === 'undefined') return;
+		if (!autoHashFromScroll) return;
+		if (!modeFromHash(window.location.hash)) return;
+		window.history.replaceState(
+			window.history.state,
+			document.title,
+			`${window.location.pathname}${window.location.search}`
+		);
+		autoHashFromScroll = false;
 	}
 
 	function assignRandomGradientsForProjects() {
@@ -364,7 +378,8 @@
 						if (!entry) return;
 						const inView = entry.isIntersecting && entry.intersectionRatio >= 0.35;
 						projectsInView = inView;
-						if (inView) replaceHashForMode(activeMode);
+						if (inView) replaceHashForMode(activeMode, { autoFromScroll: true });
+						else clearProjectsHashIfAutoSet();
 					},
 					{ threshold: [0.2, 0.35, 0.5] }
 				);
@@ -382,6 +397,7 @@
 				onHashChange = () => {
 					const requestedMode = modeFromHash(window.location.hash);
 					if (!requestedMode || requestedMode === activeMode) return;
+					autoHashFromScroll = false;
 					void switchMode(requestedMode);
 				};
 

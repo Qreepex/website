@@ -31,10 +31,15 @@
 			description: 'Live event tech, lighting setups, and behind-the-scenes snapshots.'
 		}
 	};
+
+	const pageTitle = 'My Links | Ben Schiemann';
+	const pageDescription =
+		'Here are my direct links to GitHub, LinkedIn, Instagram and other platforms related to my engineering and event tech work.';
 </script>
 
 <svelte:head>
-	<title>Links | Ben</title>
+	<title>{pageTitle}</title>
+	<meta name="description" content={pageDescription} />
 </svelte:head>
 
 <HeaderSection title="Links" subtitle="Wanna stalk? Wanna connect?" />

@@ -1,10 +1,15 @@
 <script>
 	import HeaderSection from '$lib/page/HeaderSection.svelte';
 	import PageContent from '$lib/page/PageContent.svelte';
+
+	const pageTitle = 'My Privacy Policy | Ben Schiemann';
+	const pageDescription =
+		'This is my data protection declaration and privacy policy for this website.';
 </script>
 
 <svelte:head>
-	<title>Privacy Policy | Ben</title>
+	<title>{pageTitle}</title>
+	<meta name="description" content={pageDescription} />
 </svelte:head>
 
 <HeaderSection title="Privacy Policy" subtitle="Data Protection Declaration" />

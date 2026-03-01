@@ -1,0 +1,26 @@
+# Ben Schiemann
+
+> Fullstack Developer (cloud-native) and Event Technician (lighting & lasers) from Hamburg, Germany.
+
+## Primary pages
+- Home: https://schiemann.work/
+- About: https://schiemann.work/ben
+- Event Tech: https://schiemann.work/event-tech
+- Contact: https://schiemann.work/reach-me
+- Links: https://schiemann.work/links
+
+## Focus areas
+- Cloud-native engineering
+- Fullstack web development
+- Kubernetes and microservices
+- Live event lighting systems
+- Laser-supported show workflows
+
+## Profiles
+- GitHub: https://github.com/qreepex
+- LinkedIn: https://linkedin.com/in/ben-schiemann
+- Instagram: https://instagram.com/_bms.05
+
+## Policy pages
+- Privacy: https://schiemann.work/privacy
+- Impressum: https://schiemann.work/impressum

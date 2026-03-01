@@ -18,6 +18,11 @@
 	let _videoElRef: HTMLVideoElement | null = null;
 	let _isEventModeRef = { value: false };
 
+	const pageTitle =
+		'Ben Schiemann | Fullstack Developer (Cloud Native) & Event Lighting and Laser Technician in Hamburg';
+	const pageDescription =
+		'I am a Hamburg-based fullstack developer focused on cloud-native systems, and I work as an event technician specialized in lighting and lasers for live productions.';
+
 	$effect(() => {
 		const rm = $fxDisabled;
 		if (!_videoElRef) return;
@@ -123,7 +128,7 @@
 
 			// Dev-mode: vivid spectrum gradient on line 1
 			const devGradient =
-				'linear-gradient(90deg,#06b6d4 0%,#818cf8 20%,#f472b6 42%,#facc15 64%,#4ade80 82%,#06b6d4 100%)';
+				'linear-gradient(105deg,var(--color-mist-100) 0%,var(--color-mist-100) 58%,var(--color-electric-400) 100%)';
 
 			function applyDevMode() {
 				if (line1El) line1El.style.backgroundImage = devGradient;
@@ -470,6 +475,11 @@
 	});
 </script>
 
+<svelte:head>
+	<title>{pageTitle}</title>
+	<meta name="description" content={pageDescription} />
+</svelte:head>
+
 <main class="relative isolate overflow-x-clip">
 	<section
 		data-hero-pin
@@ -498,7 +508,7 @@
 		</video>
 		<div
 			data-hero-overlay
-			class="absolute inset-0 -z-20 bg-[radial-gradient(circle_at_20%_22%,color-mix(in_oklab,var(--color-electric-500)_26%,transparent)_0%,transparent_55%),linear-gradient(180deg,color-mix(in_oklab,var(--color-anthracite-900)_82%,transparent)_0%,var(--color-anthracite-900)_90%)]"
+			class="absolute inset-0 -z-20 bg-[radial-gradient(circle_at_20%_22%,color-mix(in_oklab,var(--color-electric-500)_14%,transparent)_0%,transparent_52%),linear-gradient(180deg,color-mix(in_oklab,var(--color-anthracite-900)_92%,transparent)_0%,var(--color-anthracite-900)_96%)]"
 		></div>
 
 		<div data-hero-content class="relative z-10 w-full px-6 sm:px-10 lg:px-16">
@@ -513,7 +523,7 @@
 					data-hero-eyebrow
 					class="mb-3 ps-2 text-lg font-medium tracking-widest text-electric-400 sm:text-xl"
 				>
-					Hey, I'm Ben!
+					Heyo, I'm Ben!
 				</p>
 
 				<div class="leading-[0.88] font-black tracking-tighter">
@@ -521,20 +531,40 @@
 					<div class="overflow-hidden">
 						<h1
 							data-hero-line1
-							class="title-gradient-vivid block text-[clamp(2rem,7vw,8rem)] whitespace-nowrap"
+							class="title-gradient-electric block text-[clamp(2rem,7vw,8rem)] whitespace-nowrap"
 						>
 							FULLSTACK DEVELOPER
 						</h1>
 					</div>
 					<!-- Line 2: revealed via scroll pin, starts near bottom of viewport -->
 					<div>
-						<h1
+						<h2
 							data-hero-line2
-							class="title-gradient-vivid block text-[clamp(2rem,7vw,8rem)] whitespace-nowrap"
+							class="title-gradient-electric block text-[clamp(2rem,7vw,8rem)] whitespace-nowrap"
 						>
 							AND LIGHTING TECH
-						</h1>
+						</h2>
 					</div>
+				</div>
+
+				<p
+					class="mt-6 max-w-3xl ps-2 text-base leading-relaxed font-semibold text-mist-100/90 sm:text-lg"
+				>
+					Hamburg-based fullstack developer focused on cloud-native platforms, high-availability
+					systems and modern web applications — plus event technician work with a focus on lighting
+					control and laser-supported live productions.
+				</p>
+				<div class="mt-6 flex flex-wrap gap-3 ps-2 text-sm font-semibold">
+					<a
+						href="/reach-me"
+						class="inline-flex items-center rounded-lg border border-electric-400/45 bg-electric-500/24 px-4 py-2.5 text-mist-100 transition-colors hover:bg-electric-500/35"
+						>Contact in Hamburg</a
+					>
+					<a
+						href="/event-tech"
+						class="inline-flex items-center rounded-lg border border-violet-400/45 bg-violet-500/18 px-4 py-2.5 text-mist-100 transition-colors hover:bg-violet-500/30"
+						>Event Tech references</a
+					>
 				</div>
 			</div>
 		</div>

@@ -64,15 +64,6 @@
 	});
 </script>
 
-<svelte:head>
-	<link rel="icon" />
-	<title>Ben | Fullstack Developer & Event Lighting Technician</title>
-	<meta
-		name="description"
-		content="Personal portfolio showcasing fullstack development, cloud-native engineering, AI work, and event lighting technology expertise."
-	/>
-</svelte:head>
-
 <Navbar />
 
 {#if $isLoading}
