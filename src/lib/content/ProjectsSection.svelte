@@ -439,7 +439,7 @@
 <section
 	bind:this={sectionEl}
 	id="projects"
-	class="relative w-full overflow-hidden bg-anthracite-900 px-6 pt-16 pb-16 sm:px-10 sm:pt-18 lg:px-16 lg:pt-20"
+	class="relative w-full overflow-hidden bg-anthracite-900 px-6 pt-16 md:pb-16 sm:px-10 sm:pt-18 lg:px-16 lg:pt-20"
 >
 	<div
 		bind:this={backgroundLayerA}
