@@ -486,7 +486,7 @@
 			<div class="relative z-10 h-[62vh] min-h-105 sm:mt-6 sm:h-[66vh] lg:h-[70vh]">
 				<div
 					bind:this={devPanelEl}
-					class={`project-mode-panel relative h-full w-full ${activeMode === 'dev' ? 'is-active' : ''}`}
+					class={`project-mode-panel relative h-48 w-full lg:h-full ${activeMode === 'dev' ? 'is-active' : ''}`}
 					aria-hidden={activeMode !== 'dev'}
 				>
 					{#each devProjects as project, index}

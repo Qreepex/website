@@ -5,6 +5,8 @@
 	import AboutSection from '$lib/content/AboutSection.svelte';
 	import SkillsSection from '$lib/content/SkillsSection.svelte';
 	import ProjectsSection from '$lib/content/ProjectsSection.svelte';
+	import HeroLiquidBackground from '$lib/components/HeroLiquidBackground.svelte';
+	import ScrollIndicator from '$lib/components/ScrollIndicator.svelte';
 	import { skillGroups } from '$lib/content/skills';
 
 	gsap.registerPlugin(ScrollTrigger);
@@ -17,6 +19,7 @@
 	let _stopFn: () => void = () => {};
 	let _videoElRef: HTMLVideoElement | null = null;
 	let _isEventModeRef = { value: false };
+	let isHeroEventMode = $state(false);
 
 	const pageTitle =
 		'Ben Schiemann | Fullstack Developer (Cloud Native) & Event Lighting and Laser Technician in Hamburg';
@@ -88,7 +91,7 @@
 			const scrollTl = gsap.timeline({ paused: true });
 			scrollTl.to('[data-hero-content]', {
 				y: () => -(window.innerHeight * 0.2),
-				scale: 0.42,
+				scale: 0.52,
 				transformOrigin: 'left top',
 				duration: 0.5,
 				ease: 'power2.out'
@@ -266,6 +269,7 @@
 				if (isEventMode) return;
 				isEventMode = true;
 				_isEventModeRef.value = true;
+				isHeroEventMode = true;
 				stopGlitch();
 				clearDevMode();
 				gsap.killTweensOf(overlayEl);
@@ -284,6 +288,7 @@
 				if (!isEventMode) return;
 				isEventMode = false;
 				_isEventModeRef.value = false;
+				isHeroEventMode = false;
 				gsap.killTweensOf(videoEl);
 				gsap.killTweensOf(overlayEl);
 				gsap.killTweensOf(scrimEl);
@@ -485,16 +490,25 @@
 		data-hero-pin
 		class="section-dark-a relative flex min-h-screen flex-col items-center justify-center overflow-hidden"
 	>
-		<div
-			class="glow-pulse absolute top-16 -left-30 -z-10 h-80 w-80 rounded-full bg-electric-500/25"
-		></div>
-		<div
-			class="glow-pulse absolute top-34 -right-12 -z-10 h-96 w-96 rounded-full bg-violet-500/25 [animation-delay:1.1s]"
-		></div>
+		{#if !isHeroEventMode}
+			<ScrollIndicator />
+		{/if}
+
+		{#if !isHeroEventMode}
+			<div class="pointer-events-none absolute inset-0 z-20 opacity-55">
+				<HeroLiquidBackground />
+			</div>
+			<div
+				class="glow-pulse absolute top-16 -left-30 z-30 h-80 w-80 rounded-full bg-electric-500/25"
+			></div>
+			<div
+				class="glow-pulse absolute top-34 -right-12 z-30 h-96 w-96 rounded-full bg-violet-500/25 [animation-delay:1.1s]"
+			></div>
+		{/if}
 
 		<video
 			data-hero-video
-			class="absolute inset-0 -z-30 h-full w-full object-cover"
+			class="absolute inset-0 z-0 h-full w-full object-cover"
 			autoplay
 			muted
 			loop
@@ -508,10 +522,10 @@
 		</video>
 		<div
 			data-hero-overlay
-			class="absolute inset-0 -z-20 bg-[radial-gradient(circle_at_20%_22%,color-mix(in_oklab,var(--color-electric-500)_14%,transparent)_0%,transparent_52%),linear-gradient(180deg,color-mix(in_oklab,var(--color-anthracite-900)_92%,transparent)_0%,var(--color-anthracite-900)_96%)]"
+			class="absolute inset-0 z-10 bg-[radial-gradient(circle_at_20%_22%,color-mix(in_oklab,var(--color-electric-500)_14%,transparent)_0%,transparent_52%),linear-gradient(180deg,color-mix(in_oklab,var(--color-anthracite-900)_92%,transparent)_0%,var(--color-anthracite-900)_96%)]"
 		></div>
 
-		<div data-hero-content class="relative z-10 w-full px-6 sm:px-10 lg:px-16">
+		<div data-hero-content class="relative z-40 w-full px-6 sm:px-10 lg:px-16">
 			<div class="relative w-fit">
 				<!-- Soft scrim that fades in behind the text in event mode -->
 				<div

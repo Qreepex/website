@@ -29,7 +29,8 @@
 	const eventById = new Map(sortedEventShowcaseData.map((event) => [event.id, event]));
 	const eventIndexById = new Map(sortedEventShowcaseData.map((event, index) => [event.id, index]));
 	const preloadedMediaUrls = new Set<string>();
-	const preloadHintLinks = new Map<string, HTMLLinkElement>();
+	type ResourceHintMode = 'preload' | 'prefetch';
+	const preloadHintLinks = new Map<string, { link: HTMLLinkElement; mode: ResourceHintMode }>();
 	const SCROLL_AHEAD_PRELOAD_COUNT = 4;
 
 	function scheduleMasonryLayout() {
@@ -99,37 +100,54 @@
 		initialMediaLoaded = loadedInitialMediaEvents.size;
 	}
 
-	function ensurePreloadHint(url: string, asType: 'image' | 'video') {
-		if (preloadHintLinks.has(url)) return;
+	function ensurePreloadHint(
+		url: string,
+		asType: 'image' | 'video',
+		mode: ResourceHintMode = 'prefetch'
+	) {
+		const existing = preloadHintLinks.get(url);
+		if (existing) {
+			if (existing.mode === 'prefetch' && mode === 'preload') {
+				existing.link.rel = 'preload';
+				existing.link.as = asType;
+				existing.mode = 'preload';
+			}
+			return;
+		}
 
 		const link = document.createElement('link');
-		link.rel = 'preload';
-		link.as = asType;
+		link.rel = mode;
+		if (mode === 'preload') {
+			link.as = asType;
+		}
 		link.href = url;
 		document.head.appendChild(link);
-		preloadHintLinks.set(url, link);
+		preloadHintLinks.set(url, { link, mode });
 	}
 
-	function preloadImageUrl(url: string) {
-		ensurePreloadHint(url, 'image');
+	function preloadImageUrl(url: string, mode: ResourceHintMode = 'prefetch') {
+		ensurePreloadHint(url, 'image', mode);
 	}
 
-	function preloadVideoUrl(url: string) {
-		ensurePreloadHint(url, 'video');
+	function preloadVideoUrl(url: string, mode: ResourceHintMode = 'prefetch') {
+		ensurePreloadHint(url, 'video', mode);
 	}
 
-	function preloadMediaItem(media: EventShowcase['media'][number] | undefined) {
+	function preloadMediaItem(
+		media: EventShowcase['media'][number] | undefined,
+		mode: ResourceHintMode = 'prefetch'
+	) {
 		if (!media) return;
 		const url = ASSETS_HOST + media.url;
 		if (preloadedMediaUrls.has(url)) return;
 
 		preloadedMediaUrls.add(url);
 		if (media.type === 'image') {
-			preloadImageUrl(url);
+			preloadImageUrl(url, mode);
 			return;
 		}
 
-		preloadVideoUrl(url);
+		preloadVideoUrl(url, mode);
 	}
 
 	function preloadNextCarouselMedia(eventId: string) {
