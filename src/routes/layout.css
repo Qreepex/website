@@ -1,0 +1,278 @@
+@import 'tailwindcss';
+
+@theme {
+	--color-space-950: #060916;
+	--color-space-900: #0a1128;
+	--color-anthracite-900: #0c0f14;
+	--color-anthracite-800: #151a22;
+	--color-electric-500: #3b82f6;
+	--color-electric-400: #60a5fa;
+	--color-violet-500: #8b5cf6;
+	--color-violet-400: #a78bfa;
+	--color-cyan-400: #22d3ee;
+	--color-mist-100: #dbeafe;
+}
+
+:root {
+	color-scheme: dark;
+}
+
+body {
+	min-height: 100vh;
+	background:
+		radial-gradient(
+			80% 60% at 12% 6%,
+			color-mix(in oklab, var(--color-electric-500) 25%, transparent),
+			transparent
+		),
+		radial-gradient(
+			80% 60% at 88% 12%,
+			color-mix(in oklab, var(--color-violet-500) 28%, transparent),
+			transparent
+		),
+		linear-gradient(180deg, var(--color-space-900) 0%, var(--color-space-950) 65%);
+	color: var(--color-mist-100);
+	font-family: Inter, 'Segoe UI', system-ui, sans-serif;
+}
+
+body.is-loading {
+	overflow: hidden;
+}
+
+.loading-screen {
+	position: fixed;
+	inset: 0;
+	z-index: 9999;
+	display: grid;
+	place-items: center;
+	overflow: hidden;
+	background: linear-gradient(180deg, var(--color-anthracite-900) 0%, #090c11 100%);
+}
+
+.loading-screen::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background-image:
+		linear-gradient(
+			to right,
+			color-mix(in oklab, var(--color-electric-400) 24%, transparent) 1px,
+			transparent 1px
+		),
+		linear-gradient(
+			to bottom,
+			color-mix(in oklab, var(--color-violet-400) 20%, transparent) 1px,
+			transparent 1px
+		);
+	background-size: 56px 56px;
+	animation: grid-shift 12s linear infinite;
+	opacity: 0.2;
+	pointer-events: none;
+}
+
+.loading-screen::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background:
+		radial-gradient(
+			circle at 20% 22%,
+			color-mix(in oklab, var(--color-electric-500) 26%, transparent) 0%,
+			transparent 55%
+		),
+		linear-gradient(
+			180deg,
+			color-mix(in oklab, var(--color-anthracite-900) 82%, transparent) 0%,
+			var(--color-anthracite-900) 90%
+		);
+	pointer-events: none;
+}
+
+.loading-screen__content {
+	position: relative;
+	z-index: 1;
+	display: grid;
+	gap: 0.75rem;
+	justify-items: center;
+}
+
+.loading-screen__spinner {
+	height: 2.5rem;
+	width: 2.5rem;
+	border-radius: 9999px;
+	border: 3px solid color-mix(in oklab, white 20%, transparent);
+	border-top-color: var(--color-electric-400);
+	animation: spin 0.8s linear infinite;
+}
+
+.loading-screen__label {
+	font-size: 0.875rem;
+	font-weight: 600;
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+	color: var(--color-mist-100);
+	opacity: 0.85;
+}
+
+@keyframes float {
+	0%,
+	100% {
+		transform: translateY(0px);
+	}
+	50% {
+		transform: translateY(-10px);
+	}
+}
+
+@keyframes pulse-glow {
+	0%,
+	100% {
+		opacity: 0.55;
+		filter: blur(22px);
+	}
+	50% {
+		opacity: 0.95;
+		filter: blur(34px);
+	}
+}
+
+@keyframes grid-shift {
+	0% {
+		background-position: 0 0;
+	}
+	100% {
+		background-position: 0 56px;
+	}
+}
+
+@keyframes spin {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+@layer utilities {
+	.section-dark-a {
+		background: linear-gradient(180deg, var(--color-anthracite-900) 0%, #090c11 100%);
+	}
+
+	.section-dark-b {
+		background: linear-gradient(180deg, var(--color-anthracite-800) 0%, #111620 100%);
+	}
+
+	.panel {
+		border: 1px solid color-mix(in oklab, white 16%, transparent);
+		background: color-mix(in oklab, var(--color-space-900) 72%, transparent);
+		backdrop-filter: blur(20px);
+	}
+
+	.neon-ring {
+		box-shadow:
+			0 0 0 1px color-mix(in oklab, var(--color-electric-400) 55%, transparent),
+			0 0 32px color-mix(in oklab, var(--color-violet-500) 42%, transparent);
+	}
+
+	.title-gradient {
+		background-image: linear-gradient(
+			120deg,
+			var(--color-cyan-400) 0%,
+			var(--color-electric-400) 35%,
+			var(--color-violet-400) 100%
+		);
+		color: transparent;
+		background-clip: text;
+	}
+
+	.title-gradient-vivid {
+		background-image: linear-gradient(105deg, #00f0ff 0%, #2979ff 42%, #c026d3 100%);
+		color: transparent;
+		background-clip: text;
+	}
+
+	.grid-overlay {
+		background-image:
+			linear-gradient(
+				to right,
+				color-mix(in oklab, var(--color-electric-400) 24%, transparent) 1px,
+				transparent 1px
+			),
+			linear-gradient(
+				to bottom,
+				color-mix(in oklab, var(--color-violet-400) 20%, transparent) 1px,
+				transparent 1px
+			);
+		background-size: 56px 56px;
+		animation: grid-shift 12s linear infinite;
+	}
+
+	.float-soft {
+		animation: float 7s ease-in-out infinite;
+	}
+
+	.glow-pulse {
+		animation: pulse-glow 8s ease-in-out infinite;
+	}
+
+	.wave-separator {
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: -1px;
+		line-height: 0;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	* {
+		scroll-behavior: auto !important;
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+	}
+}
+
+/* Custom scrollbar: thumb indicator only */
+*::-webkit-scrollbar {
+	width: 6px;
+	height: 6px;
+	background: transparent !important;
+	-webkit-appearance: none;
+}
+
+*::-webkit-scrollbar-track,
+*::-webkit-scrollbar-track-piece,
+*::-webkit-scrollbar-corner {
+	background: transparent !important;
+	border: none;
+	box-shadow: none;
+	-webkit-appearance: none;
+}
+
+*::-webkit-scrollbar-button {
+	display: none;
+	width: 0;
+	height: 0;
+	background: transparent !important;
+	-webkit-appearance: none;
+}
+
+*::-webkit-scrollbar-resizer {
+	background: transparent !important;
+	-webkit-appearance: none;
+}
+
+*::-webkit-scrollbar-thumb {
+	background: #2979ff;
+	border-radius: 9999px;
+	border: none;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+	background: #2979ff;
+}
+
+/* Firefox */
+* {
+	scrollbar-width: thin;
+	scrollbar-color: #2979ff transparent;
+}

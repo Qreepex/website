@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220" role="img" aria-label="Retro PAR can light">
+  <defs>
+    <linearGradient id="can" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#65748b"/>
+      <stop offset="100%" stop-color="#222c3d"/>
+    </linearGradient>
+    <radialGradient id="lamp" cx="50%" cy="48%" r="55%">
+      <stop offset="0%" stop-color="#fde68a"/>
+      <stop offset="55%" stop-color="#f97316"/>
+      <stop offset="100%" stop-color="#be123c"/>
+    </radialGradient>
+  </defs>
+
+  <ellipse cx="110" cy="198" rx="66" ry="14" fill="#0a0d12" opacity="0.35"/>
+
+  <rect x="70" y="158" width="80" height="24" rx="7" fill="#273245"/>
+  <rect x="86" y="138" width="48" height="24" rx="6" fill="#2f3b52"/>
+
+  <rect x="48" y="80" width="20" height="74" rx="10" fill="#334157"/>
+  <rect x="152" y="80" width="20" height="74" rx="10" fill="#334157"/>
+
+  <circle cx="110" cy="95" r="45" fill="url(#can)" stroke="#9aa6bb" stroke-opacity="0.45" stroke-width="4"/>
+  <circle cx="110" cy="95" r="34" fill="#0f172a" stroke="#94a3b8" stroke-opacity="0.45"/>
+  <circle cx="110" cy="95" r="24" fill="url(#lamp)"/>
+
+  <path d="M77 66L84 75M143 66L136 75M66 95H76M154 95H144M77 124L84 115M143 124L136 115" stroke="#a8b4c8" stroke-opacity="0.65" stroke-width="3" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 120" role="img" aria-label="PAR64 side view">
+  <defs>
+    <linearGradient id="canBody" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#7a8a9e"/>
+      <stop offset="28%" stop-color="#4d5966"/>
+      <stop offset="72%" stop-color="#363d47"/>
+      <stop offset="100%" stop-color="#5a6572"/>
+    </linearGradient>
+    <linearGradient id="canHighlight" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#9ba8b8" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#4d5966" stop-opacity="0.15"/>
+    </linearGradient>
+    <radialGradient id="lensGlass" cx="52%" cy="48%" r="58%">
+      <stop offset="0%" stop-color="#fffef5"/>
+      <stop offset="22%" stop-color="#fef3c7"/>
+      <stop offset="45%" stop-color="#fcd34d"/>
+      <stop offset="72%" stop-color="#f97316"/>
+      <stop offset="100%" stop-color="#7c2d12"/>
+    </radialGradient>
+    <linearGradient id="rimMetal" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#94a3b8"/>
+      <stop offset="50%" stop-color="#64748b"/>
+      <stop offset="100%" stop-color="#475569"/>
+    </linearGradient>
+  </defs>
+
+  <ellipse cx="50" cy="106" rx="40" ry="6" fill="#0f172a" opacity="0.28"/>
+
+  <ellipse cx="48" cy="60" rx="38" ry="38" fill="url(#canBody)" stroke="#8a99ab" stroke-width="1.2"/>
+
+  <rect x="48" y="22" width="174" height="76" fill="url(#canBody)" stroke="#8a99ab" stroke-width="1.5"/>
+  
+  <rect x="58" y="28" width="154" height="12" rx="2" fill="url(#canHighlight)"/>
+
+  <line x1="84" y1="26" x2="84" y2="94" stroke="#5d6a7a" stroke-width="0.8" opacity="0.4"/>
+  <line x1="138" y1="26" x2="138" y2="94" stroke="#5d6a7a" stroke-width="0.8" opacity="0.4"/>
+  <line x1="192" y1="26" x2="192" y2="94" stroke="#5d6a7a" stroke-width="0.8" opacity="0.4"/>
+
+  <rect x="216" y="0" width="12" height="120" rx="3" fill="url(#rimMetal)"/>
+  
+
+
+  <rect x="72" y="52" width="28" height="2.5" rx="1.25" fill="#6b7a8f" opacity="0.45"/>
+  <rect x="72" y="66" width="28" height="2.5" rx="1.25" fill="#6b7a8f" opacity="0.45"/>
+</svg>
