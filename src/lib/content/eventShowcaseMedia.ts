@@ -216,7 +216,7 @@ export const eventShowcaseData: EventShowcase[] = [
 				name: 'Engel Charlie',
 				url: '/event-showcase/vids/worked/2024-soa-2-engel-charlie.webm',
 				type: 'video',
-				title: '2 Engel & Charlie @ Steinhorst Open Air 2024',
+				title: '2 Engel & Charlie @ Steinhorst Open Air 2024'
 			},
 			{
 				name: 'Laser Show Highlight',

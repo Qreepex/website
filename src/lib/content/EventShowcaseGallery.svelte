@@ -276,13 +276,13 @@
 		<figure class="media-card panel">
 			{#if event.media.length > 1}
 				<div
-					class="absolute top-2 left-0 right-0 z-20 flex items-center justify-between gap-3 rounded-t-[0.9rem] border-none bg-none px-3 py-[0.7rem]"
+					class="absolute top-2 right-0 left-0 z-20 flex items-center justify-between gap-3 rounded-t-[0.9rem] border-none bg-none px-3 py-[0.7rem]"
 					role="group"
 					aria-label="Media navigation"
 				>
 					<button
 						type="button"
-						class="flex h-12 w-12 items-center cursor-pointer justify-center rounded-full border border-mist-100/45 bg-anthracite-900/80 shadow-[0_2px_8px_rgba(0,0,0,0.35)] backdrop-blur-[2px] transition-colors hover:bg-anthracite-900/60 focus-visible:border-mist-100/70 focus-visible:bg-anthracite-900/60 focus-visible:outline-none md:h-8 md:w-8"
+						class="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-mist-100/45 bg-anthracite-900/80 shadow-[0_2px_8px_rgba(0,0,0,0.35)] backdrop-blur-[2px] transition-colors hover:bg-anthracite-900/60 focus-visible:border-mist-100/70 focus-visible:bg-anthracite-900/60 focus-visible:outline-none md:h-8 md:w-8"
 						onclick={(e) => prevMedia(event.id, event.media.length, e)}
 						aria-label="Previous media"
 					>
@@ -294,7 +294,7 @@
 					>
 					<button
 						type="button"
-						class="flex h-12 w-12 items-center cursor-pointer justify-center rounded-full border border-mist-100/45 bg-anthracite-900/80 shadow-[0_2px_8px_rgba(0,0,0,0.35)] backdrop-blur-[2px] transition-colors hover:bg-anthracite-900/60 focus-visible:border-mist-100/70 focus-visible:bg-anthracite-900/60 focus-visible:outline-none md:h-8 md:w-8"
+						class="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-mist-100/45 bg-anthracite-900/80 shadow-[0_2px_8px_rgba(0,0,0,0.35)] backdrop-blur-[2px] transition-colors hover:bg-anthracite-900/60 focus-visible:border-mist-100/70 focus-visible:bg-anthracite-900/60 focus-visible:outline-none md:h-8 md:w-8"
 						onclick={(e) => nextMedia(event.id, event.media.length, e)}
 						aria-label="Next media"
 					>
@@ -339,7 +339,7 @@
 					</p>
 				{/if}
 
-				{#if event.eventPageUrl || (activeMedia.photographer?.length)}
+				{#if event.eventPageUrl || activeMedia.photographer?.length}
 					<div
 						class="mt-2 flex flex-wrap items-center gap-3 text-xs font-semibold text-mist-100/80"
 					>
@@ -354,24 +354,23 @@
 							</a>
 						{/if}
 						{#if activeMedia.photographer?.length}
-
-						<div class="flex items-center gap-1 text-mist-100/70">
-						<span>&copy;</span>
-						{#each activeMedia.photographer as photographer, index}
-								<a
-									href={photographer.url}
-									target="_blank"
-									rel="noopener noreferrer"
-									class="underline decoration-mist-100/50 underline-offset-2 hover:decoration-mist-100"
-								>
-									{photographer.name}
-								</a>
-								{#if index < activeMedia.photographer.length - 1}
-									<span>/</span>
-								{/if}
-							{/each}
-					</div>
-					{/if}
+							<div class="flex items-center gap-1 text-mist-100/70">
+								<span>&copy;</span>
+								{#each activeMedia.photographer as photographer, index}
+									<a
+										href={photographer.url}
+										target="_blank"
+										rel="noopener noreferrer"
+										class="underline decoration-mist-100/50 underline-offset-2 hover:decoration-mist-100"
+									>
+										{photographer.name}
+									</a>
+									{#if index < activeMedia.photographer.length - 1}
+										<span>/</span>
+									{/if}
+								{/each}
+							</div>
+						{/if}
 					</div>
 				{/if}
 

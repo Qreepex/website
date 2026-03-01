@@ -2,8 +2,6 @@
 	import { onMount } from 'svelte';
 	import gsap from 'gsap';
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
-	import Footer from '$lib/page/Footer.svelte';
-	import Navbar from '$lib/page/Navbar.svelte';
 	import AboutSection from '$lib/content/AboutSection.svelte';
 	import SkillsSection from '$lib/content/SkillsSection.svelte';
 	import ProjectsSection from '$lib/content/ProjectsSection.svelte';
@@ -477,7 +475,6 @@
 		data-hero-pin
 		class="section-dark-a relative flex min-h-screen flex-col items-center justify-center overflow-hidden"
 	>
-		<div class="grid-overlay absolute inset-0 -z-20 opacity-20"></div>
 		<div
 			class="glow-pulse absolute top-16 -left-30 -z-10 h-80 w-80 rounded-full bg-electric-500/25"
 		></div>

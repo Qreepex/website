@@ -217,3 +217,57 @@ export const smallerDevProjects: SmallerProject[] = [
 		tech: ['Node.js', 'Twitch API', 'OAuth2']
 	}
 ];
+
+type Link = {
+	label: string;
+	url: string;
+	icon?: string;
+};
+
+export const links: Link[] = [
+	{
+		label: 'GitHub',
+		url: 'https://github.com/qreepex',
+		icon: '/media/icons/GitHub_Invertocat_White.svg'
+	},
+	{
+		label: 'LinkedIn',
+		url: 'https://linkedin.com/in/ben-schiemann',
+		icon: '/media/icons/LI-In-Bug.png'
+	},
+	{
+		label: 'Instagram',
+		url: 'https://instagram.com/_bms.05',
+		icon: '/media/icons/Instagram_Glyph_Gradient.svg'
+	},
+	{
+		label: 'Email',
+		url: 'mailto:ben@schiemann.work',
+		icon: '/media/icons/email.svg'
+	},
+	{
+		label: 'Spotify',
+		url: 'https://open.spotify.com/user/p05pj1y7mue9lpqpt8dfbccmu',
+		icon: '/media/icons/spotify.svg'
+	},
+	{
+		label: 'Twitch',
+		url: 'https://twitch.tv/qreepex',
+		icon: '/media/icons/twitch.svg'
+	},
+	{
+		label: 'Reddit',
+		url: 'https://reddit.com/user/qreepex',
+		icon: '/media/icons/reddit.svg'
+	},
+	{
+		label: 'Steam',
+		url: 'https://steamcommunity.com/id/qreepex',
+		icon: '/media/icons/steam.svg'
+	},
+	{
+		label: 'X',
+		url: 'https://x.com/qreepex',
+		icon: '/media/icons/x.svg'
+	}
+];
