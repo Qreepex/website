@@ -11,8 +11,9 @@
 	let brand = 'Ben',
 		links = [
 			{ label: 'About', href: '/ben' },
+			{ label: 'Dev Projects', href: '/#projects' },
 			{ label: 'Event Tech', href: '/event-tech' },
-			{ label: 'Projects', href: '/#projects' },
+			{ label: 'Contact', href: '/reach-me' },
 			{ label: 'Links', href: '/links' }
 		] as NavLink[];
 

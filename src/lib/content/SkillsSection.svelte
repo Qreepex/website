@@ -1,4 +1,5 @@
 <script lang="ts">
+	import HighlighCard from '$lib/components/HighlighCard.svelte';
 	import type { SkillGroup } from '$lib/content/skills';
 	import { fxDisabled } from '$lib/stores/reducedMotion';
 
@@ -70,47 +71,12 @@
 				</p>
 				<div class="mt-5 grid gap-4 sm:grid-cols-2">
 					{#each featuredSkills as skill}
-						<article
-							class="relative overflow-hidden rounded-2xl bg-mist-100/4 p-5 shadow-[0_0_0_1px_rgba(120,140,255,0.18),0_14px_40px_rgba(10,12,28,0.35)]"
-						>
-							<div
-								class="pointer-events-none absolute -top-8 -right-8 h-24 w-24 rounded-full bg-electric-400/15 blur-2xl"
-							></div>
-							<div>
-								<p class="text-electric-300/90 text-[11px] font-black tracking-[0.16em] uppercase">
-									{skill.groupTitle}
-								</p>
-								<div class="relative mt-2">
-									<p
-										class="pointer-events-none absolute -top-15 -right-5 text-right text-4xl font-black tracking-[-0.05em] text-mist-100/6 uppercase sm:text-5xl"
-									>
-										<span class="block whitespace-nowrap" style="transform: translateX(0px);"
-											>{skill.name}</span
-										>
-										<span class="block whitespace-nowrap" style="transform: translateX(8px);"
-											>{skill.name}</span
-										>
-										<span class="block whitespace-nowrap" style="transform: translateX(16px);"
-											>{skill.name}</span
-										>
-										<span class="block whitespace-nowrap" style="transform: translateX(24px);"
-											>{skill.name}</span
-										>
-										<span class="block whitespace-nowrap" style="transform: translateX(32px);"
-											>{skill.name}</span
-										>
-									</p>
-									<h3
-										class="relative text-xl font-black tracking-[-0.02em] text-mist-100 uppercase sm:text-2xl"
-									>
-										{skill.name}
-									</h3>
-								</div>
-							</div>
-							<p class="mt-2 text-sm leading-relaxed font-semibold text-mist-100/84 sm:text-base">
-								{skill.description}
-							</p>
-						</article>
+						<HighlighCard
+							url={skill.name}
+							label={skill.name}
+							description={skill.description}
+							kicker={skill.groupTitle}
+						/>
 					{/each}
 				</div>
 			</div>

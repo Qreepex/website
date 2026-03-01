@@ -1,4 +1,5 @@
 <script lang="ts">
+	import HighlighCard from '$lib/components/HighlighCard.svelte';
 	import { links } from '$lib/content';
 	import HeaderSection from '$lib/page/HeaderSection.svelte';
 	import PageContent from '$lib/page/PageContent.svelte';
@@ -43,53 +44,13 @@
 		<ul class="mt-4 grid gap-4 md:grid-cols-3">
 			{#each featuredLinks as link}
 				<li>
-					<a
-						class="group relative flex h-full flex-col justify-between overflow-hidden rounded-2xl bg-mist-100/4 p-5 shadow-[0_0_0_1px_rgba(120,140,255,0.18),0_14px_40px_rgba(10,12,28,0.35)] transition-colors hover:bg-mist-100/6"
-						href={link.url}
-						target="_blank"
-						rel="noopener noreferrer"
-					>
-						<div
-							class="pointer-events-none absolute -top-8 -right-8 h-24 w-24 rounded-full bg-electric-400/15 blur-2xl"
-						></div>
-						<div class="space-y-3">
-							<p class="text-electric-300/90 text-[11px] font-black tracking-[0.16em] uppercase">
-								{featuredMeta[link.label as (typeof featuredLabels)[number]].kicker}
-							</p>
-							<div class="relative mt-2">
-								<p
-									class="pointer-events-none absolute -top-15 -right-5 text-right text-4xl font-black tracking-[-0.05em] text-mist-100/6 uppercase sm:text-5xl"
-								>
-									<span class="block whitespace-nowrap" style="transform: translateX(0px);"
-										>{link.label}</span
-									>
-									<span class="block whitespace-nowrap" style="transform: translateX(8px);"
-										>{link.label}</span
-									>
-									<span class="block whitespace-nowrap" style="transform: translateX(16px);"
-										>{link.label}</span
-									>
-									<span class="block whitespace-nowrap" style="transform: translateX(24px);"
-										>{link.label}</span
-									>
-									<span class="block whitespace-nowrap" style="transform: translateX(32px);"
-										>{link.label}</span
-									>
-								</p>
-								<div class="relative flex items-center gap-3">
-									{#if link.icon}
-										<img src={link.icon} alt="" class="h-9 opacity-95" loading="lazy" />
-									{/if}
-									<h2 class="text-xl font-black tracking-[-0.02em] text-mist-100 uppercase">
-										{link.label}
-									</h2>
-								</div>
-							</div>
-							<p class="mt-2 text-sm leading-relaxed font-semibold text-mist-100/84 sm:text-base">
-								{featuredMeta[link.label as (typeof featuredLabels)[number]].description}
-							</p>
-						</div>
-					</a>
+					<HighlighCard
+						url={link.url}
+						label={link.label}
+						description={featuredMeta[link.label as (typeof featuredLabels)[number]].description}
+						kicker={featuredMeta[link.label as (typeof featuredLabels)[number]].kicker}
+						icon={link.icon}
+					/>
 				</li>
 			{/each}
 		</ul>

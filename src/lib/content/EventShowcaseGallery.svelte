@@ -13,6 +13,18 @@
 	let layoutRaf: number | null = null;
 	let mediaFrameRatios = $state<Record<string, number>>({});
 	let ratiosReady = $state(false);
+	const sortedEventShowcaseData = [...eventShowcaseData].sort(
+		(a, b) => (a.sortIndex ?? 99) - (b.sortIndex ?? 99) || a.name.localeCompare(b.name)
+	);
+	const initialMediaEventIds = new Set(
+		sortedEventShowcaseData
+			.slice(0, 4)
+			.filter((event) => event.media.length > 0)
+			.map((event) => event.id)
+	);
+	const initialMediaTarget = initialMediaEventIds.size;
+	const loadedInitialMediaEvents = new Set<string>();
+	let initialMediaLoaded = $state(0);
 	const finalizedRatios = new Set<string>();
 
 	function scheduleMasonryLayout() {
@@ -71,6 +83,15 @@
 
 	function getFrameRatio(eventId: string): number {
 		return mediaFrameRatios[eventId] ?? 0.8;
+	}
+
+	function markInitialMediaLoaded(eventId: string) {
+		if (initialMediaTarget === 0) return;
+		if (!initialMediaEventIds.has(eventId)) return;
+		if (loadedInitialMediaEvents.has(eventId)) return;
+
+		loadedInitialMediaEvents.add(eventId);
+		initialMediaLoaded = loadedInitialMediaEvents.size;
 	}
 
 	function probeImageRatio(url: string): Promise<number | null> {
@@ -198,6 +219,7 @@
 				node.addEventListener(
 					'load',
 					() => {
+						markInitialMediaLoaded(eventId);
 						registerMediaRatio(eventId, node.naturalWidth, node.naturalHeight);
 						scheduleMasonryLayout();
 					},
@@ -206,16 +228,32 @@
 				node.src = sourceUrl;
 				node.decoding = 'async';
 			} else {
+				let metadataReady = false;
+				let thumbnailReady = false;
+				const markVideoReady = () => {
+					if (!metadataReady || !thumbnailReady) return;
+					markInitialMediaLoaded(eventId);
+				};
 				node.addEventListener(
 					'loadedmetadata',
 					() => {
+						metadataReady = true;
+						markVideoReady();
 						registerMediaRatio(eventId, node.videoWidth, node.videoHeight);
 						scheduleMasonryLayout();
 					},
 					{ once: true }
 				);
+				node.addEventListener(
+					'loadeddata',
+					() => {
+						thumbnailReady = true;
+						markVideoReady();
+					},
+					{ once: true }
+				);
 				node.src = sourceUrl;
-				node.preload = 'metadata';
+				node.preload = initialMediaEventIds.has(eventId) ? 'auto' : 'metadata';
 				node.load();
 			}
 
@@ -266,11 +304,17 @@
 <div
 	class="gallery-columns"
 	class:ratios-loading={!ratiosReady}
-	aria-busy={!ratiosReady}
+	aria-busy={!ratiosReady || initialMediaLoaded < initialMediaTarget}
 	bind:this={galleryNode}
 >
+	{#if initialMediaLoaded < initialMediaTarget}
+		<div class="gallery-loader" role="status" aria-live="polite" aria-label="Loading gallery media">
+			<span class="gallery-spinner" aria-hidden="true"></span>
+			<span class="gallery-loader-text">Loading gallery…</span>
+		</div>
+	{/if}
 	<div class="media-sizer" aria-hidden="true"></div>
-	{#each eventShowcaseData.sort((a, b) => (a.sortIndex ?? 99) - (b.sortIndex ?? 99) || a.name.localeCompare(b.name)) as event (event.id)}
+	{#each sortedEventShowcaseData as event (event.id)}
 		{@const activeMedia = getCurrentMedia(event)}
 		{@const currentIndex = mediaIndices[event.id] ?? 0}
 		<figure class="media-card panel">
@@ -410,7 +454,47 @@
 	}
 
 	.gallery-columns.ratios-loading {
-		visibility: hidden;
+		opacity: 1;
+	}
+
+	.gallery-loader {
+		position: absolute;
+		top: 0.8rem;
+		left: 50%;
+		z-index: 30;
+		display: inline-flex;
+		transform: translateX(-50%);
+		align-items: center;
+		gap: 0.55rem;
+		border: 1px solid color-mix(in oklab, white 24%, transparent);
+		border-radius: 999px;
+		background: color-mix(in oklab, var(--color-anthracite-900) 86%, transparent);
+		padding: 0.45rem 0.75rem;
+		backdrop-filter: blur(4px);
+	}
+
+	.gallery-spinner {
+		display: inline-block;
+		width: 0.9rem;
+		height: 0.9rem;
+		border-radius: 999px;
+		border: 2px solid color-mix(in oklab, white 35%, transparent);
+		border-top-color: var(--color-electric-400);
+		animation: gallery-spin 0.8s linear infinite;
+	}
+
+	.gallery-loader-text {
+		font-size: 0.75rem;
+		font-weight: 700;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: color-mix(in oklab, white 86%, transparent);
+	}
+
+	@keyframes gallery-spin {
+		to {
+			transform: rotate(360deg);
+		}
 	}
 
 	.media-sizer,

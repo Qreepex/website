@@ -173,7 +173,7 @@ export const devProjects: Project[] = [
 		color: '#004682'
 	},
 	{
-		title: 'WaterMe.app',
+		title: 'Water-Me.app',
 		domain: 'Mobile/Web App, since 2025',
 		description:
 			'App to track Plants and their watering needs, built with a focus on delightful UI, reliability and helpful features to make plant care easier and more enjoyable.',

@@ -5,10 +5,7 @@
 		external?: boolean;
 	};
 
-	let name = 'Ben',
-		promo =
-			'Fullstack development meets event technology. Available for ambitious digital and live production projects.',
-		profileLinks = [
+	let profileLinks = [
 			{ label: 'GitHub', href: 'https://qrpx.link/gh', external: true },
 			{ label: 'LinkedIn', href: 'https://qrpx.link/in', external: true },
 			{ label: 'Instagram', href: 'https://qrpx.link/ig', external: true }
@@ -27,8 +24,11 @@
 >
 	<div class="mx-auto grid w-full max-w-7xl gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
 		<div>
-			<p class="text-xs font-semibold tracking-[0.2em] text-electric-400 uppercase">{name}</p>
-			<p class="mt-4 max-w-lg text-base leading-relaxed text-mist-100/84">{promo}</p>
+			<p class="text-xs font-semibold tracking-[0.2em] text-electric-400 uppercase">Ben</p>
+			<p class="mt-4 max-w-lg text-base leading-relaxed text-mist-100/84">
+				Fullstack development meets event technology. Available for ambitious digital and live
+				production projects.
+			</p>
 		</div>
 
 		<nav aria-label="Profiles">
@@ -67,6 +67,6 @@
 		class="mx-auto mt-12 w-full max-w-7xl border-t border-violet-400/20 pt-5 text-sm text-mist-100/65"
 	>
 		© {year}
-		{name}. Built with SvelteKit.
+		Ben. All rights reserved.
 	</div>
 </footer>

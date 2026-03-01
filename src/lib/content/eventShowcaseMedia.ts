@@ -50,7 +50,13 @@ export const eventShowcaseData: EventShowcase[] = [
 				name: 'Butterflies Pyro',
 				url: '/event-showcase/pics/own/2025-butterflies-stadtpark-pyro.webp',
 				type: 'image',
-				fill: true
+				fill: true,
+				photographer: [
+					{
+						name: 'Joel Abraham',
+						url: 'https://instagram.com/fotograf.und.so'
+					}
+				]
 			},
 			{
 				url: '/event-showcase/vids/own/2025-butterflies-stadtpark-stage-1.webm',
