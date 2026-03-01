@@ -11,7 +11,7 @@
 	let brand = 'Ben',
 		links = [
 			{ label: 'About', href: '/ben' },
-			{ label: 'Dev Projects', href: '/#projects' },
+			{ label: 'Dev Projects', href: '/#dev' },
 			{ label: 'Event Tech', href: '/event-tech' },
 			{ label: 'Contact', href: '/reach-me' },
 			{ label: 'Links', href: '/links' }

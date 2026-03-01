@@ -1,5 +1,5 @@
 <script lang="ts">
-	import HighlighCard from '$lib/components/HighlighCard.svelte';
+	import HighlightCard from '$lib/components/HighlightCard.svelte';
 	import type { SkillGroup } from '$lib/content/skills';
 	import { fxDisabled } from '$lib/stores/reducedMotion';
 
@@ -71,8 +71,7 @@
 				</p>
 				<div class="mt-5 grid gap-4 sm:grid-cols-2">
 					{#each featuredSkills as skill}
-						<HighlighCard
-							url={skill.name}
+						<HighlightCard
 							label={skill.name}
 							description={skill.description}
 							kicker={skill.groupTitle}

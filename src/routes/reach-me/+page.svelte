@@ -1,5 +1,5 @@
 <script>
-	import HighlighCard from '$lib/components/HighlighCard.svelte';
+	import HighlightCard from '$lib/components/HighlightCard.svelte';
 	import HeaderSection from '$lib/page/HeaderSection.svelte';
 	import PageContent from '$lib/page/PageContent.svelte';
 </script>
@@ -44,25 +44,25 @@
 			Contact Information
 		</h2>
 		<div class="mt-5 grid gap-4 sm:grid-cols-2">
-			<HighlighCard
+			<HighlightCard
 				url="mailto:ben@schiemann.work"
 				label="Email"
 				description="ben@schiemann.work"
 				icon="/media/icons/email.svg"
 			/>
-			<HighlighCard
+			<HighlightCard
 				url="https://wa.me/004915164877269"
 				label="Whatsapp"
 				description="+49 1516 4877269"
 				icon="/media/icons/Digital_Glyph_Green.svg"
 			/>
-			<HighlighCard
+			<HighlightCard
 				url="https://linkedin.com/in/ben-schiemann/"
 				label="LinkedIn"
 				description="linkedin.com/in/ben-schiemann"
 				icon="/media/icons/LI-In-Bug.png"
 			/>
-			<HighlighCard
+			<HighlightCard
 				url="https://instagram.com/_bms.05/"
 				label="Instagram"
 				icon="/media/icons/Instagram_Glyph_Gradient.svg"

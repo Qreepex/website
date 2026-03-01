@@ -1,5 +1,5 @@
 <script lang="ts">
-	import HighlighCard from '$lib/components/HighlighCard.svelte';
+	import HighlightCard from '$lib/components/HighlightCard.svelte';
 	import { links } from '$lib/content';
 	import HeaderSection from '$lib/page/HeaderSection.svelte';
 	import PageContent from '$lib/page/PageContent.svelte';
@@ -44,7 +44,7 @@
 		<ul class="mt-4 grid gap-4 md:grid-cols-3">
 			{#each featuredLinks as link}
 				<li>
-					<HighlighCard
+					<HighlightCard
 						url={link.url}
 						label={link.label}
 						description={featuredMeta[link.label as (typeof featuredLabels)[number]].description}

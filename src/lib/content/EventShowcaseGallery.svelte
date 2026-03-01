@@ -26,6 +26,11 @@
 	const loadedInitialMediaEvents = new Set<string>();
 	let initialMediaLoaded = $state(0);
 	const finalizedRatios = new Set<string>();
+	const eventById = new Map(sortedEventShowcaseData.map((event) => [event.id, event]));
+	const eventIndexById = new Map(sortedEventShowcaseData.map((event, index) => [event.id, index]));
+	const preloadedMediaUrls = new Set<string>();
+	const preloadHintLinks = new Map<string, HTMLLinkElement>();
+	const SCROLL_AHEAD_PRELOAD_COUNT = 4;
 
 	function scheduleMasonryLayout() {
 		if (!masonry) return;
@@ -92,6 +97,66 @@
 
 		loadedInitialMediaEvents.add(eventId);
 		initialMediaLoaded = loadedInitialMediaEvents.size;
+	}
+
+	function ensurePreloadHint(url: string, asType: 'image' | 'video') {
+		if (preloadHintLinks.has(url)) return;
+
+		const link = document.createElement('link');
+		link.rel = 'preload';
+		link.as = asType;
+		link.href = url;
+		document.head.appendChild(link);
+		preloadHintLinks.set(url, link);
+	}
+
+	function preloadImageUrl(url: string) {
+		ensurePreloadHint(url, 'image');
+	}
+
+	function preloadVideoUrl(url: string) {
+		ensurePreloadHint(url, 'video');
+	}
+
+	function preloadMediaItem(media: EventShowcase['media'][number] | undefined) {
+		if (!media) return;
+		const url = ASSETS_HOST + media.url;
+		if (preloadedMediaUrls.has(url)) return;
+
+		preloadedMediaUrls.add(url);
+		if (media.type === 'image') {
+			preloadImageUrl(url);
+			return;
+		}
+
+		preloadVideoUrl(url);
+	}
+
+	function preloadNextCarouselMedia(eventId: string) {
+		const event = eventById.get(eventId);
+		if (!event || event.media.length < 2) return;
+
+		const currentIndex = getMediaIndex(eventId);
+		const nextIndex = (currentIndex + 1) % event.media.length;
+		preloadMediaItem(event.media[nextIndex]);
+	}
+
+	function preloadUpcomingScrollMedia(eventId: string) {
+		const currentEventIndex = eventIndexById.get(eventId);
+		if (currentEventIndex === undefined) return;
+
+		for (let offset = 1; offset <= SCROLL_AHEAD_PRELOAD_COUNT; offset += 1) {
+			const nextEvent = sortedEventShowcaseData[currentEventIndex + offset];
+			if (!nextEvent) break;
+
+			const nextEventCurrentMediaIndex = getMediaIndex(nextEvent.id);
+			preloadMediaItem(nextEvent.media[nextEventCurrentMediaIndex] ?? nextEvent.media[0]);
+		}
+	}
+
+	function onMediaReady(eventId: string) {
+		preloadNextCarouselMedia(eventId);
+		preloadUpcomingScrollMedia(eventId);
 	}
 
 	function probeImageRatio(url: string): Promise<number | null> {
@@ -197,6 +262,7 @@
 
 		const current = mediaIndices[eventId] ?? 0;
 		mediaIndices[eventId] = (current + 1) % totalMedia;
+		preloadNextCarouselMedia(eventId);
 		tick().then(scheduleMasonryLayout);
 	}
 
@@ -206,6 +272,7 @@
 
 		const current = mediaIndices[eventId] ?? 0;
 		mediaIndices[eventId] = (current - 1 + totalMedia) % totalMedia;
+		preloadNextCarouselMedia(eventId);
 		tick().then(scheduleMasonryLayout);
 	}
 
@@ -214,12 +281,14 @@
 			if (node.dataset.loaded === 'true') return;
 			const sourceUrl = node.dataset.src;
 			if (!sourceUrl) return;
+			preloadedMediaUrls.add(sourceUrl);
 
 			if (node instanceof HTMLImageElement) {
 				node.addEventListener(
 					'load',
 					() => {
 						markInitialMediaLoaded(eventId);
+						onMediaReady(eventId);
 						registerMediaRatio(eventId, node.naturalWidth, node.naturalHeight);
 						scheduleMasonryLayout();
 					},
@@ -249,6 +318,7 @@
 					() => {
 						thumbnailReady = true;
 						markVideoReady();
+						onMediaReady(eventId);
 					},
 					{ once: true }
 				);

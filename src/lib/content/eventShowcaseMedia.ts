@@ -188,11 +188,6 @@ export const eventShowcaseData: EventShowcase[] = [
 				type: 'video'
 			},
 			{
-				name: 'Sickmode Show 4',
-				url: '/event-showcase/vids/own/2025-sickmode-docks-4.webm',
-				type: 'video'
-			},
-			{
 				name: 'Sickmode Show 5',
 				url: '/event-showcase/vids/own/2025-sickmode-docks-5.webm',
 				type: 'video'
