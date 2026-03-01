@@ -275,25 +275,30 @@
 		{@const currentIndex = mediaIndices[event.id] ?? 0}
 		<figure class="media-card panel">
 			{#if event.media.length > 1}
-				<div class="media-nav top-nav" role="group" aria-label="Media navigation">
+				<div
+					class="absolute top-2 left-0 right-0 z-20 flex items-center justify-between gap-3 rounded-t-[0.9rem] border-none bg-none px-3 py-[0.7rem]"
+					role="group"
+					aria-label="Media navigation"
+				>
 					<button
 						type="button"
-						class="media-nav-btn"
+						class="flex h-12 w-12 items-center cursor-pointer justify-center rounded-full border border-mist-100/45 bg-anthracite-900/80 shadow-[0_2px_8px_rgba(0,0,0,0.35)] backdrop-blur-[2px] transition-colors hover:bg-anthracite-900/60 focus-visible:border-mist-100/70 focus-visible:bg-anthracite-900/60 focus-visible:outline-none md:h-8 md:w-8"
 						onclick={(e) => prevMedia(event.id, event.media.length, e)}
 						aria-label="Previous media"
 					>
-						‹
+						<span aria-hidden="true" class="-translate-y-[0.02em] leading-none font-bold">‹</span>
 					</button>
-					<span class="media-nav-indicator"
+					<span
+						class="min-w-[2.2em] rounded-[0.7em] border border-mist-100/30 bg-[rgba(24,26,32,0.82)] px-2 py-1 text-center text-[0.8rem] font-semibold tracking-[0.04em] text-mist-100/80 opacity-95 shadow-[0_2px_8px_rgba(0,0,0,0.28)] md:px-[0.4rem] md:py-[0.18rem] md:text-[0.74rem]"
 						>{getMediaIndex(event.id) + 1} / {event.media.length}</span
 					>
 					<button
 						type="button"
-						class="media-nav-btn"
+						class="flex h-12 w-12 items-center cursor-pointer justify-center rounded-full border border-mist-100/45 bg-anthracite-900/80 shadow-[0_2px_8px_rgba(0,0,0,0.35)] backdrop-blur-[2px] transition-colors hover:bg-anthracite-900/60 focus-visible:border-mist-100/70 focus-visible:bg-anthracite-900/60 focus-visible:outline-none md:h-8 md:w-8"
 						onclick={(e) => nextMedia(event.id, event.media.length, e)}
 						aria-label="Next media"
 					>
-						›
+						<span aria-hidden="true" class="-translate-y-[0.02em] leading-none font-bold">›</span>
 					</button>
 				</div>
 			{/if}
@@ -334,7 +339,7 @@
 					</p>
 				{/if}
 
-				{#if event.eventPageUrl || (activeMedia.photographer && activeMedia.photographer.url)}
+				{#if event.eventPageUrl || (activeMedia.photographer?.length)}
 					<div
 						class="mt-2 flex flex-wrap items-center gap-3 text-xs font-semibold text-mist-100/80"
 					>
@@ -348,16 +353,25 @@
 								Event Page
 							</a>
 						{/if}
-						{#if activeMedia.photographer && activeMedia.photographer.url}
-							<a
-								href={activeMedia.photographer.url}
-								target="_blank"
-								rel="noopener noreferrer"
-								class="underline decoration-mist-100/50 underline-offset-2 hover:decoration-mist-100"
-							>
-								Photo: {activeMedia.photographer.name}
-							</a>
-						{/if}
+						{#if activeMedia.photographer?.length}
+
+						<div class="flex items-center gap-1 text-mist-100/70">
+						<span>&copy;</span>
+						{#each activeMedia.photographer as photographer, index}
+								<a
+									href={photographer.url}
+									target="_blank"
+									rel="noopener noreferrer"
+									class="underline decoration-mist-100/50 underline-offset-2 hover:decoration-mist-100"
+								>
+									{photographer.name}
+								</a>
+								{#if index < activeMedia.photographer.length - 1}
+									<span>/</span>
+								{/if}
+							{/each}
+					</div>
+					{/if}
 					</div>
 				{/if}
 
@@ -427,65 +441,6 @@
 	.media-element.media-fill {
 		object-fit: cover;
 	}
-	.media-nav {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: 0.75rem;
-		padding: 0.55rem 0.75rem;
-		background: none;
-		border: none;
-		position: absolute;
-		top: 0.5rem;
-		left: 0;
-		right: 0;
-		z-index: 20;
-		pointer-events: auto;
-	}
-
-	.top-nav {
-		border-top-left-radius: 0.9rem;
-		border-top-right-radius: 0.9rem;
-		margin-bottom: 0;
-		/* Remove background and make nav float */
-		background: none;
-		border: none;
-	}
-
-	.media-nav-btn {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 2rem;
-		height: 2rem;
-		border-radius: 9999px;
-		border: none;
-		background: none;
-		color: var(--color-mist-100);
-		font-size: 1.15rem;
-		line-height: 1;
-		font-weight: 700;
-		cursor: pointer;
-		pointer-events: auto;
-		z-index: 21;
-	}
-
-	.media-nav-indicator {
-		padding: 0.15rem 0.35rem;
-		min-width: 2.2em;
-		border-radius: 0.7em;
-		border: none;
-		background: rgba(24, 26, 32, 0.72);
-		color: color-mix(in oklab, var(--color-mist-100) 80%, transparent);
-		font-size: 0.72rem;
-		font-weight: 500;
-		letter-spacing: 0.04em;
-		flex: none;
-		text-align: center;
-		box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1);
-		opacity: 0.85;
-	}
-
 	.media-caption {
 		padding: 0.9rem;
 		border-top: 1px solid color-mix(in oklab, white 12%, transparent);
