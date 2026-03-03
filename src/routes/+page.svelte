@@ -272,6 +272,10 @@
 				isHeroEventMode = true;
 				stopGlitch();
 				clearDevMode();
+				if (videoEl) {
+					videoEl.currentTime = 0;
+					videoEl.play().catch(() => {});
+				}
 				gsap.killTweensOf(overlayEl);
 				gsap.to(overlayEl, { opacity: 0, duration: 0.25, ease: 'power1.out' });
 				gsap.killTweensOf(scrimEl);
