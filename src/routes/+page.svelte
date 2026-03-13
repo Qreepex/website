@@ -521,8 +521,8 @@
 			poster="/media/hero-poster.svg"
 			aria-hidden="true"
 		>
-			<source src={ASSETS_HOST + "/hero.webm"} type="video/webm" />
-			<source src={ASSETS_HOST + "/hero.mp4"} type="video/mp4" />
+			<source src={ASSETS_HOST + '/hero.webm'} type="video/webm" />
+			<source src={ASSETS_HOST + '/hero.mp4'} type="video/mp4" />
 		</video>
 		<div
 			data-hero-overlay
@@ -568,9 +568,9 @@
 				<p
 					class="mt-6 max-w-3xl ps-2 text-base leading-relaxed font-semibold text-mist-100/90 sm:text-lg"
 				>
-					Hamburg-based fullstack developer focused on cloud-native platforms, high-availability
-					systems and modern web applications — plus event technician work with a focus on lighting
-					control and laser-supported live productions.
+					Hamburg-based fullstack developer focused on cloud-native micro services,
+					high-availability systems and modern web applications — plus event technician work with a
+					focus on lighting and lasers.
 				</p>
 				<div class="mt-6 flex flex-wrap gap-3 ps-2 text-sm font-semibold">
 					<a

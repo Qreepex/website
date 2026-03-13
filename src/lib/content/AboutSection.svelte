@@ -8,7 +8,7 @@
 			<p class="max-w-3xl text-base leading-relaxed text-mist-100/86">
 				I work at the intersection of software engineering and live production technology in
 				Hamburg, Germany. On the software side, I build scalable backend and fullstack applications
-				with cloud-native architecture and production-first reliability.
+				with cloud-native and micro service architecture.
 				<br />
 				<br />
 				On the event side, I program lighting systems, operate laser-ready workflows and support show-critical

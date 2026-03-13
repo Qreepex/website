@@ -3,7 +3,7 @@
 	import HeaderSection from '$lib/page/HeaderSection.svelte';
 	import PageContent from '$lib/page/PageContent.svelte';
 
-	const pageTitle = 'My Event Tech in Hamburg | Lighting and Laser Technician';
+	const pageTitle = 'My Event Tech | Lighting and Laser Technician';
 	const pageDescription =
 		'This is my event technology showcase including lighting programming, laser-supported live productions, show networking and stage systems.';
 </script>
@@ -16,8 +16,8 @@
 <HeaderSection
 	title="Event Tech"
 	subtitle="I build and operate live lighting and laser shows for clubs, festivals and corporate events.
-		My workflow is centered around grandMA2 / grandMA3, Art-Net based networking and show	control, plus integrating lasers, LED walls and stage systems into one reliable setup.
-		I also handle FOH and sound setup tasks with L-Acoustics speakers and live desks, from prep	to final show operation."
+		My workflow is centered around grandMA2 / grandMA3 and Pangolin BEYOND plus integrating LED walls, sound systems and beautiful stages into one reliable setup.
+		I also handle FOH and sound setup tasks with L-Acoustics speakers and mixing desks, from prep	to final show operation."
 />
 
 <PageContent>

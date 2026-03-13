@@ -27,12 +27,12 @@ export const PROJECTS_MODE_LABELS: Record<ProjectsMode, string> = {
 export const PROJECTS_MODE_DESCRIPTIONS: Record<ProjectsMode, string> = {
 	dev: 'Software-first builds focused on cloud-native platforms, APIs and intelligent automation. Each system is designed to hit hard in production.',
 	event:
-		'Show-critical systems for lighting, networking and realtime production orchestration. Engineered for pressure, precision and zero compromise.'
+		'Show-critical systems for lighting, networking and show production in live events. Always trying to give the audience that WOW moment!'
 };
 
 export const eventTechOverview: string[] = [
-	'I build LIVE light shows and fully timecoded shows for lighting and lasers to deliver that WOW moment to all guests!',
-	'I mainly work with grandMA3 (and sometimes grandMA2), program laser workflows in Pangolin Beyond, and handle networked show control with technologies like Art-Net.',
+	'I operate LIVE light shows or program fully timecoded shows for lighting and lasers to create immersive atmospheres and unforgettable moments for audiences.',
+	'I mainly work with grandMA3 (and sometimes grandMA2), program laser workflows in Pangolin BEYOND, and handle networked show control with technologies like Art-Net.',
 	'I also build stage setups, work with L-Acoustics speaker systems, and operate sound desks in live production environments.'
 ];
 

@@ -58,9 +58,9 @@
 				Cloud-native engineering for real production systems.
 			</h2>
 			<p class="mt-5 max-w-5xl text-base font-semibold text-mist-100/90 sm:text-lg">
-				Senior full-stack development focused on TypeScript, Go, Node.js and microservices
-				architecture. Strong in cloud native infrastructure, API integrations, CI/CD delivery,
-				observability, compliance, and scalable backend systems.
+				Full-stack development focused on TypeScript, Go, Node.js and microservices architecture.
+				Strong in cloud native infrastructure, API integrations, CI/CD delivery, observability,
+				compliance, and scalable backend systems.
 			</p>
 		</div>
 
