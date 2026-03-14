@@ -6,7 +6,7 @@
 	preserveAspectRatio="xMidYMid meet"
 	class="world-map"
 >
-	<title>World Map</title>
+	<title>Ben on adventures 👀</title>
 	<style id="style_css_sheet" type="text/css">
 		/*
  * Below are Cascading Style Sheet (CSS) definitions in use in this file,
