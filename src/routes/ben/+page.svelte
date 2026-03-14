@@ -2,6 +2,8 @@
 	import HeaderSection from '$lib/page/HeaderSection.svelte';
 	import PageContent from '$lib/page/PageContent.svelte';
 
+	import World from '$lib/World.svelte';
+
 	const pageTitle = 'About Me | Fullstack Developer & Event Technician in Hamburg';
 	const pageDescription =
 		'Learn more about me: I am a Hamburg-based fullstack developer focused on cloud-native engineering and an event technician specialized in lighting and lasers.';
@@ -26,5 +28,12 @@
 			frameworks, as well as extensive knowledge of lighting, laser, sound and stage production for
 			clubs, festivals and corporate events.
 		</p>
+		<p class="pt-6">
+			I LOVE to travel around the world and explore new countries. Here is where I have been so far:
+		</p>
+	</section>
+
+	<section>
+		<World />
 	</section>
 </PageContent>
