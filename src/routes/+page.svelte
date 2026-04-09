@@ -1,19 +1,16 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import gsap from 'gsap';
-	import { ScrollTrigger } from 'gsap/ScrollTrigger';
-	import AboutSection from '$lib/content/AboutSection.svelte';
-	import SkillsSection from '$lib/content/SkillsSection.svelte';
-	import ProjectsSection from '$lib/content/ProjectsSection.svelte';
 	import HeroLiquidBackground from '$lib/components/HeroLiquidBackground.svelte';
 	import ScrollIndicator from '$lib/components/ScrollIndicator.svelte';
+	import AboutSection from '$lib/content/AboutSection.svelte';
+	import ProjectsSection from '$lib/content/ProjectsSection.svelte';
 	import { skillGroups } from '$lib/content/skills';
-
-	gsap.registerPlugin(ScrollTrigger);
-
+	import SkillsSection from '$lib/content/SkillsSection.svelte';
+	import gsap from 'gsap';
+	import { ScrollTrigger } from 'gsap/ScrollTrigger';
+	import { onMount } from 'svelte';
 	// ── FX store ─────────────────────────────────────────────────────────
-	import { fxDisabled } from '$lib/stores/reducedMotion';
 	import { APP_READY_EVENT, ASSETS_HOST } from '$lib';
+	import { fxDisabled } from '$lib/stores/reducedMotion';
 
 	// Module-level refs so the $effect can reach inside onMount closures
 	let _stopFn: () => void = () => {};
@@ -274,18 +271,26 @@
 				clearDevMode();
 				if (videoEl) {
 					videoEl.currentTime = 0;
-					videoEl.play().catch(() => {});
+					if ($fxDisabled) {
+						videoEl.pause();
+					} else {
+						videoEl.play().catch(() => {});
+					}
 				}
 				gsap.killTweensOf(overlayEl);
 				gsap.to(overlayEl, { opacity: 0, duration: 0.25, ease: 'power1.out' });
 				gsap.killTweensOf(scrimEl);
 				gsap.to(scrimEl, { opacity: 1, duration: 0.35, ease: 'power1.out' });
 				gsap.killTweensOf(videoEl);
-				gsap.fromTo(
-					videoEl,
-					{ opacity: 1, filter: 'brightness(3.5) saturate(1.8)' },
-					{ opacity: 1, filter: 'brightness(1) saturate(1)', duration: 0.55, ease: 'power2.out' }
-				);
+				if ($fxDisabled) {
+					gsap.set(videoEl, { opacity: 1, filter: 'brightness(1) saturate(1)' });
+				} else {
+					gsap.fromTo(
+						videoEl,
+						{ opacity: 1, filter: 'brightness(3.5) saturate(1.8)' },
+						{ opacity: 1, filter: 'brightness(1) saturate(1)', duration: 0.55, ease: 'power2.out' }
+					);
+				}
 			}
 
 			function transitionToDevMode() {
