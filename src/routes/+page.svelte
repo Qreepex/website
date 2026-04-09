@@ -37,8 +37,8 @@
 	// ─────────────────────────────────────────────────────────────────────
 
 	onMount(() => {
-		const HERO_PIN_DISTANCE = 1400;
-		const HERO_SCRUB_DISTANCE = 800;
+		const HERO_PIN_DISTANCE = 900;
+		const HERO_SCRUB_DISTANCE = 400;
 
 		let glitchStart: ReturnType<typeof setTimeout> | null = null;
 		let typingTimer: ReturnType<typeof setTimeout> | null = null;
@@ -88,7 +88,7 @@
 			const scrollTl = gsap.timeline({ paused: true });
 			scrollTl.to('[data-hero-content]', {
 				y: () => -(window.innerHeight * 0.2),
-				scale: 0.52,
+				// scale: 0.52,
 				transformOrigin: 'left top',
 				duration: 0.5,
 				ease: 'power2.out'
