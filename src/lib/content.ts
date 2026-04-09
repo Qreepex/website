@@ -147,7 +147,7 @@ export const devProjects: Project[] = [
 		title: 'EazyAutodelete',
 		domain: 'Discord Bot, since 2020',
 		description:
-			'Widely used Auto Delete bot for Discord, built with a focus on reliability, configurability and user-friendly design used by over 31,000 communities reaching 18 mio. users worldwide.',
+			'Widely used Auto Delete bot for Discord, built with a focus on reliability, configurability and user-friendly design used by over 32,000 communities reaching 19 mio. users worldwide.',
 		tech: [
 			'Go',
 			'Kubernetes',
@@ -166,7 +166,7 @@ export const devProjects: Project[] = [
 		title: 'Full Stack Dev @ ENERPARC AG',
 		domain: 'Full Stack Developer for Renewable Energies, since 2025',
 		description:
-			'At Enerparc, I build high available system to monitor and collect data from hundreds of solar parks and run real time analysis on it as well as process it for long term storage and Machine learning applications.',
+			'At Enerparc, I build high available system to monitor and collect data from hundreds of solar parks and run real time analysis on it as well as process it for long term storage and Machine Learning applications.',
 		tech: ['Rust', 'TypeScript', 'Cloud Native', 'Kubernetes'],
 		image: '/media/reference/logo_enerparc.png',
 		url: 'https://enerparc.de',
@@ -189,7 +189,7 @@ export const smallerDevProjects: SmallerProject[] = [
 		title: 'EazyAutodelete Dashboard',
 		domain: 'Web Development',
 		description:
-			'Complex dashboard for managing configurations for EazyAutodelet. Full CRUD Operations on highly nested and relational data models with real-time validation.',
+			'Complex dashboard for managing configurations for EazyAutodelete. Full CRUD Operations on complex data models with real-time validation.',
 		tech: ['SvelteKit', 'Cloudflare Workers', 'CRUD'],
 		url: 'https://dash.eazyautodelete.xyz'
 	},

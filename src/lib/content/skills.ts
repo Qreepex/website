@@ -32,10 +32,8 @@ export const skillGroups: SkillGroup[] = [
 			{ name: 'Kubernetes', featured: true },
 			{ name: 'AWS' },
 			{ name: 'Networking / Ingress / Routing' },
-			{ name: 'Cloudflare Workers', featured: true },
-			{ name: 'Cloudflare KV' },
-			{ name: 'Cloudflare WAF' },
-			{ name: 'Cloudflare One / Zero Trust' },
+			{ name: 'Cloudflare Workers / Pages', featured: true },
+			{ name: 'Cloudflare WAF / One / Zero Trust' },
 			{ name: 'Temporal.io Workflow Orchestration', featured: true }
 		]
 	},
