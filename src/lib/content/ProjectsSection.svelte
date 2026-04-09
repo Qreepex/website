@@ -1,35 +1,33 @@
 <script lang="ts">
-	import { onMount, tick } from 'svelte';
-	import gsap from 'gsap';
-	import { ScrollTrigger } from 'gsap/ScrollTrigger';
 	import {
 		PROJECTS_MODE_DESCRIPTIONS,
 		PROJECTS_MODE_LABELS,
 		createRandomEventRigs,
 		devProjects,
-		eventShowcaseImages,
-		eventTechOverview,
 		type EventRig
 	} from '$lib/content';
+	import EventRigsOverlay from '$lib/content/EventRigsOverlay.svelte';
+	import EventTechGallery from '$lib/content/EventTechGallery.svelte';
+	import ProjectItem from '$lib/content/ProjectItem.svelte';
+	import ProjectsModeToggle from '$lib/content/ProjectsModeToggle.svelte';
+	import SmallerProjectsSection from '$lib/content/SmallerProjectsSection.svelte';
+	import { fxDisabled } from '$lib/stores/reducedMotion';
 	import {
 		assignRandomGradientsForProjects as assignRandomGradients,
 		gradientBackgroundFor as gradientBackgroundForIndex,
 		gradientClassFor as gradientClassForIndex,
-		projectHasSolidColor,
 		projectGradientTextStyle,
+		projectHasSolidColor,
 		projectMetaClass as projectMetaClassForMode,
 		projectTitleClass as projectTitleClassForMode,
 		sectionTitleClass as sectionTitleClassForMode,
 		techTagClass as techTagClassForMode,
 		type GradientPreset
 	} from '$lib/styles';
-	import { fxDisabled } from '$lib/stores/reducedMotion';
-	import SmallerProjectsSection from '$lib/content/SmallerProjectsSection.svelte';
-	import EventRigsOverlay from '$lib/content/EventRigsOverlay.svelte';
-	import EventTechGallery from '$lib/content/EventTechGallery.svelte';
-	import ProjectItem from '$lib/content/ProjectItem.svelte';
-	import ProjectsModeToggle from '$lib/content/ProjectsModeToggle.svelte';
 	import type { ProjectsMode } from '$lib/types';
+	import gsap from 'gsap';
+	import { ScrollTrigger } from 'gsap/ScrollTrigger';
+	import { onMount, tick } from 'svelte';
 
 	gsap.registerPlugin(ScrollTrigger);
 
@@ -483,10 +481,12 @@
 		</div>
 
 		{#if activeMode === 'dev'}
-			<div class="relative z-10 h-[62vh] min-h-105 sm:mt-6 sm:h-[66vh] lg:h-[70vh]">
+			<div
+				class={`relative z-10 sm:mt-6 ${$fxDisabled ? 'h-auto min-h-0' : 'h-[62vh] min-h-105 sm:h-[66vh] lg:h-[70vh]'}`}
+			>
 				<div
 					bind:this={devPanelEl}
-					class={`project-mode-panel relative h-48 w-full lg:h-full ${activeMode === 'dev' ? 'is-active' : ''}`}
+					class={`project-mode-panel relative w-full ${$fxDisabled ? 'projects-dev-static-list h-auto' : 'h-48 lg:h-full'} ${activeMode === 'dev' ? 'is-active' : ''}`}
 					aria-hidden={activeMode !== 'dev'}
 				>
 					{#each devProjects as project, index}
@@ -530,5 +530,16 @@
 
 	.project-mode-panel.is-active {
 		display: block;
+	}
+
+	:global(.projects-dev-static-list [data-project-card]) {
+		position: relative;
+		inset: auto;
+	}
+
+	:global(.projects-dev-static-list [data-project-card] + [data-project-card]) {
+		margin-top: 2.75rem;
+		padding-top: 2.75rem;
+		border-top: 1px solid rgb(229 234 243 / 0.16);
 	}
 </style>
