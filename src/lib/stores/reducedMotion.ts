@@ -1,9 +1,16 @@
-import { writable } from 'svelte/store';
 import { browser } from '$app/environment';
+import { writable } from 'svelte/store';
 
 const KEY = 'fx-disabled';
 
-const initial = browser ? localStorage.getItem(KEY) === 'true' : false;
+const initial = browser
+	? (() => {
+		const saved = localStorage.getItem(KEY);
+		if (saved !== null) return saved === 'true';
+
+		return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	})()
+	: false;
 const { subscribe, update, set } = writable<boolean>(initial);
 
 export const fxDisabled = {
