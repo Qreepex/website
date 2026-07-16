@@ -11,7 +11,7 @@
 
 {#if url}
 	<a
-		class="group relative flex h-full flex-col justify-between overflow-hidden rounded-2xl bg-mist-100/4 p-5 shadow-[0_0_0_1px_rgba(120,140,255,0.18),0_14px_40px_rgba(10,12,28,0.35)] transition-colors hover:bg-mist-100/6"
+		class="highlight-card group relative flex h-full flex-col justify-between overflow-hidden bg-black p-5"
 		target="_blank"
 		rel="noopener noreferrer"
 		href={url}
@@ -53,7 +53,7 @@
 	</a>
 {:else}
 	<article
-		class="group relative flex h-full flex-col justify-between overflow-hidden rounded-2xl bg-mist-100/4 p-5 shadow-[0_0_0_1px_rgba(120,140,255,0.18),0_14px_40px_rgba(10,12,28,0.35)] transition-colors hover:bg-mist-100/6"
+		class="highlight-card group relative flex h-full flex-col justify-between overflow-hidden bg-black p-5"
 	>
 		<div
 			class="pointer-events-none absolute -top-8 -right-8 h-24 w-24 rounded-full bg-electric-400/15 blur-2xl"
@@ -91,3 +91,22 @@
 		</div>
 	</article>
 {/if}
+
+<style>
+	.highlight-card {
+		border: 1px solid color-mix(in oklab, var(--color-electric-400) 35%, transparent);
+		transition:
+			transform 0.2s cubic-bezier(0.22, 0.85, 0.3, 1.35),
+			border-color 0.2s ease,
+			box-shadow 0.2s ease;
+	}
+
+	.highlight-card:hover {
+		border-color: var(--color-electric-400);
+		transform: translateY(-3px) scale(1.015);
+		box-shadow:
+			0 0 0 2px var(--color-electric-400),
+			0 22px 46px -18px color-mix(in oklab, var(--color-electric-400) 65%, transparent),
+			0 0 50px -10px color-mix(in oklab, var(--color-electric-400) 55%, transparent);
+	}
+</style>

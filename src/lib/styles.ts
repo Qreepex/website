@@ -222,6 +222,6 @@ export function projectTitleClass(mode: ProjectsMode, project?: ProjectColorConf
 
 export function techTagClass(mode: ProjectsMode): string {
 	return mode === 'dev'
-		? 'rounded-md border border-electric-400/45 px-2.5 py-1 text-xs font-semibold bg-electric-500/24 text-electric-100'
-		: 'rounded-sm border border-orange-400/75 bg-anthracite-800/90 px-3 py-1 text-[11px] font-light tracking-[0.11em] text-mist-100/58 uppercase ring-1 ring-orange-400/25';
+		? 'bg-electric-400/16 px-2.5 py-1 text-xs font-black tracking-[0.04em] text-electric-300 uppercase transition-colors hover:bg-electric-400 hover:text-[#050505]'
+		: 'bg-orange-400/16 px-2.5 py-1 text-[11px] font-black tracking-[0.09em] text-orange-300 uppercase transition-colors hover:bg-orange-400 hover:text-[#050505]';
 }

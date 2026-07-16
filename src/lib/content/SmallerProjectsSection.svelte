@@ -2,7 +2,7 @@
 	import { smallerDevProjects } from '$lib/content';
 
 	const smallerProjectTechTagClass =
-		'rounded-sm border border-mist-100/18 bg-mist-100/4 px-2 py-1 text-[10px] font-semibold tracking-[0.08em] text-mist-100/72 uppercase';
+		'bg-mist-100/8 px-2 py-1 text-[10px] font-black tracking-[0.08em] text-mist-100/75 uppercase';
 </script>
 
 <section
@@ -23,7 +23,7 @@
 						href={project.url}
 						target="_blank"
 						rel="noopener noreferrer"
-						class="group border border-mist-100/12 bg-mist-100/2 p-4 transition-colors hover:border-mist-100/22 hover:bg-mist-100/4"
+						class="smaller-card group border border-mist-100/12 bg-mist-100/2 p-4"
 					>
 						<p class="text-[11px] font-bold tracking-[0.18em] text-mist-100/62 uppercase">
 							{project.domain}
@@ -41,7 +41,7 @@
 						</div>
 					</a>
 				{:else}
-					<div data-smaller-card class="border border-mist-100/12 bg-mist-100/2 p-4">
+					<div data-smaller-card class="smaller-card border border-mist-100/12 bg-mist-100/2 p-4">
 						<p class="text-[11px] font-bold tracking-[0.18em] text-mist-100/62 uppercase">
 							{project.domain}
 						</p>
@@ -60,3 +60,22 @@
 		</div>
 	</div>
 </section>
+
+<style>
+	.smaller-card {
+		transition:
+			transform 0.2s cubic-bezier(0.22, 0.85, 0.3, 1.35),
+			border-color 0.2s ease,
+			box-shadow 0.2s ease,
+			background-color 0.2s ease;
+	}
+
+	.smaller-card:hover {
+		transform: translateY(-3px);
+		border-color: var(--color-electric-400);
+		background: color-mix(in oklab, var(--color-electric-400) 5%, transparent);
+		box-shadow:
+			0 0 0 1px var(--color-electric-400),
+			0 18px 40px -18px color-mix(in oklab, var(--color-electric-400) 60%, transparent);
+	}
+</style>

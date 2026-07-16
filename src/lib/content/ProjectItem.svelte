@@ -37,7 +37,7 @@
 				{String(index + 1).padStart(2, '0')} · {project.domain}
 				{#if project.former}
 					<span
-						class="ml-2 rounded-sm border border-mist-100/35 bg-mist-100/10 px-2 py-0.5 text-[10px] font-semibold tracking-wider text-mist-100/65 uppercase"
+						class="ml-2 bg-mist-100/10 px-2 py-0.5 text-[10px] font-black tracking-wider text-mist-100/70 uppercase"
 						>Former</span
 					>
 				{/if}
@@ -63,7 +63,7 @@
 				{String(index + 1).padStart(2, '0')} · {project.domain}
 				{#if project.former}
 					<span
-						class="ml-2 rounded-sm border border-mist-100/35 bg-mist-100/10 px-2 py-0.5 text-[10px] font-semibold tracking-wider text-mist-100/65 uppercase"
+						class="ml-2 bg-mist-100/10 px-2 py-0.5 text-[10px] font-black tracking-wider text-mist-100/70 uppercase"
 						>Former</span
 					>
 				{/if}

@@ -500,10 +500,7 @@
 			<div class="relative z-10 sm:mt-6">
 				<EventTechGallery />
 				<div class="mt-8 flex justify-center sm:mt-10">
-					<a
-						href="/event-tech"
-						class="inline-flex items-center rounded-lg border border-mist-100/30 bg-mist-100/8 px-5 py-3 text-sm font-bold tracking-[0.12em] text-mist-100 uppercase transition-colors hover:border-mist-100/50 hover:bg-mist-100/14"
-					>
+					<a href="/event-tech" class="event-cta inline-flex items-center px-5 py-3 text-sm font-black tracking-[0.12em] uppercase">
 						More about Ben as an Event Tech
 					</a>
 				</div>
@@ -517,6 +514,27 @@
 {/if}
 
 <style>
+	.event-cta {
+		color: var(--color-mist-100);
+		border: 2px solid var(--color-violet-400);
+		background: color-mix(in oklab, var(--color-violet-400) 14%, transparent);
+		clip-path: polygon(4% 0, 100% 0, 96% 100%, 0 100%);
+		transition:
+			background-color 0.2s ease,
+			color 0.2s ease,
+			transform 0.2s cubic-bezier(0.22, 0.85, 0.3, 1.35),
+			box-shadow 0.2s ease;
+	}
+
+	.event-cta:hover {
+		background: var(--color-violet-400);
+		color: #050505;
+		transform: translateY(-2px) scale(1.03);
+		box-shadow:
+			0 16px 34px -12px color-mix(in oklab, var(--color-violet-400) 65%, transparent),
+			0 0 44px -8px color-mix(in oklab, var(--color-violet-400) 55%, transparent);
+	}
+
 	.project-mode-panel {
 		display: none;
 	}

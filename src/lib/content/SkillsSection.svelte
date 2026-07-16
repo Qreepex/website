@@ -104,10 +104,8 @@
 						>
 							{#each group.items as item}
 								<li
-									class={`inline-flex cursor-pointer items-center rounded-lg border px-3 py-2 text-sm leading-tight font-semibold tracking-normal ${
-										item.featured
-											? 'border-electric-300/70 bg-electric-300/12 text-electric-100'
-											: 'border-mist-100/20 bg-mist-100/5 text-mist-100/90'
+									class={`skill-chip inline-flex items-center px-3 py-2 text-sm leading-tight font-bold tracking-normal ${
+										item.featured ? 'skill-chip-featured' : ''
 									}`}
 								>
 									{item.name}
@@ -122,6 +120,33 @@
 </section>
 
 <style>
+	.skill-chip {
+		background: color-mix(in oklab, white 6%, transparent);
+		color: color-mix(in oklab, white 88%, transparent);
+		cursor: default;
+		transition:
+			transform 0.15s ease,
+			background-color 0.15s ease,
+			color 0.15s ease;
+	}
+
+	.skill-chip:hover {
+		transform: translateY(-2px);
+		background: color-mix(in oklab, var(--color-electric-400) 22%, transparent);
+		color: var(--color-mist-100);
+	}
+
+	.skill-chip-featured {
+		background: color-mix(in oklab, var(--color-electric-400) 18%, transparent);
+		color: var(--color-electric-400);
+		font-weight: 900;
+	}
+
+	.skill-chip-featured:hover {
+		background: var(--color-electric-400);
+		color: #050505;
+	}
+
 	.skills-band {
 		display: flex;
 		width: max-content;

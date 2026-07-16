@@ -497,7 +497,7 @@
 <main class="relative isolate overflow-x-clip">
 	<section
 		data-hero-pin
-		class="section-dark-a relative flex min-h-screen flex-col items-center justify-center overflow-hidden"
+		class="hero-dark-bg relative flex min-h-screen flex-col items-center justify-center overflow-hidden"
 	>
 		{#if !isHeroEventMode}
 			<ScrollIndicator />
@@ -531,7 +531,7 @@
 		</video>
 		<div
 			data-hero-overlay
-			class="absolute inset-0 z-10 bg-[radial-gradient(circle_at_20%_22%,color-mix(in_oklab,var(--color-electric-500)_14%,transparent)_0%,transparent_52%),linear-gradient(180deg,color-mix(in_oklab,var(--color-anthracite-900)_92%,transparent)_0%,var(--color-anthracite-900)_96%)]"
+			class="absolute inset-0 z-10 bg-[radial-gradient(circle_at_20%_22%,color-mix(in_oklab,var(--color-electric-500)_14%,transparent)_0%,transparent_52%),linear-gradient(180deg,color-mix(in_oklab,#020203_92%,transparent)_0%,#020203_96%)]"
 		></div>
 
 		<div data-hero-content class="relative z-40 w-full px-6 sm:px-10 lg:px-16">
@@ -577,17 +577,9 @@
 					high-availability systems and modern web applications — plus event technician work with a
 					focus on lighting and lasers.
 				</p>
-				<div class="mt-6 flex flex-wrap gap-3 ps-2 text-sm font-semibold">
-					<a
-						href="/reach-me"
-						class="inline-flex items-center rounded-lg border border-electric-400/45 bg-electric-500/24 px-4 py-2.5 text-mist-100 transition-colors hover:bg-electric-500/35"
-						>Contact in Hamburg</a
-					>
-					<a
-						href="/event-tech"
-						class="inline-flex items-center rounded-lg border border-violet-400/45 bg-violet-500/18 px-4 py-2.5 text-mist-100 transition-colors hover:bg-violet-500/30"
-						>Event Tech references</a
-					>
+				<div class="mt-6 flex flex-wrap gap-3 ps-2 text-sm font-black">
+					<a href="/reach-me" class="hero-cta hero-cta-electric">Contact in Hamburg</a>
+					<a href="/event-tech" class="hero-cta hero-cta-violet">Event Tech references</a>
 				</div>
 			</div>
 		</div>
@@ -606,3 +598,55 @@
 	<ProjectsSection />
 	<SkillsSection {skillGroups} />
 </main>
+
+<style>
+	.hero-dark-bg {
+		background:
+			radial-gradient(
+				60% 50% at 15% 0%,
+				color-mix(in oklab, var(--color-electric-500) 14%, transparent),
+				transparent
+			),
+			radial-gradient(
+				55% 45% at 100% 15%,
+				color-mix(in oklab, var(--color-violet-500) 14%, transparent),
+				transparent
+			),
+			#020203;
+	}
+
+	.hero-cta {
+		position: relative;
+		display: inline-flex;
+		align-items: center;
+		padding: 0.75rem 1.4rem;
+		text-transform: uppercase;
+		letter-spacing: 0.02em;
+		color: var(--color-mist-100);
+		border: 2px solid var(--accent);
+		background: color-mix(in oklab, var(--accent) 16%, transparent);
+		clip-path: polygon(5% 0, 100% 0, 95% 100%, 0 100%);
+		transition:
+			background-color 0.2s ease,
+			color 0.2s ease,
+			transform 0.2s cubic-bezier(0.22, 0.85, 0.3, 1.35),
+			box-shadow 0.2s ease;
+	}
+
+	.hero-cta:hover {
+		background: var(--accent);
+		color: #050505;
+		transform: translateY(-2px) scale(1.03);
+		box-shadow:
+			0 16px 34px -12px color-mix(in oklab, var(--accent) 65%, transparent),
+			0 0 44px -8px color-mix(in oklab, var(--accent) 55%, transparent);
+	}
+
+	.hero-cta-electric {
+		--accent: var(--color-electric-400);
+	}
+
+	.hero-cta-violet {
+		--accent: var(--color-violet-400);
+	}
+</style>
