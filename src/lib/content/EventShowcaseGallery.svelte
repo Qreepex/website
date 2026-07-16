@@ -13,15 +13,8 @@
 	let layoutRaf: number | null = null;
 	let mediaFrameRatios = $state<Record<string, number>>({});
 	let layoutReady = $state(false);
-	// null = not yet determined (masonry hasn't laid out the first time yet)
-	let firstRowEventIds = $state<Set<string> | null>(null);
-	let loadedEventIds = $state<Set<string>>(new Set());
-	let firstRowLoaded = $derived(
-		firstRowEventIds !== null &&
-			(firstRowEventIds.size === 0 ||
-				[...firstRowEventIds].every((id) => loadedEventIds.has(id)))
-	);
-	let showSkeleton = $derived(!layoutReady || !firstRowLoaded);
+	let initialMediaLoaded = $state(0);
+	const loadedInitialMediaEvents = new Set<string>();
 	const skeletonCards = Array.from({ length: 12 }, (_, i) => i);
 	const sortedEventShowcaseData = [...eventShowcaseData].sort(
 		(a, b) => (a.sortIndex ?? 99) - (b.sortIndex ?? 99) || a.name.localeCompare(b.name)
@@ -32,6 +25,7 @@
 			.filter((event) => event.media.length > 0)
 			.map((event) => event.id)
 	);
+	let showSkeleton = $derived(!layoutReady || initialMediaLoaded < initialMediaEventIds.size);
 	const eventById = new Map(sortedEventShowcaseData.map((event) => [event.id, event]));
 	const eventIndexById = new Map(sortedEventShowcaseData.map((event, index) => [event.id, index]));
 	const preloadedMediaUrls = new Set<string>();
@@ -48,30 +42,12 @@
 		});
 	}
 
-	function computeFirstRowEventIds(): Set<string> {
-		if (!galleryNode) return new Set();
-		const cards = Array.from(
-			galleryNode.querySelectorAll<HTMLElement>('.media-card[data-event-id]')
-		);
-		if (cards.length === 0) return new Set();
-
-		const containerTop = galleryNode.getBoundingClientRect().top;
-		const tops = cards.map((el) => el.getBoundingClientRect().top - containerTop);
-		const minTop = Math.min(...tops);
-
-		const ids = new Set<string>();
-		cards.forEach((el, i) => {
-			if (tops[i] - minTop < 4) {
-				const id = el.dataset.eventId;
-				if (id) ids.add(id);
-			}
-		});
-		return ids;
-	}
-
-	function markEventLoaded(eventId: string) {
-		if (loadedEventIds.has(eventId)) return;
-		loadedEventIds = new Set(loadedEventIds).add(eventId);
+	function markInitialMediaLoaded(eventId: string) {
+		if (initialMediaEventIds.size === 0) return;
+		if (!initialMediaEventIds.has(eventId)) return;
+		if (loadedInitialMediaEvents.has(eventId)) return;
+		loadedInitialMediaEvents.add(eventId);
+		initialMediaLoaded = loadedInitialMediaEvents.size;
 	}
 
 	onMount(() => {
@@ -92,11 +68,7 @@
 				transitionDuration: 0
 			});
 
-			// Masonry has already run its initial synchronous layout during
-			// construction, so item positions are correct before we reveal
-			// the grid and let IntersectionObserver evaluate real geometry.
 			layoutReady = true;
-			firstRowEventIds = computeFirstRowEventIds();
 			scheduleMasonryLayout();
 		})();
 
@@ -254,7 +226,7 @@
 				node.addEventListener(
 					'load',
 					() => {
-						markEventLoaded(eventId);
+						markInitialMediaLoaded(eventId);
 						onMediaReady(eventId);
 						registerMediaRatio(eventId, node.naturalWidth, node.naturalHeight);
 						scheduleMasonryLayout();
@@ -275,7 +247,7 @@
 				node.addEventListener(
 					'loadeddata',
 					() => {
-						markEventLoaded(eventId);
+						markInitialMediaLoaded(eventId);
 						onMediaReady(eventId);
 					},
 					{ once: true }
@@ -433,24 +405,7 @@
 </script>
 
 <div class="gallery-wrap" aria-busy={showSkeleton}>
-	{#if showSkeleton}
-		<div class="skeleton-grid" role="status" aria-live="polite" aria-label="Loading gallery media">
-			{#each skeletonCards as i (i)}
-				<div class="skeleton-card" style={`--i: ${i}`}>
-					<div class="skeleton-media"></div>
-					<div class="skeleton-caption">
-						<span class="skeleton-line skeleton-line-title"></span>
-						<span class="skeleton-line skeleton-line-meta"></span>
-					</div>
-				</div>
-			{/each}
-		</div>
-	{/if}
-	<div
-		class="gallery-columns"
-		class:gallery-hidden={showSkeleton}
-		bind:this={galleryNode}
-	>
+	<div class="gallery-columns" bind:this={galleryNode}>
 		<div class="media-sizer" aria-hidden="true"></div>
 		{#each sortedEventShowcaseData as event (event.id)}
 		{@const activeMedia = getCurrentMedia(event)}
@@ -554,6 +509,20 @@
 		</figure>
 		{/each}
 	</div>
+
+	{#if showSkeleton}
+		<div class="skeleton-grid" role="status" aria-live="polite" aria-label="Loading gallery media">
+			{#each skeletonCards as i (i)}
+				<div class="skeleton-card" style={`--i: ${i}`}>
+					<div class="skeleton-media"></div>
+					<div class="skeleton-caption">
+						<span class="skeleton-line skeleton-line-title"></span>
+						<span class="skeleton-line skeleton-line-meta"></span>
+					</div>
+				</div>
+			{/each}
+		</div>
+	{/if}
 </div>
 
 <style>
@@ -565,14 +534,17 @@
 		position: relative;
 	}
 
-	.gallery-columns.gallery-hidden {
+	/* The real grid is never hidden via visibility/display — some browsers
+	   deprioritize or fully defer network activity for <video> elements
+	   inside invisible ancestors, which silently stalled loading behind the
+	   old skeleton. Instead the skeleton is an opaque overlay drawn on top,
+	   so the real grid keeps loading normally underneath it. */
+	.skeleton-grid {
 		position: absolute;
 		inset: 0;
-		visibility: hidden;
-		pointer-events: none;
-	}
-
-	.skeleton-grid {
+		z-index: 40;
+		overflow: hidden;
+		background: #020203;
 		column-gap: 1.15rem;
 		column-count: 1;
 	}
@@ -718,16 +690,11 @@
 		position: relative;
 		background: #000;
 		border: 1px solid color-mix(in oklab, white 16%, transparent);
+		animation: card-pop-in 0.5s cubic-bezier(0.22, 0.85, 0.3, 1.35) backwards;
 		transition:
 			transform 0.2s cubic-bezier(0.22, 0.85, 0.3, 1.35),
 			box-shadow 0.2s ease,
 			border-color 0.2s ease;
-	}
-
-	/* Only start the entrance animation once the skeleton is gone, so cards
-	   actually pop in on reveal instead of finishing invisibly beforehand. */
-	.gallery-columns:not(.gallery-hidden) .card-inner {
-		animation: card-pop-in 0.5s cubic-bezier(0.22, 0.85, 0.3, 1.35) backwards;
 	}
 
 	@keyframes card-pop-in {

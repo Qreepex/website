@@ -25,6 +25,7 @@
 		type GradientPreset
 	} from '$lib/styles';
 	import type { ProjectsMode } from '$lib/types';
+	import { replaceState } from '$app/navigation';
 	import gsap from 'gsap';
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
 	import { onMount, tick } from 'svelte';
@@ -69,22 +70,14 @@
 		const nextHash = MODE_HASH[mode];
 		if (window.location.hash === nextHash) return;
 		autoHashFromScroll = options.autoFromScroll === true;
-		window.history.replaceState(
-			window.history.state,
-			document.title,
-			`${window.location.pathname}${window.location.search}${nextHash}`
-		);
+		replaceState(`${window.location.pathname}${window.location.search}${nextHash}`, {});
 	}
 
 	function clearProjectsHashIfAutoSet() {
 		if (typeof window === 'undefined') return;
 		if (!autoHashFromScroll) return;
 		if (!modeFromHash(window.location.hash)) return;
-		window.history.replaceState(
-			window.history.state,
-			document.title,
-			`${window.location.pathname}${window.location.search}`
-		);
+		replaceState(`${window.location.pathname}${window.location.search}`, {});
 		autoHashFromScroll = false;
 	}
 
