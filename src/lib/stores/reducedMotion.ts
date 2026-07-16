@@ -5,11 +5,11 @@ const KEY = 'fx-disabled';
 
 const initial = browser
 	? (() => {
-		const saved = localStorage.getItem(KEY);
-		if (saved !== null) return saved === 'true';
+			const saved = localStorage.getItem(KEY);
+			if (saved !== null) return saved === 'true';
 
-		return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-	})()
+			return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+		})()
 	: false;
 const { subscribe, update, set } = writable<boolean>(initial);
 

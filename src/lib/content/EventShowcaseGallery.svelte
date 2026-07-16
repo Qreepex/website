@@ -12,7 +12,17 @@
 	let masonry: MasonryApi | null = null;
 	let layoutRaf: number | null = null;
 	let mediaFrameRatios = $state<Record<string, number>>({});
-	let ratiosReady = $state(false);
+	let layoutReady = $state(false);
+	// null = not yet determined (masonry hasn't laid out the first time yet)
+	let firstRowEventIds = $state<Set<string> | null>(null);
+	let loadedEventIds = $state<Set<string>>(new Set());
+	let firstRowLoaded = $derived(
+		firstRowEventIds !== null &&
+			(firstRowEventIds.size === 0 ||
+				[...firstRowEventIds].every((id) => loadedEventIds.has(id)))
+	);
+	let showSkeleton = $derived(!layoutReady || !firstRowLoaded);
+	const skeletonCards = Array.from({ length: 12 }, (_, i) => i);
 	const sortedEventShowcaseData = [...eventShowcaseData].sort(
 		(a, b) => (a.sortIndex ?? 99) - (b.sortIndex ?? 99) || a.name.localeCompare(b.name)
 	);
@@ -22,10 +32,6 @@
 			.filter((event) => event.media.length > 0)
 			.map((event) => event.id)
 	);
-	const initialMediaTarget = initialMediaEventIds.size;
-	const loadedInitialMediaEvents = new Set<string>();
-	let initialMediaLoaded = $state(0);
-	const finalizedRatios = new Set<string>();
 	const eventById = new Map(sortedEventShowcaseData.map((event) => [event.id, event]));
 	const eventIndexById = new Map(sortedEventShowcaseData.map((event, index) => [event.id, index]));
 	const preloadedMediaUrls = new Set<string>();
@@ -42,15 +48,38 @@
 		});
 	}
 
+	function computeFirstRowEventIds(): Set<string> {
+		if (!galleryNode) return new Set();
+		const cards = Array.from(
+			galleryNode.querySelectorAll<HTMLElement>('.media-card[data-event-id]')
+		);
+		if (cards.length === 0) return new Set();
+
+		const containerTop = galleryNode.getBoundingClientRect().top;
+		const tops = cards.map((el) => el.getBoundingClientRect().top - containerTop);
+		const minTop = Math.min(...tops);
+
+		const ids = new Set<string>();
+		cards.forEach((el, i) => {
+			if (tops[i] - minTop < 4) {
+				const id = el.dataset.eventId;
+				if (id) ids.add(id);
+			}
+		});
+		return ids;
+	}
+
+	function markEventLoaded(eventId: string) {
+		if (loadedEventIds.has(eventId)) return;
+		loadedEventIds = new Set(loadedEventIds).add(eventId);
+	}
+
 	onMount(() => {
 		if (!galleryNode) return;
 
 		let disposed = false;
 
 		(async () => {
-			await preloadAllEventRatios();
-			if (disposed || !galleryNode) return;
-
 			const { default: MasonryLayout } = await import('masonry-layout');
 			if (disposed || !galleryNode) return;
 
@@ -63,6 +92,11 @@
 				transitionDuration: 0
 			});
 
+			// Masonry has already run its initial synchronous layout during
+			// construction, so item positions are correct before we reveal
+			// the grid and let IntersectionObserver evaluate real geometry.
+			layoutReady = true;
+			firstRowEventIds = computeFirstRowEventIds();
 			scheduleMasonryLayout();
 		})();
 
@@ -78,7 +112,6 @@
 	});
 
 	function registerMediaRatio(eventId: string, width: number, height: number) {
-		if (finalizedRatios.has(eventId)) return;
 		if (!width || !height) return;
 		const ratio = width / height;
 		const current = mediaFrameRatios[eventId];
@@ -89,15 +122,6 @@
 
 	function getFrameRatio(eventId: string): number {
 		return mediaFrameRatios[eventId] ?? 0.8;
-	}
-
-	function markInitialMediaLoaded(eventId: string) {
-		if (initialMediaTarget === 0) return;
-		if (!initialMediaEventIds.has(eventId)) return;
-		if (loadedInitialMediaEvents.has(eventId)) return;
-
-		loadedInitialMediaEvents.add(eventId);
-		initialMediaLoaded = loadedInitialMediaEvents.size;
 	}
 
 	function ensurePreloadHint(
@@ -177,81 +201,6 @@
 		preloadUpcomingScrollMedia(eventId);
 	}
 
-	function probeImageRatio(url: string): Promise<number | null> {
-		return new Promise((resolve) => {
-			const image = new Image();
-			const cleanup = () => {
-				image.onload = null;
-				image.onerror = null;
-			};
-			image.onload = () => {
-				const ratio =
-					image.naturalWidth && image.naturalHeight
-						? image.naturalWidth / image.naturalHeight
-						: null;
-				cleanup();
-				resolve(ratio);
-			};
-			image.onerror = () => {
-				cleanup();
-				resolve(null);
-			};
-			image.src = url;
-		});
-	}
-
-	function probeVideoRatio(url: string): Promise<number | null> {
-		return new Promise((resolve) => {
-			const video = document.createElement('video');
-			const cleanup = () => {
-				video.removeAttribute('src');
-				video.load();
-				video.onloadedmetadata = null;
-				video.onerror = null;
-			};
-			video.preload = 'metadata';
-			video.muted = true;
-			video.onloadedmetadata = () => {
-				const ratio =
-					video.videoWidth && video.videoHeight ? video.videoWidth / video.videoHeight : null;
-				cleanup();
-				resolve(ratio);
-			};
-			video.onerror = () => {
-				cleanup();
-				resolve(null);
-			};
-			video.src = url;
-			video.load();
-		});
-	}
-
-	async function preloadAllEventRatios() {
-		await Promise.all(
-			eventShowcaseData.map(async (event) => {
-				const ratios = await Promise.all(
-					event.media.map((media) =>
-						media.type === 'image'
-							? probeImageRatio(ASSETS_HOST + media.url)
-							: probeVideoRatio(ASSETS_HOST + media.url)
-					)
-				);
-
-				const validRatios = ratios.filter(
-					(ratio): ratio is number => typeof ratio === 'number' && ratio > 0
-				);
-				if (validRatios.length > 0) {
-					mediaFrameRatios[event.id] = Math.min(...validRatios);
-				}
-				finalizedRatios.add(event.id);
-			})
-		);
-
-		ratiosReady = true;
-		await tick();
-		scheduleMasonryLayout();
-	}
-
 	// 1. Use a Map for better reactivity and key handling in Svelte 5
 	// This ensures Klinkrade 2025 and Klinkrade 2026 stay separated.
 	let mediaIndices = $state<Record<string, number>>({});
@@ -305,7 +254,7 @@
 				node.addEventListener(
 					'load',
 					() => {
-						markInitialMediaLoaded(eventId);
+						markEventLoaded(eventId);
 						onMediaReady(eventId);
 						registerMediaRatio(eventId, node.naturalWidth, node.naturalHeight);
 						scheduleMasonryLayout();
@@ -315,17 +264,9 @@
 				node.src = sourceUrl;
 				node.decoding = 'async';
 			} else {
-				let metadataReady = false;
-				let thumbnailReady = false;
-				const markVideoReady = () => {
-					if (!metadataReady || !thumbnailReady) return;
-					markInitialMediaLoaded(eventId);
-				};
 				node.addEventListener(
 					'loadedmetadata',
 					() => {
-						metadataReady = true;
-						markVideoReady();
 						registerMediaRatio(eventId, node.videoWidth, node.videoHeight);
 						scheduleMasonryLayout();
 					},
@@ -334,8 +275,7 @@
 				node.addEventListener(
 					'loadeddata',
 					() => {
-						thumbnailReady = true;
-						markVideoReady();
+						markEventLoaded(eventId);
 						onMediaReady(eventId);
 					},
 					{ once: true }
@@ -375,6 +315,109 @@
 		};
 	}
 
+	const ICON_PLAY =
+		'<svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
+	const ICON_PAUSE =
+		'<svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>';
+	const ICON_MUTED =
+		'<svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3z"/><path d="M15.5 8.5l5 7M20.5 8.5l-5 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>';
+	const ICON_UNMUTED =
+		'<svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3z"/><path d="M16.5 9a4 4 0 010 6M19 6.5a7.5 7.5 0 010 11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>';
+
+	function videoControls(node: HTMLVideoElement) {
+		const frame = node.parentElement;
+		if (!frame) return {};
+
+		const overlay = document.createElement('div');
+		overlay.className = 'video-controls';
+
+		const playToggle = document.createElement('div');
+		playToggle.className = 'video-play-toggle';
+		playToggle.setAttribute('aria-hidden', 'true');
+		playToggle.innerHTML = ICON_PLAY;
+
+		const bar = document.createElement('div');
+		bar.className = 'video-bar';
+
+		const progressTrack = document.createElement('div');
+		progressTrack.className = 'video-progress-track';
+		const progressFill = document.createElement('div');
+		progressFill.className = 'video-progress-fill';
+		progressTrack.appendChild(progressFill);
+
+		const muteBtn = document.createElement('button');
+		muteBtn.type = 'button';
+		muteBtn.className = 'video-mute-toggle';
+		muteBtn.innerHTML = ICON_MUTED;
+
+		bar.appendChild(progressTrack);
+		bar.appendChild(muteBtn);
+		overlay.appendChild(playToggle);
+		overlay.appendChild(bar);
+		frame.appendChild(overlay);
+
+		function updatePlayState() {
+			const playing = !node.paused && !node.ended;
+			playToggle.innerHTML = playing ? ICON_PAUSE : ICON_PLAY;
+			overlay.classList.toggle('is-playing', playing);
+		}
+
+		function updateMuteState() {
+			muteBtn.innerHTML = node.muted ? ICON_MUTED : ICON_UNMUTED;
+			muteBtn.setAttribute('aria-label', node.muted ? 'Unmute video' : 'Mute video');
+		}
+
+		function updateProgress() {
+			if (!node.duration) return;
+			progressFill.style.width = `${(node.currentTime / node.duration) * 100}%`;
+		}
+
+		function togglePlay() {
+			if (node.paused) node.play().catch(() => {});
+			else node.pause();
+		}
+
+		function toggleMute(e: Event) {
+			e.stopPropagation();
+			node.muted = !node.muted;
+			updateMuteState();
+		}
+
+		function seek(e: MouseEvent) {
+			e.stopPropagation();
+			if (!node.duration) return;
+			const rect = progressTrack.getBoundingClientRect();
+			const ratio = Math.min(1, Math.max(0, (e.clientX - rect.left) / rect.width));
+			node.currentTime = ratio * node.duration;
+		}
+
+		overlay.addEventListener('click', togglePlay);
+		muteBtn.addEventListener('click', toggleMute);
+		progressTrack.addEventListener('click', seek);
+		node.addEventListener('play', updatePlayState);
+		node.addEventListener('pause', updatePlayState);
+		node.addEventListener('ended', updatePlayState);
+		node.addEventListener('timeupdate', updateProgress);
+		node.addEventListener('volumechange', updateMuteState);
+
+		updatePlayState();
+		updateMuteState();
+
+		return {
+			destroy() {
+				overlay.removeEventListener('click', togglePlay);
+				muteBtn.removeEventListener('click', toggleMute);
+				progressTrack.removeEventListener('click', seek);
+				node.removeEventListener('play', updatePlayState);
+				node.removeEventListener('pause', updatePlayState);
+				node.removeEventListener('ended', updatePlayState);
+				node.removeEventListener('timeupdate', updateProgress);
+				node.removeEventListener('volumechange', updateMuteState);
+				overlay.remove();
+			}
+		};
+	}
+
 	function involvementLabel(involvement: EventShowcase['involvement']): string {
 		return involvement === EventInvolvement.MY_JOB ? 'My Job' : 'Worked On';
 	}
@@ -389,199 +432,258 @@
 	}
 </script>
 
-<div
-	class="gallery-columns"
-	class:ratios-loading={!ratiosReady}
-	aria-busy={!ratiosReady || initialMediaLoaded < initialMediaTarget}
-	bind:this={galleryNode}
->
-	{#if initialMediaLoaded < initialMediaTarget}
-		<div class="gallery-loader" role="status" aria-live="polite" aria-label="Loading gallery media">
-			<span class="gallery-spinner" aria-hidden="true"></span>
-			<span class="gallery-loader-text">Loading gallery…</span>
+<div class="gallery-wrap" aria-busy={showSkeleton}>
+	{#if showSkeleton}
+		<div class="skeleton-grid" role="status" aria-live="polite" aria-label="Loading gallery media">
+			{#each skeletonCards as i (i)}
+				<div class="skeleton-card" style={`--i: ${i}`}>
+					<div class="skeleton-media"></div>
+					<div class="skeleton-caption">
+						<span class="skeleton-line skeleton-line-title"></span>
+						<span class="skeleton-line skeleton-line-meta"></span>
+					</div>
+				</div>
+			{/each}
 		</div>
 	{/if}
-	<div class="media-sizer" aria-hidden="true"></div>
-	{#each sortedEventShowcaseData as event (event.id)}
+	<div
+		class="gallery-columns"
+		class:gallery-hidden={showSkeleton}
+		bind:this={galleryNode}
+	>
+		<div class="media-sizer" aria-hidden="true"></div>
+		{#each sortedEventShowcaseData as event (event.id)}
 		{@const activeMedia = getCurrentMedia(event)}
 		{@const currentIndex = mediaIndices[event.id] ?? 0}
-		<figure class="media-card panel">
-			{#if event.media.length > 1}
-				<div
-					class="absolute top-2 right-0 left-0 z-20 flex items-center justify-between gap-3 rounded-t-[0.9rem] border-none bg-none px-3 py-[0.7rem]"
-					role="group"
-					aria-label="Media navigation"
-				>
-					<button
-						type="button"
-						class="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-mist-100/45 bg-anthracite-900/80 shadow-[0_2px_8px_rgba(0,0,0,0.35)] backdrop-blur-[2px] transition-colors hover:bg-anthracite-900/60 focus-visible:border-mist-100/70 focus-visible:bg-anthracite-900/60 focus-visible:outline-none md:h-8 md:w-8"
-						onclick={(e) => prevMedia(event.id, event.media.length, e)}
-						aria-label="Previous media"
-					>
-						<span aria-hidden="true" class="-translate-y-[0.02em] leading-none font-bold">‹</span>
-					</button>
-					<span
-						class="min-w-[2.2em] rounded-[0.7em] border border-mist-100/30 bg-[rgba(24,26,32,0.82)] px-2 py-1 text-center text-[0.8rem] font-semibold tracking-[0.04em] text-mist-100/80 opacity-95 shadow-[0_2px_8px_rgba(0,0,0,0.28)] md:px-[0.4rem] md:py-[0.18rem] md:text-[0.74rem]"
-						>{getMediaIndex(event.id) + 1} / {event.media.length}</span
-					>
-					<button
-						type="button"
-						class="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-mist-100/45 bg-anthracite-900/80 shadow-[0_2px_8px_rgba(0,0,0,0.35)] backdrop-blur-[2px] transition-colors hover:bg-anthracite-900/60 focus-visible:border-mist-100/70 focus-visible:bg-anthracite-900/60 focus-visible:outline-none md:h-8 md:w-8"
-						onclick={(e) => nextMedia(event.id, event.media.length, e)}
-						aria-label="Next media"
-					>
-						<span aria-hidden="true" class="-translate-y-[0.02em] leading-none font-bold">›</span>
-					</button>
+		<figure class="media-card" data-event-id={event.id}>
+			<div class="card-inner">
+				{#if event.media.length > 1}
+					<div class="nav-bar" role="group" aria-label="Media navigation">
+						<button
+							type="button"
+							class="nav-btn"
+							onclick={(e) => prevMedia(event.id, event.media.length, e)}
+							aria-label="Previous media"
+						>
+							<span aria-hidden="true">‹</span>
+						</button>
+						<span class="nav-counter"
+							>{getMediaIndex(event.id) + 1}/{event.media.length}</span
+						>
+						<button
+							type="button"
+							class="nav-btn"
+							onclick={(e) => nextMedia(event.id, event.media.length, e)}
+							aria-label="Next media"
+						>
+							<span aria-hidden="true">›</span>
+						</button>
+					</div>
+				{/if}
+				<div class="media-frame" style={`--media-frame-ratio: ${getFrameRatio(event.id)}`}>
+					{#key `${event.id}-${currentIndex}`}
+						{#if activeMedia.type === 'image'}
+							<img
+								use:lazyMedia={event.id}
+								data-src={ASSETS_HOST + activeMedia.url}
+								alt={`${activeMedia.title ?? activeMedia.name ?? event.name} in ${event.location} (${event.year})`}
+								loading="lazy"
+								class="media-element"
+								class:media-fill={activeMedia.fill === true}
+							/>
+						{:else}
+							<video
+								use:lazyMedia={event.id}
+								use:videoControls
+								data-src={ASSETS_HOST + activeMedia.url}
+								class="media-element"
+								class:media-fill={activeMedia.fill === true}
+								playsinline
+								preload="none"
+								muted
+							></video>
+						{/if}
+					{/key}
 				</div>
-			{/if}
-			<div class="media-frame" style={`--media-frame-ratio: ${getFrameRatio(event.id)}`}>
-				{#key `${event.id}-${currentIndex}`}
-					{#if activeMedia.type === 'image'}
-						<img
-							use:lazyMedia={event.id}
-							data-src={ASSETS_HOST + activeMedia.url}
-							alt={`${activeMedia.title ?? activeMedia.name ?? event.name} in ${event.location} (${event.year})`}
-							loading="lazy"
-							class="media-element"
-							class:media-fill={activeMedia.fill === true}
-						/>
-					{:else}
-						<video
-							use:lazyMedia={event.id}
-							data-src={ASSETS_HOST + activeMedia.url}
-							class="media-element"
-							class:media-fill={activeMedia.fill === true}
-							playsinline
-							controls
-							preload="none"
-							muted
-						></video>
-					{/if}
-				{/key}
 			</div>
 
 			<figcaption class="media-caption">
-				<p class="text-sm font-semibold tracking-[0.08em] text-mist-100/90 uppercase">
-					{event.name}
-				</p>
-				<p class="mt-1 text-xs font-medium text-mist-100/70">{event.location} · {event.year}</p>
+				<p class="media-name">{event.name}</p>
+				<p class="media-meta">{event.location} · {event.year}</p>
 				{#if activeMedia.title}
-					<p class="mt-2 text-xs font-semibold tracking-[0.05em] text-mist-100/85 uppercase">
-						{activeMedia.title}
-					</p>
+					<p class="media-subtitle">{activeMedia.title}</p>
 				{/if}
 
 				{#if event.eventPageUrl || activeMedia.photographer?.length}
-					<div
-						class="mt-2 flex flex-wrap items-center gap-3 text-xs font-semibold text-mist-100/80"
-					>
+					<div class="media-credits">
 						{#if event.eventPageUrl}
-							<a
-								href={event.eventPageUrl}
-								target="_blank"
-								rel="noopener noreferrer"
-								class="underline decoration-mist-100/50 underline-offset-2 hover:decoration-mist-100"
-							>
+							<a href={event.eventPageUrl} target="_blank" rel="noopener noreferrer">
 								Event Page
 							</a>
 						{/if}
 						{#if activeMedia.photographer?.length}
-							<div class="flex items-center gap-1 text-mist-100/70">
+							<span class="media-credits-photo">
 								<span>&copy;</span>
 								{#each activeMedia.photographer as photographer, index}
-									<a
-										href={photographer.url}
-										target="_blank"
-										rel="noopener noreferrer"
-										class="underline decoration-mist-100/50 underline-offset-2 hover:decoration-mist-100"
-									>
+									<a href={photographer.url} target="_blank" rel="noopener noreferrer">
 										{photographer.name}
 									</a>
 									{#if index < activeMedia.photographer.length - 1}
 										<span>/</span>
 									{/if}
 								{/each}
-							</div>
+							</span>
 						{/if}
 					</div>
 				{/if}
 
-				<div class="mt-2 flex flex-wrap gap-2">
+				<div class="media-tags">
 					{#if event.involvement === EventInvolvement.WORKED_ON}
-						<span
-							class="rounded-md border border-mist-100/25 bg-anthracite-900/70 px-2 py-1 text-[11px] font-semibold tracking-[0.06em] text-mist-100/85 uppercase"
-						>
-							Assisted
-						</span>
+						<span class="tag-assisted">Assisted</span>
 					{/if}
 
 					{#each capabilityTags(event) as cap}
-						<span
-							class="rounded-md border border-electric-400/35 bg-electric-400/10 px-2 py-1 text-[11px] font-semibold tracking-[0.06em] text-electric-400 uppercase"
-						>
-							{cap}
-						</span>
+						<span class="tag-capability">{cap}</span>
 					{/each}
 
 					{#each event.tags as tag}
-						<span
-							class="rounded-md border border-violet-400/35 bg-violet-500/12 px-2 py-1 text-[11px] font-semibold tracking-[0.06em] text-violet-400 uppercase"
-						>
-							{tag}
-						</span>
+						<span class="tag-hash">#{tag}</span>
 					{/each}
 				</div>
 			</figcaption>
 		</figure>
-	{/each}
+		{/each}
+	</div>
 </div>
 
 <style>
+	.gallery-wrap {
+		position: relative;
+	}
+
 	.gallery-columns {
 		position: relative;
 	}
 
-	.gallery-columns.ratios-loading {
-		opacity: 1;
-	}
-
-	.gallery-loader {
+	.gallery-columns.gallery-hidden {
 		position: absolute;
-		top: 0.8rem;
-		left: 50%;
-		z-index: 30;
-		display: inline-flex;
-		transform: translateX(-50%);
-		align-items: center;
-		gap: 0.55rem;
-		border: 1px solid color-mix(in oklab, white 24%, transparent);
-		border-radius: 999px;
-		background: color-mix(in oklab, var(--color-anthracite-900) 86%, transparent);
-		padding: 0.45rem 0.75rem;
-		backdrop-filter: blur(4px);
+		inset: 0;
+		visibility: hidden;
+		pointer-events: none;
 	}
 
-	.gallery-spinner {
+	.skeleton-grid {
+		column-gap: 1.15rem;
+		column-count: 1;
+	}
+
+	.skeleton-card {
 		display: inline-block;
-		width: 0.9rem;
-		height: 0.9rem;
-		border-radius: 999px;
-		border: 2px solid color-mix(in oklab, white 35%, transparent);
-		border-top-color: var(--color-electric-400);
-		animation: gallery-spin 0.8s linear infinite;
+		width: 100%;
+		margin-bottom: 1.15rem;
+		break-inside: avoid;
+		border: 1px solid color-mix(in oklab, white 12%, transparent);
+		background: #050506;
 	}
 
-	.gallery-loader-text {
-		font-size: 0.75rem;
-		font-weight: 700;
-		letter-spacing: 0.06em;
-		text-transform: uppercase;
-		color: color-mix(in oklab, white 86%, transparent);
+	.skeleton-media {
+		position: relative;
+		aspect-ratio: 0.8;
+		overflow: hidden;
+		background: #0a0b0d;
 	}
 
-	@keyframes gallery-spin {
+	.skeleton-card:nth-child(5n + 2) .skeleton-media {
+		aspect-ratio: 1.2;
+	}
+
+	.skeleton-card:nth-child(5n + 3) .skeleton-media {
+		aspect-ratio: 0.55;
+	}
+
+	.skeleton-card:nth-child(5n + 4) .skeleton-media {
+		aspect-ratio: 1;
+	}
+
+	.skeleton-card:nth-child(5n + 5) .skeleton-media {
+		aspect-ratio: 0.7;
+	}
+
+	.skeleton-card:nth-child(3n + 1) .skeleton-media {
+		border-bottom: 3px solid color-mix(in oklab, var(--color-electric-400) 45%, transparent);
+	}
+
+	.skeleton-card:nth-child(3n + 2) .skeleton-media {
+		border-bottom: 3px solid color-mix(in oklab, var(--color-violet-400) 45%, transparent);
+	}
+
+	.skeleton-card:nth-child(3n + 3) .skeleton-media {
+		border-bottom: 3px solid color-mix(in oklab, var(--color-cyan-400) 45%, transparent);
+	}
+
+	.skeleton-caption {
+		padding: 0.8rem 0.9rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	.skeleton-line {
+		position: relative;
+		display: block;
+		height: 0.6rem;
+		overflow: hidden;
+		background: #101215;
+	}
+
+	.skeleton-line-title {
+		width: 60%;
+	}
+
+	.skeleton-line-meta {
+		width: 38%;
+		opacity: 0.7;
+	}
+
+	.skeleton-media::after,
+	.skeleton-line::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(
+			100deg,
+			transparent 30%,
+			color-mix(in oklab, white 10%, transparent) 46%,
+			color-mix(in oklab, white 18%, transparent) 50%,
+			color-mix(in oklab, white 10%, transparent) 54%,
+			transparent 70%
+		);
+		transform: translateX(-120%);
+		animation: skeleton-sweep 1.8s ease-in-out infinite;
+		animation-delay: calc(var(--i, 0) * -0.15s);
+	}
+
+	@keyframes skeleton-sweep {
 		to {
-			transform: rotate(360deg);
+			transform: translateX(120%);
+		}
+	}
+
+	@media (min-width: 640px) {
+		.skeleton-grid {
+			column-count: 2;
+		}
+	}
+
+	@media (min-width: 1100px) {
+		.skeleton-grid {
+			column-count: 3;
+		}
+	}
+
+	@media (min-width: 1536px) {
+		.skeleton-grid {
+			column-count: 4;
 		}
 	}
 
@@ -591,15 +693,72 @@
 	}
 
 	.media-card {
-		margin: 0 0 1rem;
-		overflow: hidden;
-		border-radius: 0.9rem;
+		position: relative;
+		margin: 0 0 1.15rem;
+		--accent: var(--color-electric-400);
+	}
+
+	.media-card:nth-child(4n + 2) {
+		--accent: var(--color-violet-400);
+	}
+
+	.media-card:nth-child(4n + 3) {
+		--accent: var(--color-cyan-400);
+	}
+
+	.media-card:nth-child(4n) {
+		--accent: #ff2f92;
+	}
+
+	.media-card:hover {
+		z-index: 30;
+	}
+
+	.card-inner {
+		position: relative;
+		background: #000;
+		border: 1px solid color-mix(in oklab, white 16%, transparent);
+		transition:
+			transform 0.2s cubic-bezier(0.22, 0.85, 0.3, 1.35),
+			box-shadow 0.2s ease,
+			border-color 0.2s ease;
+	}
+
+	/* Only start the entrance animation once the skeleton is gone, so cards
+	   actually pop in on reveal instead of finishing invisibly beforehand. */
+	.gallery-columns:not(.gallery-hidden) .card-inner {
+		animation: card-pop-in 0.5s cubic-bezier(0.22, 0.85, 0.3, 1.35) backwards;
+	}
+
+	@keyframes card-pop-in {
+		from {
+			opacity: 0;
+			transform: scale(0.88) translateY(14px);
+		}
+		to {
+			opacity: 1;
+			transform: scale(1) translateY(0);
+		}
+	}
+
+	.media-card:hover .card-inner {
+		border-color: var(--accent);
+		transform: scale(1.045) rotate(-0.7deg);
+		box-shadow:
+			0 0 0 2px var(--accent),
+			0 26px 50px -14px color-mix(in oklab, var(--accent) 70%, transparent),
+			0 0 60px -8px color-mix(in oklab, var(--accent) 55%, transparent);
+	}
+
+	.media-card:nth-child(even):hover .card-inner {
+		transform: scale(1.045) rotate(0.7deg);
 	}
 
 	.media-frame {
 		position: relative;
 		aspect-ratio: var(--media-frame-ratio, 0.8);
-		background: #090c11;
+		background: #000;
+		overflow: hidden;
 	}
 
 	.media-element {
@@ -612,10 +771,262 @@
 	.media-element.media-fill {
 		object-fit: cover;
 	}
+
+	:global(.video-controls) {
+		position: absolute;
+		inset: 0;
+		z-index: 15;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+	}
+
+	:global(.video-play-toggle) {
+		display: flex;
+		height: 3.6rem;
+		width: 3.6rem;
+		align-items: center;
+		justify-content: center;
+		border: 2px solid rgba(255, 255, 255, 0.75);
+		background: rgba(2, 2, 3, 0.6);
+		clip-path: polygon(18% 0, 100% 0, 82% 100%, 0 100%);
+		color: #fff;
+		transition:
+			opacity 0.2s ease,
+			background-color 0.2s ease,
+			transform 0.15s ease;
+	}
+
+	:global(.video-controls.is-playing .video-play-toggle) {
+		opacity: 0;
+	}
+
+	:global(.video-controls:hover .video-play-toggle) {
+		opacity: 1;
+		background: var(--accent);
+		border-color: var(--accent);
+		color: #050505;
+		transform: scale(1.08);
+	}
+
+	:global(.video-bar) {
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		z-index: 16;
+		display: flex;
+		align-items: center;
+		gap: 0.55rem;
+		padding: 0.5rem 0.55rem;
+		background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.8));
+		opacity: 0;
+		transition: opacity 0.2s ease;
+	}
+
+	:global(.video-controls:hover .video-bar),
+	:global(.video-controls.is-playing .video-bar) {
+		opacity: 1;
+	}
+
+	:global(.video-progress-track) {
+		position: relative;
+		height: 0.35rem;
+		flex: 1;
+		background: rgba(255, 255, 255, 0.22);
+		cursor: pointer;
+	}
+
+	:global(.video-progress-fill) {
+		position: absolute;
+		inset: 0;
+		width: 0%;
+		background: var(--accent);
+	}
+
+	:global(.video-mute-toggle) {
+		display: flex;
+		height: 1.9rem;
+		width: 1.9rem;
+		flex-shrink: 0;
+		align-items: center;
+		justify-content: center;
+		border: 1px solid rgba(255, 255, 255, 0.4);
+		background: rgba(2, 2, 3, 0.65);
+		color: #fff;
+		cursor: pointer;
+	}
+
+	:global(.video-mute-toggle:hover) {
+		border-color: var(--accent);
+		color: var(--accent);
+	}
+
+	.nav-bar {
+		position: absolute;
+		top: 0;
+		right: 0;
+		left: 0;
+		z-index: 20;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.6rem;
+		padding: 0.55rem 0.55rem 0;
+		pointer-events: none;
+	}
+
+	.nav-btn {
+		pointer-events: auto;
+		display: flex;
+		height: 2.75rem;
+		width: 2.75rem;
+		cursor: pointer;
+		align-items: center;
+		justify-content: center;
+		border: 2px solid color-mix(in oklab, white 55%, transparent);
+		background: rgba(2, 2, 3, 0.78);
+		clip-path: polygon(18% 0, 100% 0, 82% 100%, 0 100%);
+		color: var(--color-mist-100);
+		font-size: 1.4rem;
+		line-height: 1;
+		font-weight: 900;
+		transition:
+			background-color 0.15s ease,
+			border-color 0.15s ease,
+			transform 0.15s ease;
+	}
+
+	.nav-btn:hover,
+	.nav-btn:focus-visible {
+		background: var(--accent);
+		border-color: var(--accent);
+		color: #050505;
+		transform: scale(1.1);
+		outline: none;
+	}
+
+	.nav-counter {
+		pointer-events: auto;
+		min-width: 2.6rem;
+		border: 2px solid color-mix(in oklab, white 30%, transparent);
+		background: rgba(2, 2, 3, 0.78);
+		padding: 0.35rem 0.55rem;
+		text-align: center;
+		font-size: 0.72rem;
+		font-weight: 800;
+		letter-spacing: 0.06em;
+		color: var(--color-mist-100);
+	}
+
+	@media (min-width: 768px) {
+		.nav-btn {
+			height: 2rem;
+			width: 2rem;
+			font-size: 1.05rem;
+		}
+	}
+
 	.media-caption {
-		padding: 0.9rem;
-		border-top: 1px solid color-mix(in oklab, white 12%, transparent);
-		background: color-mix(in oklab, var(--color-anthracite-900) 84%, transparent);
+		padding: 0.8rem 0.2rem 0 0.75rem;
+		border-left: 4px solid color-mix(in oklab, var(--accent) 45%, transparent);
+		transition:
+			border-color 0.2s ease,
+			box-shadow 0.2s ease,
+			background-color 0.2s ease;
+	}
+
+	.media-card:hover .media-caption {
+		border-left-color: var(--accent);
+		background: color-mix(in oklab, var(--accent) 5%, transparent);
+		box-shadow: -14px 0 34px -18px color-mix(in oklab, var(--accent) 70%, transparent);
+	}
+
+	.media-name {
+		font-size: 0.95rem;
+		font-weight: 900;
+		letter-spacing: 0.01em;
+		text-transform: uppercase;
+		color: var(--accent);
+	}
+
+	.media-meta {
+		margin-top: 0.15rem;
+		font-size: 0.72rem;
+		font-weight: 600;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: color-mix(in oklab, white 60%, transparent);
+	}
+
+	.media-subtitle {
+		margin-top: 0.4rem;
+		font-size: 0.75rem;
+		font-weight: 700;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		color: color-mix(in oklab, white 85%, transparent);
+	}
+
+	.media-credits {
+		margin-top: 0.5rem;
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.5rem;
+		font-size: 0.72rem;
+		font-weight: 700;
+		color: color-mix(in oklab, white 75%, transparent);
+	}
+
+	.media-credits a {
+		text-decoration: underline;
+		text-decoration-color: color-mix(in oklab, white 45%, transparent);
+		text-underline-offset: 2px;
+	}
+
+	.media-credits a:hover {
+		text-decoration-color: var(--accent);
+		color: var(--accent);
+	}
+
+	.media-credits-photo {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.25rem;
+	}
+
+	.media-tags {
+		margin-top: 0.65rem;
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.35rem 0.85rem;
+		font-size: 0.68rem;
+		font-weight: 800;
+		letter-spacing: 0.06em;
+	}
+
+	.tag-assisted,
+	.tag-capability {
+		padding: 0.2rem 0.5rem;
+		text-transform: uppercase;
+	}
+
+	.tag-assisted {
+		background: color-mix(in oklab, white 10%, transparent);
+		color: color-mix(in oklab, white 70%, transparent);
+	}
+
+	.tag-capability {
+		background: color-mix(in oklab, var(--accent) 16%, transparent);
+		color: var(--accent);
+	}
+
+	.tag-hash {
+		color: color-mix(in oklab, var(--accent) 78%, white 12%);
+		opacity: 0.85;
 	}
 
 	@media (min-width: 640px) {

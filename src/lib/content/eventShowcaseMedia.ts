@@ -141,24 +141,6 @@ export const eventShowcaseData: EventShowcase[] = [
 		]
 	},
 	{
-		id: 'butterflies-csa',
-		name: 'Butterflies @ CSA',
-		year: 2025,
-		location: 'Hamburg',
-		involvement: EventInvolvement.WORKED_ON,
-		showfile: false,
-		lights: false,
-		lasers: false,
-		sound: false,
-		tags: ['butterflies', 'csa', 'open air'],
-		media: [
-			{
-				url: '/event-showcase/vids/worked/2025-butterflies-csa.webm',
-				type: 'video'
-			}
-		]
-	},
-	{
 		id: 'sickmode-docks-2025',
 		name: 'Sickmode / AR Gang @ Docks',
 		year: 2025,
@@ -289,7 +271,7 @@ export const eventShowcaseData: EventShowcase[] = [
 		showfile: false,
 		lasers: true,
 		lights: true,
-		sortIndex: 3,
+		sortIndex: 20,
 		eventPageUrl: 'https://instagram.com/grossefreiheit36.party',
 		sound: false,
 		tags: ['gf36', 'club', 'show'],
@@ -330,6 +312,21 @@ export const eventShowcaseData: EventShowcase[] = [
 		sound: true,
 		tags: ['maifeuer', 'fehmarn'],
 		media: [
+			{
+				url: '/event-showcase/pics/own/2026-maifeuerfete-fehmarn/73A07701.jpg',
+				type: 'image',
+				fill: true
+			},
+			{
+				url: '/event-showcase/pics/own/2026-maifeuerfete-fehmarn/73A07730.jpg',
+				type: 'image',
+				fill: true
+			},
+			{
+				url: '/event-showcase/pics/own/2026-maifeuerfete-fehmarn/73A08144.jpg',
+				type: 'image',
+				fill: true
+			},
 			{
 				url: '/event-showcase/pics/worked/2025-maifeuer-fehmarn.webp',
 				type: 'image',
@@ -398,7 +395,7 @@ export const eventShowcaseData: EventShowcase[] = [
 		lasers: false,
 		lights: true,
 		sortIndex: 10,
-		sound: true,
+		sound: false,
 		tags: ['corporate', 'indoor', 'astera'],
 		media: [
 			{
@@ -469,7 +466,6 @@ export const eventShowcaseData: EventShowcase[] = [
 			}
 		]
 	},
-
 	{
 		id: 'schlagermove-2025',
 		name: 'Schlagermove',
@@ -485,6 +481,11 @@ export const eventShowcaseData: EventShowcase[] = [
 		tags: ['schlagermove', '#notmymusic'],
 		media: [
 			{
+				name: "Schlagermove 2026",
+				url: "/event-showcase/pics/worked/2026-schlagermove.jpeg",
+				type: "image", fill: true
+			},
+			{
 				name: 'Schlagermove Parade',
 				url: '/event-showcase/vids/own/2025-schlagermove.webm',
 				type: 'video'
@@ -498,33 +499,60 @@ export const eventShowcaseData: EventShowcase[] = [
 		location: 'Klinkrade',
 		involvement: EventInvolvement.MY_JOB,
 		showfile: true,
-		sortIndex: 6,
+		sortIndex: 3,
 		lasers: true,
 		lights: true,
 		sound: true,
-		eventPageUrl: 'https://instagram.com/topdiscoshow',
+		eventPageUrl: 'https://topdiscoshow.de/events/peins-gasthof-klinkrade',
 		tags: ['klinkrade', 'pein', 'topdiscoshow'],
 		media: [
 			{
-				name: 'Feb Show 2026',
-				url: '/event-showcase/vids/own/2026-feb-klinkrade.webm',
-				type: 'video'
+				name: 'Xmas 2025 1',
+				url: '/event-showcase/pics/own/klinkrade/73A03098.jpg',
+				type: 'image',
+				fill: true
+			},
+			{
+				name: 'Xmas 2025 2',
+				url: '/event-showcase/pics/own/klinkrade/73A03284.jpg',
+				type: 'image',
+				fill: true
+			},
+			{
+				name: '2026 Easter Closing',
+				url: '/event-showcase/pics/own/klinkrade/73A05031.jpg',
+				type: 'image',
+				fill: true
+			},
+			{
+				name: '2026 Easter Closing',
+				url: '/event-showcase/pics/own/klinkrade/73A06276.jpg',
+				type: 'image',
+				fill: true
+			},
+			{
+				name: '2026 Easter Closing',
+				url: '/event-showcase/pics/own/klinkrade/73A06333.jpg',
+				type: 'image',
+				fill: true
+			},
+			{
+				name: '2026 Easter Closing',
+				url: '/event-showcase/pics/own/klinkrade/73A06451.jpg',
+				type: 'image',
+				fill: true
 			},
 			{
 				name: 'Xmas Special 2025',
 				url: '/event-showcase/pics/own/2025-xmas-klinkrade.webp',
-				type: 'image'
-			},
-			{
-				name: 'Xmas Crew View 1 (2024)',
-				url: '/event-showcase/pics/worked/2024-xmas-klinkrade-1.webp',
-				type: 'image'
+				type: 'image',
+				fill: true
 			},
 			{
 				name: 'Xmas Crew View 2 (2024)',
 				url: '/event-showcase/pics/worked/2024-xmas-klinkrade-2.webp',
 				type: 'image',
-				fill: true
+				fill: false
 			}
 		]
 	},
@@ -542,6 +570,28 @@ export const eventShowcaseData: EventShowcase[] = [
 		tags: ['steinhorst', 'scheune', 'stage'],
 		eventPageUrl: 'https://topdiscoshow.de',
 		media: [
+			{
+				name: 'Scheunenfest 2026 4',
+				url: '/event-showcase/pics/own/2026-scheunenfest-steinhorst/73A09929.jpg',
+				type: 'image',
+				fill: true
+			},
+			{
+				name: 'Scheunenfest 2026 1',
+				url: '/event-showcase/pics/own/2026-scheunenfest-steinhorst/73A00282.jpg',
+				type: 'image',
+				fill: false
+			}, {
+				name: 'Scheunenfest 2026 2',
+				url: '/event-showcase/pics/own/2026-scheunenfest-steinhorst/73A04873.jpg',
+				type: 'image',
+				fill: false
+			}, {
+				name: 'Scheunenfest 2026 3',
+				url: '/event-showcase/pics/own/2026-scheunenfest-steinhorst/73A04943.jpg',
+				type: 'image',
+				fill: false
+			},
 			{
 				name: 'Scheune 2024 Video',
 				url: '/event-showcase/vids/worked/2024-steinhorst-scheune.webm',
@@ -593,6 +643,65 @@ export const eventShowcaseData: EventShowcase[] = [
 				url: '/event-showcase/vids/worked/2025-filow-36.webm',
 				type: 'video'
 			}
+		]
+	},
+	{
+		id: 'pfingstfete-fehmarn',
+		name: 'Pfingstfete Fehmarn',
+		year: 2026,
+		location: 'Fehmarn',
+		involvement: EventInvolvement.MY_JOB,
+		showfile: true,
+		lasers: true,
+		lights: true,
+		sound: true,
+		sortIndex: 5,
+		tags: ['pfingstfete', 'fehmarn', 'scheunenfete'],
+		media: [
+			{
+				url: '/event-showcase/pics/own/2026-pfingstfete-fehmarn/73A08734.jpg',
+				type: 'image',
+				fill: true
+			},
+			{
+				url: '/event-showcase/pics/own/2026-pfingstfete-fehmarn/73A08773.jpg',
+				type: 'image',
+				fill: true
+			},
+			{
+				url: '/event-showcase/pics/own/2026-pfingstfete-fehmarn/73A08627.jpg',
+				type: 'image',
+				fill: true
+			},
+			{
+				url: '/event-showcase/pics/own/2026-pfingstfete-fehmarn/73A08898.jpg',
+				type: 'image',
+				fill: true
+			},
+			{
+				url: '/event-showcase/pics/own/2026-pfingstfete-fehmarn/73A08964.jpg',
+				type: 'image',
+				fill: true
+			}
+		]
+	}, {
+		id: 'artgroove',
+		name: 'Artgroove Rave',
+		year: 2026,
+		location: 'Gängeviertel',
+		involvement: EventInvolvement.MY_JOB,
+		showfile: true,
+		lasers: true,
+		lights: true,
+		sound: false,
+		sortIndex: 5,
+		tags: ['art', 'rave'],
+		media: [
+			{
+				url: '/event-showcase/vids/own/2026-artgroove.mp4',
+				type: 'video',
+				fill: true
+			},
 		]
 	}
 ];

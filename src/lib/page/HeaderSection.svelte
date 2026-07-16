@@ -1,9 +1,14 @@
 <script lang="ts">
-	let { title, subtitle }: { title: string; subtitle?: string } = $props();
+	let {
+		title,
+		subtitle,
+		background
+	}: { title: string; subtitle?: string; background?: string } = $props();
 </script>
 
 <section
 	class="relative overflow-hidden bg-anthracite-900 px-6 pt-16 pb-12 sm:px-10 sm:pt-18 lg:px-16 lg:pt-20"
+	style={background ? `background: ${background};` : undefined}
 >
 	<div class="relative z-10 w-full">
 		<h1
