@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import FxToggle from '$lib/components/FxToggle.svelte';
 	import { page } from '$app/state';
+	import FxToggle from '$lib/components/FxToggle.svelte';
+	import { onMount } from 'svelte';
 
 	type NavLink = {
 		label: string;
@@ -243,7 +243,7 @@
 		margin-right: 10vw;
 	}
 
-	/* Gap between links and FX toggle — fixed, not animated */
+	/* Gap between links and FX toggle - fixed, not animated */
 	.fx-gap {
 		width: 1.25rem;
 		flex-shrink: 0;

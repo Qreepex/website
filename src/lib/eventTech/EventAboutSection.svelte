@@ -10,7 +10,7 @@
 		class="pointer-events-none absolute top-10 -right-24 h-80 w-80 rounded-full bg-violet-500/12 blur-3xl"
 	></div>
 
-	<div class="mx-auto w-full max-w-4xl">
+	<div class="mx-auto w-full max-w-7xl">
 		<p class="mb-3 text-xs font-semibold tracking-[0.2em] text-violet-300 uppercase">About me</p>
 		<h2
 			class="title-gradient-vivid mb-10 text-4xl font-black tracking-[-0.03em] uppercase sm:text-5xl"
@@ -18,47 +18,58 @@
 			One tech. Every stage.
 		</h2>
 
-		<div class="space-y-6 text-base leading-relaxed text-mist-100/86 sm:text-lg">
+		<div class="max-w-6xl space-y-6 text-base leading-relaxed text-mist-100/86 sm:text-lg">
 			<p>
-				I'm Ben — <strong class="text-mist-100">event technician from Hamburg</strong> — and I spend
+				I'm Ben - <strong class="text-mist-100">event technician from Hamburg</strong> - and I spend
 				most of my working life where the show happens. You'll find me behind the FOH desk at the
 				<a
 					href="https://grossefreiheit36.de"
 					target="_blank"
 					rel="noopener noreferrer"
 					class="event-link">Große Freiheit 36</a
-				>, mixing monitors at
+				>, mixing lights at
 				<a
-					href="https://docks-prinzenbar.de"
+					href="https://docksfreiheit36.de/docks/"
 					target="_blank"
 					rel="noopener noreferrer"
 					class="event-link">Docks</a
 				>
 				or
 				<a
-					href="https://circle-club.de"
+					href="https://circle-hamburg.com"
 					target="_blank"
 					rel="noopener noreferrer"
 					class="event-link">Circle Club</a
-				>, but just as often riding some contraption through the
+				>. Same hardcore techno energy at the
+				<a
+					href="https://das-gaengeviertel.info"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="event-link">Gängeviertel</a
+				>, the same rig moved over to
+				<a href="https://kampnagel.de" target="_blank" rel="noopener noreferrer" class="event-link"
+					>Kampnagel</a
+				>
+				the week after - and then wired, polished and red-carpet-ready at a five-star hotel or a premiere
+				the weekend after that. If it makes sound, light or both, I've probably run it here.
+			</p>
+			<p>
+				Equally at home off the polished floor: I do a lot of riding along with the
 				<a
 					href="https://schlagermove.de"
 					target="_blank"
 					rel="noopener noreferrer"
 					class="event-link">Schlagermove</a
 				>
-				or along the harbor at the
+				and the harbor crowd at the
 				<a
 					href="https://www.hamburg.de/hafengeburtstag"
 					target="_blank"
 					rel="noopener noreferrer"
 					class="event-link">Hafengeburtstag</a
-				>. If it makes sound, light or both, I've probably run it here.
-			</p>
-			<p>
-				I keep busy off the beaten path too: Messen, Tagungen, Kino jobs, corporate launches and the
-				odd wedding all came through the desk at some point. Every gig adds a wrinkle the last one
-				didn't have, which is exactly why I still like this job after hundreds of shows.
+				>, plus Fairs & Conferences, cinema jobs and corporate launches that land somewhere in
+				between. Every gig adds a wrinkle the last one didn't have, which is exactly why I still
+				like this job after so many shows.
 			</p>
 			<p>
 				Lately I'm also building with
@@ -68,15 +79,22 @@
 					rel="noopener noreferrer"
 					class="event-link">Prüf Hamburg</a
 				>: custom speaker wagons and mobile rigs, designed from scratch to survive cobblestones,
-				rain and thousands of dancing people. If it needs to exist and doesn't yet, I'll find a
-				truss, some L-Acoustics boxes and a welder and make it work.
+				rain and thousands of dancing people.
 			</p>
 			<p>
-				I'm equally comfortable on sound, light or laser — the broad spectrum is the point. And I'm
-				a <strong class="text-mist-100"
+				And just as often I leave the city limits behind: Scheunenfeten and Stoppelfeten for local
+				Landjugend clubs, "Trecker Trecks" out in the countryside of Northern Germany. A thrown-up
+				rig in a barn or a PA behind a tractor dealership doesn't faze me - if the doors open and
+				people show up, I'll make it a show.
+			</p>
+			<p>
+				I'm equally comfortable on sound, light, laser or sfx - the broad spectrum is the point. And
+				I'm a <strong class="text-mist-100"
 					>licensed Laser Safety Officer according to OStrV, TROS and DGUV</strong
 				>, so your aerial effects stay spectacular for the audience and boring for the insurance
-				company.
+				company. And, I'm also experienced in working with
+				<strong class="text-mist-100">Pyrotechnics</strong>, ranging from co2 effects via sparks to
+				flame effects.
 			</p>
 		</div>
 

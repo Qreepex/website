@@ -1,6 +1,4 @@
 <script lang="ts">
-	import gsap from 'gsap';
-	import { ScrollTrigger } from 'gsap/ScrollTrigger';
 	import { createRandomEventRigs } from '$lib/content';
 	import EventRigsOverlay from '$lib/content/EventRigsOverlay.svelte';
 	import EventShowcaseGallery from '$lib/content/EventShowcaseGallery.svelte';
@@ -11,14 +9,16 @@
 	import EventToolsSection from '$lib/eventTech/EventToolsSection.svelte';
 	import { initEventTechReveals } from '$lib/eventTech/reveal';
 	import { fxDisabled } from '$lib/stores/reducedMotion';
+	import gsap from 'gsap';
+	import { ScrollTrigger } from 'gsap/ScrollTrigger';
 	import { onMount } from 'svelte';
 
 	gsap.registerPlugin(ScrollTrigger);
 
 	const pageTitle =
-		'Event Tech Hamburg | AV Technician, Lighting & Laser Safety Officer — Ben Schiemann';
+		'Event Tech Hamburg | AV Technician, Lighting & Laser Safety Officer - Ben Schiemann';
 	const pageDescription =
-		'Event technician in Hamburg & Northern Germany: FOH sound on L-Acoustics, light design, Pangolin BEYOND laser shows and full production — concerts, clubs, festivals, corporate, Messen & Tagungen. Licensed Laser Safety Officer (OStrV, TROS, DGUV).';
+		'Event technician in Hamburg & Northern Germany: FOH sound on L-Acoustics, light design, Pangolin BEYOND laser shows and full production - concerts, clubs, festivals, corporate, Messen & Tagungen. Licensed Laser Safety Officer (OStrV, TROS, DGUV).';
 
 	let sectionsEl: HTMLElement | null = null;
 	let eventRigs = $state(createRandomEventRigs());
@@ -71,7 +71,7 @@
 		knowsAbout: [
 			'FOH Sound',
 			'L-Acoustics',
-			'Midas M32R',
+			'Midas M32',
 			'Yamaha DM3',
 			'Yamaha DM7',
 			'Light Design',
@@ -116,7 +116,7 @@
 		</h1>
 
 		<p class="mt-8 max-w-2xl text-base leading-relaxed font-semibold text-mist-100/88 sm:text-lg">
-			Sound, light and laser for Hamburg's clubs, stages and waterways — from Große Freiheit 36 and
+			Sound, light and laser for Hamburg's clubs, stages and waterways - from Große Freiheit 36 and
 			Docks to Schlagermove and the Hafengeburtstag. Built on L-Acoustics and grandMA, with a hard
 			stop at safe lasers.
 		</p>
@@ -140,7 +140,7 @@
 </div>
 
 <section class="section-dark-a relative px-6 py-24 sm:px-10 lg:px-16">
-	<div class="mx-auto w-full max-w-7xl">
+	<div class="mx-auto w-full">
 		<p class="text-xs font-semibold tracking-[0.2em] text-violet-300 uppercase">Gallery</p>
 		<h2
 			class="title-gradient mt-3 text-4xl font-black tracking-[-0.04em] uppercase italic sm:text-5xl"

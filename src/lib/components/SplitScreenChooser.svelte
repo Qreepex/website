@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { fxDisabled } from '$lib/stores/reducedMotion';
 	import { goto } from '$app/navigation';
+	import { fxDisabled } from '$lib/stores/reducedMotion';
 	import gsap from 'gsap';
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
-	import { onMount, tick } from 'svelte';
+	import { onMount } from 'svelte';
 
 	gsap.registerPlugin(ScrollTrigger);
 
@@ -116,7 +116,7 @@
 	class="relative flex h-screen min-h-svh flex-col items-center justify-center overflow-hidden bg-[#020203] px-6 sm:px-10 lg:px-16"
 >
 	<h2 class="mb-8 text-center text-xs font-semibold tracking-[0.24em] text-mist-100/60 uppercase">
-		Two worlds — pick yours
+		Two worlds - pick yours
 	</h2>
 
 	<div
@@ -137,7 +137,7 @@
 				<p class="split-title title-gradient-vivid">Event Tech</p>
 				<p class="split-sub">Sound · Light · Lasers · Stages</p>
 				<p class="split-desc">
-					Hamburg-based tech for concerts, clubs, festivals and corporate — FOH sound, light design,
+					Hamburg-based tech for concerts, clubs, festivals and corporate - FOH sound, light design,
 					licensed laser shows and full production.
 				</p>
 				<span class="split-cta split-cta-event">
@@ -159,7 +159,7 @@
 				<p class="split-title title-gradient-electric">Dev Work</p>
 				<p class="split-sub">Cloud · Backend · Svelte</p>
 				<p class="split-desc">
-					Fullstack engineering for cloud-native systems — scroll down for projects, skills and
+					Fullstack engineering for cloud-native systems - scroll down for projects, skills and
 					references.
 				</p>
 				<span class="split-cta split-cta-dev">

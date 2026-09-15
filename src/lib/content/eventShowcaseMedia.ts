@@ -193,8 +193,20 @@ export const eventShowcaseData: EventShowcase[] = [
 		sortIndex: 5,
 		eventPageUrl: 'https://instagram.com/topdiscoshow',
 		sound: false,
-		tags: ['soa', '2 engel & charlie', 'le-shuuk', 'festival', 'lasers'],
+		tags: ['layher', '2 engel & charlie', 'axmo', 'le-shuuk', 'festival', 'lasers'],
 		media: [
+			{
+				url: '/event-showcase/pics/own/Soa2026%2007843.jpeg',
+				type: 'image'
+			},
+			{
+				url: '/event-showcase/pics/own/Soa2026%2008172.jpeg',
+				type: 'image'
+			},
+			{
+				url: '/event-showcase/pics/own/Soa2026%2008265.jpeg',
+				type: 'image'
+			},
 			{
 				name: 'Engel Charlie',
 				url: '/event-showcase/vids/worked/2024-soa-2-engel-charlie.webm',
@@ -478,7 +490,7 @@ export const eventShowcaseData: EventShowcase[] = [
 		lasers: false,
 		lights: true,
 		sound: true,
-		tags: ['schlagermove', '#notmymusic'],
+		tags: ['schlagermove', 'notmymusic'],
 		media: [
 			{
 				name: 'Schlagermove 2026',

@@ -16,7 +16,7 @@
 		<p
 			class="mx-auto mt-6 max-w-2xl text-base leading-relaxed font-semibold text-mist-100/90 sm:text-lg"
 		>
-			I'm currently looking for new event tech productions — lighting design, laser shows, timecode
+			I'm currently looking for new event tech productions - lighting design, laser shows, timecode
 			programming and full show operation. Tell me about your production and let's make it
 			unforgettable.
 		</p>

@@ -29,7 +29,7 @@
 		class="pointer-events-none absolute -right-16 bottom-10 h-72 w-72 rounded-full bg-cyan-500/10 blur-3xl"
 	></div>
 
-	<div class="mx-auto w-full max-w-7xl">
+	<div class="mx-auto w-full">
 		<p class="text-xs font-semibold tracking-[0.2em] text-violet-300 uppercase">
 			Highlight Projects
 		</p>
@@ -40,7 +40,7 @@
 		</h2>
 		<p class="mt-5 max-w-5xl text-base font-semibold text-mist-100/90 sm:text-lg">
 			Selected productions where I was responsible for lighting, lasers and show-critical
-			infrastructure — from first sketch to final cue.
+			infrastructure - from first sketch to final cue.
 		</p>
 
 		<div class="mt-12 grid gap-6 md:grid-cols-2">
@@ -57,7 +57,7 @@
 						{#if project.image}
 							<img
 								src={project.image}
-								alt={`${project.title} — ${project.meta}`}
+								alt={`${project.title} - ${project.meta}`}
 								class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
 								loading={index < 2 ? 'eager' : 'lazy'}
 							/>

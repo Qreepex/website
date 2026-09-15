@@ -15,7 +15,7 @@
 		class="pointer-events-none absolute right-0 bottom-0 h-80 w-80 rounded-full bg-violet-500/12 blur-3xl"
 	></div>
 
-	<div class="mx-auto w-full max-w-5xl">
+	<div class="mx-auto w-full max-w-7xl">
 		<div class="relative mb-12">
 			<div
 				class="pointer-events-none absolute -top-10 left-1/2 w-screen -translate-x-1/2 overflow-hidden select-none"
@@ -36,9 +36,9 @@
 			</h2>
 		</div>
 
-		<div class="max-w-3xl space-y-8 text-base leading-relaxed text-mist-100/86 sm:text-lg">
+		<div class="max-w-6xl space-y-8 text-base leading-relaxed text-mist-100/86 sm:text-lg">
 			<p>
-				Most productions don't fail on the headline tech — they fail on the invisible bits
+				Most productions don't fail on the headline tech - they fail on the invisible bits
 				underneath. That's where I put most of my attention: rig planning that respects power and
 				sight lines, signal flow that survives a dropped connector, and a timecode show locked tight
 				enough that the pyro fires exactly when the drop hits, not two bars later.
@@ -53,13 +53,13 @@
 			</p>
 			<p>
 				Laser work is its own discipline. Programming aerials in Pangolin BEYOND is half creative,
-				half regulatory chess — keeping the beams beautiful while staying inside
+				half regulatory chess - keeping the beams beautiful while staying inside
 				<strong class="text-mist-100">OStrV</strong>-compliant audience-scanning limits, filling out
 				the TROS paperwork and walking the DGUV line so promoters and insurers sleep well. It's the
 				part of the job nobody claps for, and the part I take most seriously.
 			</p>
 			<p>
-				Being a software developer isn't a distraction from all this — it's why I gravitate toward
+				Being a software developer isn't a distraction from all this - it's why I gravitate toward
 				networked setups, scripted workflows and careful versioned showfiles instead of a folder
 				called <em class="text-mist-100">"final_v3_REALLYFINAL"</em>. The crossing point between AV
 				and IT is where most modern productions quietly live, and where I feel most at home.

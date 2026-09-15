@@ -1,7 +1,7 @@
 <script lang="ts">
+	import { ASSETS_HOST } from '$lib';
 	import { onMount, tick } from 'svelte';
 	import { EventInvolvement, eventShowcaseData, type EventShowcase } from './eventShowcaseMedia';
-	import { ASSETS_HOST } from '$lib';
 
 	type MasonryApi = {
 		layout: () => void;
@@ -532,7 +532,7 @@
 		position: relative;
 	}
 
-	/* The real grid is never hidden via visibility/display — some browsers
+	/* The real grid is never hidden via visibility/display - some browsers
 	   deprioritize or fully defer network activity for <video> elements
 	   inside invisible ancestors, which silently stalled loading behind the
 	   old skeleton. Instead the skeleton is an opaque overlay drawn on top,

@@ -21,48 +21,47 @@ export type EventToolGroup = {
 };
 
 // ── Highlight projects ─────────────────────────────────────────────────────
-// Fill in the TODO descriptions whenever you have time — placeholder cards
 // look intentional and show visitors that more references are coming.
 
 export const eventHighlightProjects: EventHighlightProject[] = [
 	{
-		title: 'Stadtpark Open Air',
-		meta: '2025 · Hamburg · 10,000+ guests',
+		title: 'Butterflies Stadtpark Open Air',
+		meta: '2025 · Hamburg Stadtpark · Open Air',
 		description:
-			'TODO: Describe your role, the rig and the show. What was the challenge, what did you build and program, what made the final result stand out?',
-		tags: ['Festival', 'Timecode Show', 'grandMA3', 'Pyro Sync'],
+			'Built a large stage around the DJ so people could dance on it, backed by a truss carrée rigged with floods, strobes and LED bars for subtle but chic house and EDM looks. CO2 and flame effects sealed the drops.',
+		tags: ['Open Air', 'Stage Build', 'CO2 & Flames', 'Truss Carrée'],
 		image: ASSETS_HOST + '/event-showcase/pics/own/2025-butterflies-stadtpark-pyro.webp',
-		placeholder: false,
-		accent: 'violet'
-	},
-	{
-		title: 'Kieler Woche Weekender',
-		meta: '2025 · Kiel · Festival Stage',
-		description:
-			'TODO: Describe the festival setup, the stage design and what you were responsible for. Which desks, fixtures and lasers did you run?',
-		tags: ['Festival', 'FOH Operation', 'Lasers'],
-		image: ASSETS_HOST + '/event-showcase/pics/own/2025-woderkant-kiel.webp',
-		placeholder: false,
-		accent: 'cyan'
-	},
-	{
-		title: 'Corporate Gala Production',
-		meta: '2025 · Hamburg · Corporate',
-		description:
-			'TODO: Describe the corporate production. Clean looks, branding colors, ambient and show lighting — what did the client need and what did you deliver?',
-		tags: ['Corporate', 'Ambient Lighting', 'Wireless Fixtures'],
-		image: ASSETS_HOST + '/event-showcase/pics/own/2025-firmenevent.webp',
 		placeholder: false,
 		accent: 'electric'
 	},
 	{
-		title: 'Your next big show',
-		meta: '2026 · Northern Germany · Incoming',
+		title: 'Steinhorst Open Air',
+		meta: '2024–2026 · Steinhorst · Festival in Dorf-Style',
 		description:
-			'More references are in the works. Currently planning and programming upcoming shows across Northern Germany — clubs, festivals and corporate stages.',
+			'Festival feeling with village soul. Rigged Layher towers, deployed CO2, flame jets and spark effects, installed moving lights and rigged L-Acoustics Kara, K3, KS21 and KS28. Set up a Pioneer CDJ booth, built LED walls and measured the laser safety zones for crowd scanning.',
+		tags: ['Festival', 'Layher Rigging', 'SFX', 'Laser Safety'],
+		image: ASSETS_HOST + '/event-showcase/pics/own/Soa2026%2007843.jpeg',
+		placeholder: false,
+		accent: 'cyan'
+	},
+	{
+		title: 'Peins Gasthof Klinkrade',
+		meta: '2024–2026 · Klinkrade · Recurring Production',
+		description:
+			'Planned the stage designs and technical setup here across several years. A smaller space demands precision - I build lasers, lights and L-Acoustics sound with certified laser safety setups for crowd scanning.',
+		tags: ['Recurring', 'L-Acoustics', 'Laser Safety', 'Stage Design'],
+		image: ASSETS_HOST + '/event-showcase/pics/own/klinkrade/73A03284.jpg',
+		placeholder: false,
+		accent: 'violet'
+	},
+	{
+		title: 'Your next big show',
+		description:
+			'More references are in the works. Hit me up if you want to boost your event to the next level - clubs, festivals and corporate stages.',
 		tags: ['Coming soon', 'Booking open'],
 		placeholder: true,
-		accent: 'pink'
+		accent: 'pink',
+		meta: '2026 · Northern Germany · Incoming'
 	}
 ];
 
@@ -70,25 +69,11 @@ export const eventHighlightProjects: EventHighlightProject[] = [
 
 export const eventToolGroups: EventToolGroup[] = [
 	{
-		title: 'Audio Systems & FOH',
-		description: 'System tuning, FOH and monitor mixing at any scale.',
-		items: [
-			'L-Acoustics A10 / A15',
-			'L-Acoustics Kiva / Kara',
-			'L-Acoustics K3',
-			'L-Acoustics KS21 / KS28 / SB15',
-			'Midas M32R',
-			'Yamaha DM3 / DM7',
-			'System Tuning',
-			'Haus-PA'
-		]
-	},
-	{
 		title: 'Lighting, Visuals & Laser',
 		description: 'Show design, programming and safe laser operation.',
 		items: [
 			'Light Design',
-			'grandMA (onPC)',
+			'grandMA2/3',
 			'ArtNet',
 			'Resolume',
 			'Medien Server',
@@ -99,9 +84,23 @@ export const eventToolGroups: EventToolGroup[] = [
 		]
 	},
 	{
+		title: 'Audio Systems & FOH',
+		description: 'System tuning, FOH and monitor mixing at any scale.',
+		items: [
+			'L-Acoustics A10 / A15',
+			'L-Acoustics Kiva / Kara / K3',
+			'L-Acoustics KS21 / KS28 / SB15',
+			'Midas M32',
+			'Yamaha DM3 / DM7',
+			'System Tuning'
+		]
+	},
+
+	{
 		title: 'Stage & Custom Builds',
 		description: 'From stage concept to fully self-built rolling systems.',
 		items: [
+			'Layher',
 			'Stage Design',
 			'Set Design',
 			'Custom Speaker Wagons (Bollerwagen)',
@@ -115,12 +114,11 @@ export const eventToolGroups: EventToolGroup[] = [
 
 export const eventTypeChips: string[] = [
 	'Concerts',
-	'Theaters',
 	'Clubs & Raves',
 	'Open Airs & Festivals',
 	'Corporate Events',
-	'Fairs & Conferences (Messen & Tagungen)',
+	'Fairs & Conferences',
 	'Cinema & Special Events',
 	'Private Parties',
-	'Demos & Custom Builds'
+	'Demonstrations & Custom Builds'
 ];

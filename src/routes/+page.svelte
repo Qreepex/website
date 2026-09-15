@@ -100,14 +100,14 @@
 				ease: 'power2.out'
 			});
 
-			// — Video starts hidden; fades in when event-tech line arrives —
+			// - Video starts hidden; fades in when event-tech line arrives -
 			const videoEl = document.querySelector<HTMLVideoElement>('[data-hero-video]');
 			const overlayEl = document.querySelector<HTMLElement>('[data-hero-overlay]');
 			const scrimEl = document.querySelector<HTMLElement>('[data-hero-text-scrim]');
 			_videoElRef = videoEl;
 			gsap.set(videoEl, { opacity: 0 });
 
-			// — Glitch / hack effect on line 1 —
+			// - Glitch / hack effect on line 1 -
 			const originalLine1 = 'FULLSTACK DEVELOPER';
 			// Per-character lookalike substitution map (visually similar glyphs only)
 			const glitchMap: Record<string, string[]> = {
@@ -235,7 +235,7 @@
 
 				function scheduleNext(step: number) {
 					if (isEventMode || $fxDisabled) {
-						// Aborted mid-burst — restore cleanly
+						// Aborted mid-burst - restore cleanly
 						line1El!.textContent = originalLine1;
 						line1El!.style.fontFamily = '';
 						isGlitching = false;
@@ -580,7 +580,7 @@
 					class="mt-6 max-w-3xl ps-2 text-base leading-relaxed font-semibold text-mist-100/90 sm:text-lg"
 				>
 					Hamburg-based fullstack developer focused on cloud-native micro services,
-					high-availability systems and modern web applications — plus event technician work with a
+					high-availability systems and modern web applications - plus event technician work with a
 					focus on lighting and lasers.
 				</p>
 				<div class="mt-6 flex flex-wrap gap-3 ps-2 text-sm font-black">

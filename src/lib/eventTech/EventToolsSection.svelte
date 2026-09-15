@@ -10,7 +10,7 @@
 		class="pointer-events-none absolute -top-16 right-0 h-72 w-72 rounded-full bg-violet-500/12 blur-3xl"
 	></div>
 
-	<div class="mx-auto w-full max-w-5xl">
+	<div class="mx-auto w-full max-w-7xl">
 		<p class="text-xs font-semibold tracking-[0.2em] text-violet-300 uppercase">
 			Tools &amp; Consoles
 		</p>
@@ -20,7 +20,7 @@
 			The gear I speak fluently.
 		</h2>
 		<p class="mt-5 max-w-3xl text-base font-semibold text-mist-100/90 sm:text-lg">
-			A quick inventory of the desks, systems and workflows I reach for on real productions —
+			A quick inventory of the desks, systems and workflows I reach for on real productions -
 			organized by where they sit in a rig.
 		</p>
 

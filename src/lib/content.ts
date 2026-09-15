@@ -143,7 +143,7 @@ export function createRandomEventRigs(rigCount = 45): EventRig[] {
 }
 
 export const devProjects: Project[] = [
-	// Pinned scroll showcase disabled for now — the dev section is being reworked next.
+	// Pinned scroll showcase disabled for now - the dev section is being reworked next.
 	/*
 	{
 		title: 'EazyAutodelete',
