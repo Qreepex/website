@@ -19,6 +19,9 @@
 
 body {
 	min-height: 100vh;
+	/* Overflow is clipped here rather than on <main> so CSS position: sticky
+	   inside sections (like the split-screen chooser) keeps working. */
+	overflow-x: hidden;
 	background:
 		radial-gradient(
 			80% 60% at 12% 6%,

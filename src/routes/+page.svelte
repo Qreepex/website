@@ -500,7 +500,7 @@
 	<meta name="description" content={pageDescription} />
 </svelte:head>
 
-<main class="relative isolate overflow-x-clip">
+<main class="relative isolate overflow-x-visible">
 	<section
 		data-hero-pin
 		class="hero-dark-bg relative flex min-h-screen flex-col items-center justify-center overflow-hidden"
@@ -535,10 +535,7 @@
 			<source src={ASSETS_HOST + '/hero.webm'} type="video/webm" />
 			<source src={ASSETS_HOST + '/hero.mp4'} type="video/mp4" />
 		</video>
-		<div
-			data-hero-overlay
-			class="absolute inset-0 z-10 bg-[radial-gradient(circle_at_20%_22%,color-mix(in_oklab,var(--color-electric-500)_14%,transparent)_0%,transparent_52%),linear-gradient(180deg,color-mix(in_oklab,#020203_92%,transparent)_0%,#020203_96%)]"
-		></div>
+		<div data-hero-overlay class="absolute inset-0 z-10"></div>
 
 		<div data-hero-content class="relative z-40 w-full px-6 sm:px-10 lg:px-16">
 			<div class="relative w-fit">
@@ -593,7 +590,6 @@
 		<div class="wave-separator text-anthracite-800">
 			<svg viewBox="0 0 1440 170" class="h-22 w-full" preserveAspectRatio="none" aria-hidden="true">
 				<path
-					fill="currentColor"
 					d="M0,96L60,90.7C120,85,240,75,360,80C480,85,600,107,720,122.7C840,139,960,149,1080,138.7C1200,128,1320,96,1380,80L1440,64L1440,171L1380,171C1320,171,1200,171,1080,171C960,171,840,171,720,171C600,171,480,171,360,171C240,171,120,171,60,171L0,171Z"
 				></path>
 			</svg>

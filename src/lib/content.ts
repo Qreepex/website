@@ -3,10 +3,10 @@ import type { Project, ProjectsMode, SmallerProject } from './types';
 
 export type EventRig = {
 	fixture:
-		| '/media/lights/moving-head.svg'
-		| '/media/lights/retro-par.svg'
-		| '/media/lights/par64-rusty.svg'
-		| '/media/lights/par64-side.svg';
+	| '/media/lights/moving-head.svg'
+	| '/media/lights/retro-par.svg'
+	| '/media/lights/par64-rusty.svg'
+	| '/media/lights/par64-side.svg';
 	beamClass: 'event-beam-violet' | 'event-beam-cyan' | 'event-beam-orange' | 'event-beam-red';
 	top: number;
 	left: number;
@@ -42,57 +42,57 @@ export const eventShowcaseImages: {
 	credit?: string;
 	creditUrl?: string;
 }[] = [
-	{
-		src: ASSETS_HOST + '/event-showcase/pics/own/2025-xmas-klinkrade.webp',
-		alt: 'Klinkrade Xmas laser show 2024'
-	},
-	{
-		src: ASSETS_HOST + '/event-showcase/pics/worked/2024-xmas-klinkrade-2.webp',
-		alt: 'Klinkrade Xmas event 2024'
-	},
-	{
-		src: ASSETS_HOST + '/event-showcase/pics/own/2025-firmenevent.webp',
-		alt: 'Corporate event production 2025'
-	},
-	{
-		src: ASSETS_HOST + '/event-showcase/pics/own/2025-ely-oaks-mai-traum-gmbh-kiel.webp',
-		alt: 'FOH setup Traum GmbH Kiel 2025'
-	},
-	{
-		src: ASSETS_HOST + '/event-showcase/pics/own/2025-trecker-treck-hohenhorn-foh.webp',
-		alt: 'FOH and lighting in Hohenhorn 2025'
-	},
-	{
-		src: ASSETS_HOST + '/event-showcase/pics/own/2025-butterflies-stadtpark-pyro.webp',
-		alt: 'Butterflies Stadtpark show 2025',
-		credit: 'Joel Abraham',
-		creditUrl: 'https://instagram.com/fotograf.und.so'
-	},
-	{
-		src: ASSETS_HOST + '/event-showcase/pics/own/2025-ely-oaks-foh-traum-gmbh-kiel.webp',
-		alt: 'Traum GmbH Kiel show in May 2025'
-	},
-	{
-		src: ASSETS_HOST + '/event-showcase/pics/own/2025-gf-36.webp',
-		alt: 'XXL Party @ Große Freiheit 36'
-	},
-	{
-		src: ASSETS_HOST + '/event-showcase/pics/own/2025-trailer.webp',
-		alt: 'Event trailer setup 2025'
-	},
-	{
-		src: ASSETS_HOST + '/event-showcase/pics/own/2025-trecker-treck-hohenhorn-ballerndorf.webp',
-		alt: 'Trecker Treck Hohenhorn Ballerndorf 2025'
-	},
-	{
-		src: ASSETS_HOST + '/event-showcase/pics/own/2025-treckerrennen-trittau.webp',
-		alt: 'Treckerrennen Trittau 2025'
-	},
-	{
-		src: ASSETS_HOST + '/event-showcase/pics/own/2025-woderkant-kiel.webp',
-		alt: 'Woderkant Kiel event 2025'
-	}
-];
+		{
+			src: ASSETS_HOST + '/event-showcase/pics/own/2025-xmas-klinkrade.webp',
+			alt: 'Klinkrade Xmas laser show 2024'
+		},
+		{
+			src: ASSETS_HOST + '/event-showcase/pics/worked/2024-xmas-klinkrade-2.webp',
+			alt: 'Klinkrade Xmas event 2024'
+		},
+		{
+			src: ASSETS_HOST + '/event-showcase/pics/own/2025-firmenevent.webp',
+			alt: 'Corporate event production 2025'
+		},
+		{
+			src: ASSETS_HOST + '/event-showcase/pics/own/2025-ely-oaks-mai-traum-gmbh-kiel.webp',
+			alt: 'FOH setup Traum GmbH Kiel 2025'
+		},
+		{
+			src: ASSETS_HOST + '/event-showcase/pics/own/2025-trecker-treck-hohenhorn-foh.webp',
+			alt: 'FOH and lighting in Hohenhorn 2025'
+		},
+		{
+			src: ASSETS_HOST + '/event-showcase/pics/own/2025-butterflies-stadtpark-pyro.webp',
+			alt: 'Butterflies Stadtpark show 2025',
+			credit: 'Joel Abraham',
+			creditUrl: 'https://instagram.com/fotograf.und.so'
+		},
+		{
+			src: ASSETS_HOST + '/event-showcase/pics/own/2025-ely-oaks-foh-traum-gmbh-kiel.webp',
+			alt: 'Traum GmbH Kiel show in May 2025'
+		},
+		{
+			src: ASSETS_HOST + '/event-showcase/pics/own/2025-gf-36.webp',
+			alt: 'XXL Party @ Große Freiheit 36'
+		},
+		{
+			src: ASSETS_HOST + '/event-showcase/pics/own/2025-trailer.webp',
+			alt: 'Event trailer setup 2025'
+		},
+		{
+			src: ASSETS_HOST + '/event-showcase/pics/own/2025-trecker-treck-hohenhorn-ballerndorf.webp',
+			alt: 'Trecker Treck Hohenhorn Ballerndorf 2025'
+		},
+		{
+			src: ASSETS_HOST + '/event-showcase/pics/own/2025-treckerrennen-trittau.webp',
+			alt: 'Treckerrennen Trittau 2025'
+		},
+		{
+			src: ASSETS_HOST + '/event-showcase/pics/own/2025-woderkant-kiel.webp',
+			alt: 'Woderkant Kiel event 2025'
+		}
+	];
 
 const EVENT_RIG_FIXTURES: EventRig['fixture'][] = [
 	'/media/lights/moving-head.svg',
@@ -144,7 +144,7 @@ export function createRandomEventRigs(rigCount = 45): EventRig[] {
 
 export const devProjects: Project[] = [
 	// Pinned scroll showcase disabled for now - the dev section is being reworked next.
-	/*
+
 	{
 		title: 'EazyAutodelete',
 		domain: 'Discord Bot, since 2020',
@@ -184,7 +184,7 @@ export const devProjects: Project[] = [
 		url: 'https://water-me.app',
 		color: '#00ee57'
 	}
-	*/
+
 ];
 
 export const smallerDevProjects: SmallerProject[] = [

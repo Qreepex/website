@@ -56,7 +56,7 @@
 		event.preventDefault();
 		if (navigating) return;
 
-		if ($fxDisabled || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+		if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
 			void goto('/event-tech');
 			return;
 		}
@@ -66,33 +66,54 @@
 	}
 
 	onMount(() => {
-		const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches || $fxDisabled;
-
+		const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 		let pinTrigger: ScrollTrigger | null = null;
 
-		if (!reduced && sectionEl) {
-			// Fullscreen snap-in: pin the section, scrub-expand it from a centered
-			// thumbnail to fullscreen over the first 60% of the pin, hold at
-			// fullscreen for the remaining 40%, then continue normal flow.
+		function setup() {
+			if (!sectionEl || pinTrigger) return;
+			const face = sectionEl.querySelector<HTMLElement>('[data-split-face]');
+			if (!face) return;
+
+			// Pre-set entrance state so the scrub starts from a thumbnail.
+			gsap.set(face, { scale: 0.82, yPercent: 6, opacity: 0.35, force3D: true });
+
 			const expandTl = gsap.timeline({ paused: true });
 			expandTl
-				.fromTo(
-					sectionEl,
-					{ clipPath: 'inset(16% 22% 16% 22%)', opacity: 0.35 },
-					{ clipPath: 'inset(0% 0% 0% 0%)', opacity: 1, duration: 6, ease: 'power1.inOut' }
-				)
-				.to(sectionEl, { duration: 4 }); // hold phase: no visual change, keeps pin alive
+				.to(face, {
+					scale: 1,
+					yPercent: 0,
+					opacity: 1,
+					duration: 4,
+					ease: 'power2.out',
+					force3D: true
+				})
+				// Hold at full expansion for the remaining scroll runway.
+				.to(face, { duration: 5 });
 
 			pinTrigger = ScrollTrigger.create({
 				trigger: sectionEl,
 				start: 'top top',
-				end: '+=140%',
-				pin: true,
+				end: 'bottom bottom',
 				scrub: 0.35,
-				anticipatePin: 1,
 				animation: expandTl
 			});
 		}
+
+		function teardown() {
+			pinTrigger?.kill();
+			pinTrigger = null;
+			const face = sectionEl?.querySelector<HTMLElement>('[data-split-face]');
+			if (face) gsap.set(face, { clearProps: 'all', opacity: 1, scale: 1, yPercent: 0 });
+		}
+
+		// React to the global FX toggle as well as prefers-reduced-motion so the
+		// animation mounts/unmounts live instead of being decided once at page load.
+		if (!reduced) setup();
+		const unsubFx = fxDisabled.subscribe((disabled) => {
+			if (reduced) return;
+			if (disabled) teardown();
+			else if (!pinTrigger) setup();
+		});
 
 		// If the user navigates back from /event-tech, reveal any stale state
 		// left behind by the outgoing transition instead of staying dark.
@@ -105,75 +126,77 @@
 
 		return () => {
 			window.removeEventListener('pageshow', onPageShow);
-			pinTrigger?.kill();
+			unsubFx();
+			teardown();
 		};
 	});
 </script>
 
-<section
-	bind:this={sectionEl}
-	data-split-screen
-	class="relative flex h-screen min-h-svh flex-col items-center justify-center overflow-hidden bg-[#020203] px-6 sm:px-10 lg:px-16"
->
-	<h2 class="mb-8 text-center text-xs font-semibold tracking-[0.24em] text-mist-100/60 uppercase">
-		Two worlds - pick yours
-	</h2>
-
+<section bind:this={sectionEl} data-split-screen class="relative h-[210svh] bg-[#020203]">
 	<div
-		class="grid w-full max-w-6xl gap-4 sm:grid-cols-2 sm:gap-6"
-		role="group"
-		aria-label="Choose which side of my portfolio to explore"
+		data-split-face
+		class="sticky top-0 flex h-screen w-full flex-col items-center justify-center px-6 sm:px-10 lg:px-16"
 	>
-		<a
-			href="/event-tech"
-			data-split-side
-			onclick={chooseEventTech}
-			class="split-half split-event group relative flex min-h-[42svh] flex-col justify-center overflow-hidden border p-8 sm:min-h-[56svh] sm:p-12"
-			class:pointer-events-none={navigating}
-		>
-			<div class="split-bg split-bg-event" aria-hidden="true"></div>
-			<div class="relative">
-				<p class="split-kicker text-violet-300">Looking for event tech?</p>
-				<p class="split-title title-gradient-vivid">Event Tech</p>
-				<p class="split-sub">Sound · Light · Lasers · Stages</p>
-				<p class="split-desc">
-					Hamburg-based tech for concerts, clubs, festivals and corporate - FOH sound, light design,
-					licensed laser shows and full production.
-				</p>
-				<span class="split-cta split-cta-event">
-					Continue to Event Work
-					<span class="split-arrow" aria-hidden="true">→</span>
-				</span>
-			</div>
-		</a>
+		<h2 class="mb-8 text-center text-xs font-semibold tracking-[0.24em] text-mist-100/60 uppercase">
+			Two worlds - pick yours
+		</h2>
 
-		<a
-			href="#about"
-			data-split-side
-			class="split-half split-dev group relative flex min-h-[42svh] flex-col justify-center overflow-hidden border p-8 sm:min-h-[56svh] sm:p-12"
-			class:pointer-events-none={navigating}
+		<div
+			class="grid w-full max-w-6xl gap-4 sm:grid-cols-2 sm:gap-6"
+			role="group"
+			aria-label="Choose which side of my portfolio to explore"
 		>
-			<div class="split-bg split-bg-dev" aria-hidden="true"></div>
-			<div class="relative">
-				<p class="split-kicker text-electric-400">Looking for a developer?</p>
-				<p class="split-title title-gradient-electric">Dev Work</p>
-				<p class="split-sub">Cloud · Backend · Svelte</p>
-				<p class="split-desc">
-					Fullstack engineering for cloud-native systems - scroll down for projects, skills and
-					references.
-				</p>
-				<span class="split-cta split-cta-dev">
-					Continue to Dev
-					<span class="split-arrow" aria-hidden="true">↓</span>
-				</span>
-			</div>
-		</a>
+			<a
+				href="/event-tech"
+				data-split-side
+				onclick={chooseEventTech}
+				class="split-half split-event group relative flex min-h-[42svh] flex-col justify-center overflow-hidden border p-8 sm:min-h-[56svh] sm:p-12"
+				class:pointer-events-none={navigating}
+			>
+				<div class="split-bg split-bg-event" aria-hidden="true"></div>
+				<div class="relative">
+					<p class="split-kicker text-violet-300">Looking for event tech?</p>
+					<p class="split-title title-gradient-vivid">Event Tech</p>
+					<p class="split-sub">Sound · Light · Lasers · Stages</p>
+					<p class="split-desc">
+						Hamburg-based tech for concerts, clubs, festivals and corporate - FOH sound, light
+						design, licensed laser shows and full production.
+					</p>
+					<span class="split-cta split-cta-event">
+						Continue to Event Work
+						<span class="split-arrow" aria-hidden="true">→</span>
+					</span>
+				</div>
+			</a>
+
+			<a
+				href="#about"
+				data-split-side
+				class="split-half split-dev group relative flex min-h-[42svh] flex-col justify-center overflow-hidden border p-8 sm:min-h-[56svh] sm:p-12"
+				class:pointer-events-none={navigating}
+			>
+				<div class="split-bg split-bg-dev" aria-hidden="true"></div>
+				<div class="relative">
+					<p class="split-kicker text-electric-400">Looking for a developer?</p>
+					<p class="split-title title-gradient-electric">Dev Work</p>
+					<p class="split-sub">Cloud · Backend · Svelte</p>
+					<p class="split-desc">
+						Fullstack engineering for cloud-native systems - scroll down for projects, skills and
+						references.
+					</p>
+					<span class="split-cta split-cta-dev">
+						Continue to Dev
+						<span class="split-arrow" aria-hidden="true">↓</span>
+					</span>
+				</div>
+			</a>
+		</div>
+
+		<p class="sr-only">
+			This section lets you jump directly to the event technology portfolio or continue scrolling to
+			the developer portfolio below.
+		</p>
 	</div>
-
-	<p class="sr-only">
-		This section lets you jump directly to the event technology portfolio or continue scrolling to
-		the developer portfolio below.
-	</p>
 </section>
 
 <div
