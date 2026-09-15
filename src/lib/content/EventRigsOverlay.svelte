@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { fxDisabled } from '$lib/stores/reducedMotion';
+
 	type EventRig = {
 		fixture:
 			| '/media/lights/moving-head.svg'
@@ -20,7 +22,7 @@
 	let { rigs = [] }: { rigs: EventRig[] } = $props();
 </script>
 
-<div class="pointer-events-none absolute inset-0 z-1 overflow-hidden">
+<div class="pointer-events-none absolute inset-0 z-1 overflow-hidden" class:fx-paused={$fxDisabled}>
 	{#each rigs as rig}
 		<div class="event-rig" style={`top:${rig.top}%; left:${rig.left}%; opacity:${rig.opacity};`}>
 			<div
@@ -98,6 +100,16 @@
 	.rotate-sweep {
 		animation: rig-sweep var(--rig-duration) ease-in-out infinite;
 		animation-delay: var(--rig-delay);
+	}
+
+	.fx-paused .rotate-sweep {
+		animation-play-state: paused;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.rotate-sweep {
+			animation: none;
+		}
 	}
 
 	@keyframes rig-sweep {

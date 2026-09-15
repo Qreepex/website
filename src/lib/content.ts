@@ -143,6 +143,8 @@ export function createRandomEventRigs(rigCount = 45): EventRig[] {
 }
 
 export const devProjects: Project[] = [
+	// Pinned scroll showcase disabled for now — the dev section is being reworked next.
+	/*
 	{
 		title: 'EazyAutodelete',
 		domain: 'Discord Bot, since 2020',
@@ -182,6 +184,7 @@ export const devProjects: Project[] = [
 		url: 'https://water-me.app',
 		color: '#00ee57'
 	}
+	*/
 ];
 
 export const smallerDevProjects: SmallerProject[] = [

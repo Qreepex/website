@@ -1,6 +1,7 @@
 <script lang="ts">
 	import HeroLiquidBackground from '$lib/components/HeroLiquidBackground.svelte';
 	import ScrollIndicator from '$lib/components/ScrollIndicator.svelte';
+	import SplitScreenChooser from '$lib/components/SplitScreenChooser.svelte';
 	import AboutSection from '$lib/content/AboutSection.svelte';
 	import ProjectsSection from '$lib/content/ProjectsSection.svelte';
 	import { skillGroups } from '$lib/content/skills';
@@ -25,6 +26,11 @@
 
 	$effect(() => {
 		const rm = $fxDisabled;
+		// Toggling FX changes the pin layout on this page (split pin in/out),
+		// so recompute all ScrollTrigger boundaries.
+		rm;
+		ScrollTrigger.refresh();
+
 		if (!_videoElRef) return;
 		if (rm) {
 			_videoElRef.pause();
@@ -593,6 +599,8 @@
 			</svg>
 		</div>
 	</section>
+
+	<SplitScreenChooser />
 
 	<AboutSection />
 	<ProjectsSection />
