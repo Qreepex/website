@@ -1,9 +1,6 @@
 <script lang="ts">
-	let {
-		title,
-		subtitle,
-		background
-	}: { title: string; subtitle?: string; background?: string } = $props();
+	let { title, subtitle, background }: { title: string; subtitle?: string; background?: string } =
+		$props();
 </script>
 
 <section

@@ -147,7 +147,7 @@ export const devProjects: Project[] = [
 		title: 'EazyAutodelete',
 		domain: 'Discord Bot, since 2020',
 		description:
-			'Widely used Auto Delete bot for Discord, built with a focus on reliability, configurability and user-friendly design used by over 32,000 communities reaching 19 mio. users worldwide.',
+			'Widely used Auto Delete bot for Discord, built with a focus on reliability, configurability and user-friendly design used by over 40,000 communities reaching 19 mio. users worldwide.',
 		tech: [
 			'Go',
 			'Kubernetes',

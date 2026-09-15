@@ -481,9 +481,10 @@ export const eventShowcaseData: EventShowcase[] = [
 		tags: ['schlagermove', '#notmymusic'],
 		media: [
 			{
-				name: "Schlagermove 2026",
-				url: "/event-showcase/pics/worked/2026-schlagermove.jpeg",
-				type: "image", fill: true
+				name: 'Schlagermove 2026',
+				url: '/event-showcase/pics/worked/2026-schlagermove.jpeg',
+				type: 'image',
+				fill: true
 			},
 			{
 				name: 'Schlagermove Parade',
@@ -581,12 +582,14 @@ export const eventShowcaseData: EventShowcase[] = [
 				url: '/event-showcase/pics/own/2026-scheunenfest-steinhorst/73A00282.jpg',
 				type: 'image',
 				fill: false
-			}, {
+			},
+			{
 				name: 'Scheunenfest 2026 2',
 				url: '/event-showcase/pics/own/2026-scheunenfest-steinhorst/73A04873.jpg',
 				type: 'image',
 				fill: false
-			}, {
+			},
+			{
 				name: 'Scheunenfest 2026 3',
 				url: '/event-showcase/pics/own/2026-scheunenfest-steinhorst/73A04943.jpg',
 				type: 'image',
@@ -684,7 +687,8 @@ export const eventShowcaseData: EventShowcase[] = [
 				fill: true
 			}
 		]
-	}, {
+	},
+	{
 		id: 'artgroove',
 		name: 'Artgroove Rave',
 		year: 2026,
@@ -701,7 +705,7 @@ export const eventShowcaseData: EventShowcase[] = [
 				url: '/event-showcase/vids/own/2026-artgroove.mp4',
 				type: 'video',
 				fill: true
-			},
+			}
 		]
 	}
 ];

@@ -500,7 +500,10 @@
 			<div class="relative z-10 sm:mt-6">
 				<EventTechGallery />
 				<div class="mt-8 flex justify-center sm:mt-10">
-					<a href="/event-tech" class="event-cta inline-flex items-center px-5 py-3 text-sm font-black tracking-[0.12em] uppercase">
+					<a
+						href="/event-tech"
+						class="event-cta inline-flex items-center px-5 py-3 text-sm font-black tracking-[0.12em] uppercase"
+					>
 						More about Ben as an Event Tech
 					</a>
 				</div>

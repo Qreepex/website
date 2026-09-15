@@ -408,105 +408,103 @@
 	<div class="gallery-columns" bind:this={galleryNode}>
 		<div class="media-sizer" aria-hidden="true"></div>
 		{#each sortedEventShowcaseData as event (event.id)}
-		{@const activeMedia = getCurrentMedia(event)}
-		{@const currentIndex = mediaIndices[event.id] ?? 0}
-		<figure class="media-card" data-event-id={event.id}>
-			<div class="card-inner">
-				{#if event.media.length > 1}
-					<div class="nav-bar" role="group" aria-label="Media navigation">
-						<button
-							type="button"
-							class="nav-btn"
-							onclick={(e) => prevMedia(event.id, event.media.length, e)}
-							aria-label="Previous media"
-						>
-							<span aria-hidden="true">‹</span>
-						</button>
-						<span class="nav-counter"
-							>{getMediaIndex(event.id) + 1}/{event.media.length}</span
-						>
-						<button
-							type="button"
-							class="nav-btn"
-							onclick={(e) => nextMedia(event.id, event.media.length, e)}
-							aria-label="Next media"
-						>
-							<span aria-hidden="true">›</span>
-						</button>
+			{@const activeMedia = getCurrentMedia(event)}
+			{@const currentIndex = mediaIndices[event.id] ?? 0}
+			<figure class="media-card" data-event-id={event.id}>
+				<div class="card-inner">
+					{#if event.media.length > 1}
+						<div class="nav-bar" role="group" aria-label="Media navigation">
+							<button
+								type="button"
+								class="nav-btn"
+								onclick={(e) => prevMedia(event.id, event.media.length, e)}
+								aria-label="Previous media"
+							>
+								<span aria-hidden="true">‹</span>
+							</button>
+							<span class="nav-counter">{getMediaIndex(event.id) + 1}/{event.media.length}</span>
+							<button
+								type="button"
+								class="nav-btn"
+								onclick={(e) => nextMedia(event.id, event.media.length, e)}
+								aria-label="Next media"
+							>
+								<span aria-hidden="true">›</span>
+							</button>
+						</div>
+					{/if}
+					<div class="media-frame" style={`--media-frame-ratio: ${getFrameRatio(event.id)}`}>
+						{#key `${event.id}-${currentIndex}`}
+							{#if activeMedia.type === 'image'}
+								<img
+									use:lazyMedia={event.id}
+									data-src={ASSETS_HOST + activeMedia.url}
+									alt={`${activeMedia.title ?? activeMedia.name ?? event.name} in ${event.location} (${event.year})`}
+									loading="lazy"
+									class="media-element"
+									class:media-fill={activeMedia.fill === true}
+								/>
+							{:else}
+								<video
+									use:lazyMedia={event.id}
+									use:videoControls
+									data-src={ASSETS_HOST + activeMedia.url}
+									class="media-element"
+									class:media-fill={activeMedia.fill === true}
+									playsinline
+									preload="none"
+									muted
+								></video>
+							{/if}
+						{/key}
 					</div>
-				{/if}
-				<div class="media-frame" style={`--media-frame-ratio: ${getFrameRatio(event.id)}`}>
-					{#key `${event.id}-${currentIndex}`}
-						{#if activeMedia.type === 'image'}
-							<img
-								use:lazyMedia={event.id}
-								data-src={ASSETS_HOST + activeMedia.url}
-								alt={`${activeMedia.title ?? activeMedia.name ?? event.name} in ${event.location} (${event.year})`}
-								loading="lazy"
-								class="media-element"
-								class:media-fill={activeMedia.fill === true}
-							/>
-						{:else}
-							<video
-								use:lazyMedia={event.id}
-								use:videoControls
-								data-src={ASSETS_HOST + activeMedia.url}
-								class="media-element"
-								class:media-fill={activeMedia.fill === true}
-								playsinline
-								preload="none"
-								muted
-							></video>
-						{/if}
-					{/key}
 				</div>
-			</div>
 
-			<figcaption class="media-caption">
-				<p class="media-name">{event.name}</p>
-				<p class="media-meta">{event.location} · {event.year}</p>
-				{#if activeMedia.title}
-					<p class="media-subtitle">{activeMedia.title}</p>
-				{/if}
-
-				{#if event.eventPageUrl || activeMedia.photographer?.length}
-					<div class="media-credits">
-						{#if event.eventPageUrl}
-							<a href={event.eventPageUrl} target="_blank" rel="noopener noreferrer">
-								Event Page
-							</a>
-						{/if}
-						{#if activeMedia.photographer?.length}
-							<span class="media-credits-photo">
-								<span>&copy;</span>
-								{#each activeMedia.photographer as photographer, index}
-									<a href={photographer.url} target="_blank" rel="noopener noreferrer">
-										{photographer.name}
-									</a>
-									{#if index < activeMedia.photographer.length - 1}
-										<span>/</span>
-									{/if}
-								{/each}
-							</span>
-						{/if}
-					</div>
-				{/if}
-
-				<div class="media-tags">
-					{#if event.involvement === EventInvolvement.WORKED_ON}
-						<span class="tag-assisted">Assisted</span>
+				<figcaption class="media-caption">
+					<p class="media-name">{event.name}</p>
+					<p class="media-meta">{event.location} · {event.year}</p>
+					{#if activeMedia.title}
+						<p class="media-subtitle">{activeMedia.title}</p>
 					{/if}
 
-					{#each capabilityTags(event) as cap}
-						<span class="tag-capability">{cap}</span>
-					{/each}
+					{#if event.eventPageUrl || activeMedia.photographer?.length}
+						<div class="media-credits">
+							{#if event.eventPageUrl}
+								<a href={event.eventPageUrl} target="_blank" rel="noopener noreferrer">
+									Event Page
+								</a>
+							{/if}
+							{#if activeMedia.photographer?.length}
+								<span class="media-credits-photo">
+									<span>&copy;</span>
+									{#each activeMedia.photographer as photographer, index}
+										<a href={photographer.url} target="_blank" rel="noopener noreferrer">
+											{photographer.name}
+										</a>
+										{#if index < activeMedia.photographer.length - 1}
+											<span>/</span>
+										{/if}
+									{/each}
+								</span>
+							{/if}
+						</div>
+					{/if}
 
-					{#each event.tags as tag}
-						<span class="tag-hash">#{tag}</span>
-					{/each}
-				</div>
-			</figcaption>
-		</figure>
+					<div class="media-tags">
+						{#if event.involvement === EventInvolvement.WORKED_ON}
+							<span class="tag-assisted">Assisted</span>
+						{/if}
+
+						{#each capabilityTags(event) as cap}
+							<span class="tag-capability">{cap}</span>
+						{/each}
+
+						{#each event.tags as tag}
+							<span class="tag-hash">#{tag}</span>
+						{/each}
+					</div>
+				</figcaption>
+			</figure>
 		{/each}
 	</div>
 
