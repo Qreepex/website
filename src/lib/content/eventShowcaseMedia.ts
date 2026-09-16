@@ -375,7 +375,7 @@ export const eventShowcaseData: EventShowcase[] = [
 	{
 		id: 'feldfest',
 		name: 'Feldfest',
-		year: "2025-2026",
+		year: '2025-2026',
 		location: 'Germany',
 		involvement: EventInvolvement.MY_JOB,
 		showfile: true,
@@ -440,7 +440,7 @@ export const eventShowcaseData: EventShowcase[] = [
 	{
 		id: 'treckerrennen-trittau-2025',
 		name: 'Treckerrennen Trittau',
-		year: "2025-2026",
+		year: '2025-2026',
 		location: 'Trittau',
 		involvement: EventInvolvement.MY_JOB,
 		showfile: true,
@@ -481,7 +481,7 @@ export const eventShowcaseData: EventShowcase[] = [
 	{
 		id: 'schlagermove',
 		name: 'Schlagermove',
-		year: "2024-2026",
+		year: '2024-2026',
 		location: 'Hamburg',
 		involvement: EventInvolvement.MY_JOB,
 		showfile: false,
