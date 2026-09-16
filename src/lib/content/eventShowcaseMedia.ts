@@ -373,9 +373,9 @@ export const eventShowcaseData: EventShowcase[] = [
 		]
 	},
 	{
-		id: 'feldfest-2025',
+		id: 'feldfest',
 		name: 'Feldfest',
-		year: 2025,
+		year: "2025-2026",
 		location: 'Germany',
 		involvement: EventInvolvement.MY_JOB,
 		showfile: true,
@@ -440,7 +440,7 @@ export const eventShowcaseData: EventShowcase[] = [
 	{
 		id: 'treckerrennen-trittau-2025',
 		name: 'Treckerrennen Trittau',
-		year: 2025,
+		year: "2025-2026",
 		location: 'Trittau',
 		involvement: EventInvolvement.MY_JOB,
 		showfile: true,
@@ -479,9 +479,9 @@ export const eventShowcaseData: EventShowcase[] = [
 		]
 	},
 	{
-		id: 'schlagermove-2025',
+		id: 'schlagermove',
 		name: 'Schlagermove',
-		year: 2025,
+		year: "2024-2026",
 		location: 'Hamburg',
 		involvement: EventInvolvement.MY_JOB,
 		showfile: false,
@@ -506,7 +506,7 @@ export const eventShowcaseData: EventShowcase[] = [
 		]
 	},
 	{
-		id: 'peins-gasthof-klinkrade-2026',
+		id: 'peins-gasthof-klinkrade',
 		name: 'Peins Gasthof Klinkrade',
 		year: '2024-2026',
 		location: 'Klinkrade',
