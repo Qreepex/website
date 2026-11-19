@@ -110,6 +110,226 @@ export const eventToolGroups: EventToolGroup[] = [
 	}
 ];
 
+// ── Capability showcase ("I can do ...") ───────────────────────────────────
+
+export type EventCapabilityAccent = 'multicolor' | 'loud' | 'bright' | 'boom';
+
+export type EventCapabilityImage = {
+	url: string;
+	alt: string;
+	caption: string;
+	/** CSS object-position for the tile crop, e.g. '50% 30%'. */
+	focus?: string;
+};
+
+export type EventCapabilitySection = {
+	id: string;
+	slug: string;
+	/** Small label above the catch phrase, e.g. "01 · Light". */
+	eyebrow: string;
+	/** The word after "I can do". */
+	keyword: string;
+	accent: EventCapabilityAccent;
+	body: string[];
+	tools: string[];
+	toolsLabel: string;
+	/** Short "where I did this" line under the tool list. */
+	credits: string;
+	images: EventCapabilityImage[];
+};
+
+export const eventCapabilitySections: EventCapabilitySection[] = [
+	{
+		id: 'colorful',
+		slug: 'event-showcase-colorful',
+		eyebrow: '01 · Light',
+		keyword: 'Colorful',
+		accent: 'multicolor',
+		body: [
+			'Colour is the cheapest way to make a room feel expensive - you just have to know which two hues to keep and which twelve to drop. I design the looks for clubs, open airs and corporate stages on grandMA, build them cue by cue and keep them buskable for the moment the DJ ignores the plan.',
+			'From a single wash on a vocalist to a colour-chasing rig on a festival main stage: the palette, the timing and the blackout are mine to own.'
+		],
+		toolsLabel: 'Light design & control',
+		tools: [
+			'grandMA2 / grandMA3',
+			'Moving Heads - Spot / Wash / Beam',
+			'LED Bars, Washes & Blinders',
+			'ArtNet & Show Networking',
+			'Haze & Atmospheric Looks',
+			'Light Design & Show Programming'
+		],
+		credits: 'Große Freiheit 36 · Docks · Kampnagel · Schlagermove · corporate stages',
+		images: [
+			{
+				url: '/event-showcase/pics/own/2026-scheunenfest-steinhorst/73A04943.jpg',
+				alt: 'Purple and yellow light beams over a dancing crowd at Scheunenfest Steinhorst',
+				caption: 'Scheunenfest Steinhorst · 2026',
+				focus: '50% 45%'
+			},
+			{
+				url: '/event-showcase/pics/own/2025-gf-36.webp',
+				alt: 'Blue and yellow light beams over the crowd at Große Freiheit 36 in Hamburg',
+				caption: 'Große Freiheit 36 · 2025',
+				focus: '42% 40%'
+			},
+			{
+				url: '/event-showcase/pics/own/klinkrade/73A05031.jpg',
+				alt: 'Crowd lit by bright linear fixtures and blue beams at Peins Gasthof Klinkrade',
+				caption: 'Peins Gasthof Klinkrade · 2026',
+				focus: '50% 55%'
+			},
+			{
+				url: '/event-showcase/pics/own/2025-woderkant-kiel.webp',
+				alt: 'DJ on a brightly lit stage with colourful beams at Woderkant during Kieler Woche',
+				caption: 'Woderkant, Kieler Woche · 2025',
+				focus: '55% 38%'
+			}
+		]
+	},
+	{
+		id: 'loud',
+		slug: 'event-showcase-loud',
+		eyebrow: '02 · Sound',
+		keyword: 'Loud',
+		accent: 'loud',
+		body: [
+			'Sound is the one thing nobody forgives: if it is harsh at the front, the night is over before the first drop. I mix FOH on L-Acoustics systems, tune the array to the room and keep the low end honest without turning the dancefloor into a paint shaker.',
+			'Club nights, festival main stages or a corporate keynote - the desk is where I am most at home, and the difference between a PA that is loud and a PA that feels loud is 90% tuning.'
+		],
+		toolsLabel: 'Systems, desks & tuning',
+		tools: [
+			'L-Acoustics A10 / A15',
+			'L-Acoustics Kiva / Kara / K3',
+			'L-Acoustics KS21 / KS28 / SB15',
+			'Midas M32',
+			'Yamaha DM3 / DM7',
+			'System Tuning, FOH & Monitor Mix'
+		],
+		credits: 'Große Freiheit 36 · Docks · Steinhorst Open Air · Kieler Woche · Schlagermove',
+		images: [
+			{
+				url: '/event-showcase/pics/own/2025-trecker-treck-hohenhorn-foh.webp',
+				alt: 'FOH position with lighting and sound consoles overlooking the stage at Trecker Treck Hohenhorn',
+				caption: 'FOH · Trecker Treck Hohenhorn',
+				focus: '50% 62%'
+			},
+			{
+				url: '/event-showcase/pics/own/2025-firmenevent.webp',
+				alt: 'Corporate stage set up with drums, guitars and lighting in front of a large window',
+				caption: 'Corporate Stage · 2025',
+				focus: '42% 55%'
+			},
+			{
+				url: '/event-showcase/pics/worked/2025-steinhorst-scheuenfest-special-d.webp',
+				alt: 'DJ with his arm raised in front of a large crowd at Scheunenfest Steinhorst',
+				caption: 'Special D · Steinhorst 2025',
+				focus: '48% 42%'
+			},
+			{
+				url: '/event-showcase/pics/worked/2026-schlagermove.jpeg',
+				alt: 'Festival stage and large crowd at Schlagermove in golden evening light',
+				caption: 'Schlagermove · 2026',
+				focus: '50% 48%'
+			}
+		]
+	},
+	{
+		id: 'bright',
+		slug: 'event-showcase-bright',
+		eyebrow: '03 · Laser',
+		keyword: 'Bright',
+		accent: 'bright',
+		body: [
+			'Lasers are the one effect you cannot improvise: every beam is geometry, every scan is a risk assessment. I program aerial shows in Pangolin BEYOND, keep them inside the MPE limits and handle the paperwork that lets a promoter sleep at night.',
+			'Bright, sharp and legal - that is the whole trick. And as a licensed Laser Safety Officer I am allowed to sign off the crowd-scanning setups other people politely decline.'
+		],
+		toolsLabel: 'Laser & licenses',
+		tools: [
+			'Pangolin BEYOND',
+			'Laser Show Programming & Timecode',
+			'Licensed Laser Safety Officer (OStrV / TROS / DGUV)',
+			'Audience Scanning & Safety Assessments',
+			'Beam Tables & Rig Planning',
+			'ArtNet & Show Networking'
+		],
+		credits:
+			'Peins Gasthof Klinkrade · Steinhorst Open Air · Scheunenfest Steinhorst · Trecker Treck',
+		images: [
+			{
+				url: '/event-showcase/pics/own/klinkrade/73A06333.jpg',
+				alt: 'Red and blue laser beams radiating from the rig over the dancefloor at Peins Gasthof Klinkrade',
+				caption: 'Peins Gasthof Klinkrade · 2026',
+				focus: '50% 45%'
+			},
+			{
+				url: '/event-showcase/pics/own/2026-scheunenfest-steinhorst/73A04873.jpg',
+				alt: 'Intense green laser beams over the crowd at Scheunenfest Steinhorst',
+				caption: 'Scheunenfest Steinhorst · 2026',
+				focus: '50% 48%'
+			},
+			{
+				url: '/event-showcase/pics/worked/2024-xmas-klinkrade-2.webp',
+				alt: 'Green laser beams fanning out from a central rig in a dark room',
+				caption: 'Peins Gasthof Klinkrade · 2024',
+				focus: '50% 45%'
+			},
+			{
+				url: '/event-showcase/pics/own/2026-maifeuerfete-fehmarn/73A08144.jpg',
+				alt: 'Blue laser beams projecting over the crowd at Maifeuerfete Fehmarn',
+				caption: 'Maifeuerfete Fehmarn · 2026',
+				focus: '50% 50%'
+			}
+		]
+	},
+	{
+		id: 'boom',
+		slug: 'event-showcase-boom',
+		eyebrow: '04 · SFX & Pyro',
+		keyword: 'Boom',
+		accent: 'boom',
+		body: [
+			'Nothing lands a drop like a wall of CO2, a row of flame jets and sparks raining over the crowd on exactly the right frame. I rig the effects, wire them into the show and fire them on timecode so it hits on the beat - not two bars later.',
+			'CO2, flames and spark effects, planned inside the safety distances, coordinated with the promoter and executed with the pyrotechnician on site.'
+		],
+		toolsLabel: 'Effects & show control',
+		tools: [
+			'CO2 Jets & Cryo Effects',
+			'Flame Effects & Flame Jets',
+			'Spark & Funken Effects',
+			'Pyrotechnics Integration',
+			'Show Timecode & Cueing',
+			'Safety Distances, Permits & Briefings'
+		],
+		credits: 'Butterflies Stadtpark · Steinhorst Open Air · Scheunenfest Steinhorst · Oldenburg',
+		images: [
+			{
+				url: '/event-showcase/pics/own/Soa2026%2008172.jpeg',
+				alt: 'Massive fire plumes and blue laser beams over the crowd at Steinhorst Open Air',
+				caption: 'Steinhorst Open Air · 2026',
+				focus: '50% 45%'
+			},
+			{
+				url: '/event-showcase/pics/own/Soa2026%2007843.jpeg',
+				alt: 'White pyrotechnic sparks erupting from the stage at Steinhorst Open Air',
+				caption: 'Steinhorst Open Air · 2026',
+				focus: '50% 40%'
+			},
+			{
+				url: '/event-showcase/pics/worked/2025-steinhorst-scheuenfest-sparks.webp',
+				alt: 'Spark fountains on both sides of the stage at Scheunenfest Steinhorst',
+				caption: 'Scheunenfest Steinhorst · 2025',
+				focus: '50% 50%'
+			},
+			{
+				url: '/event-showcase/pics/own/Soa2026%2008265.jpeg',
+				alt: 'Confetti blast over the crowd at Steinhorst Open Air',
+				caption: 'Steinhorst Open Air · 2026',
+				focus: '50% 40%'
+			}
+		]
+	}
+];
+
 // ── Types of events ────────────────────────────────────────────────────────
 
 export const eventTypeChips: string[] = [

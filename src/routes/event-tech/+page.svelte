@@ -3,6 +3,7 @@
 	import EventRigsOverlay from '$lib/content/EventRigsOverlay.svelte';
 	import EventShowcaseGallery from '$lib/content/EventShowcaseGallery.svelte';
 	import EventAboutSection from '$lib/eventTech/EventAboutSection.svelte';
+	import EventCapabilityShowcase from '$lib/eventTech/EventCapabilityShowcase.svelte';
 	import EventCtaSection from '$lib/eventTech/EventCtaSection.svelte';
 	import EventHighlightsSection from '$lib/eventTech/EventHighlightsSection.svelte';
 	import EventKnowledgeSection from '$lib/eventTech/EventKnowledgeSection.svelte';
@@ -97,14 +98,14 @@
 	class="event-hero relative flex min-h-svh flex-col justify-center overflow-hidden px-6 sm:px-10 lg:px-16"
 >
 	<EventRigsOverlay rigs={eventRigs} />
-	<div class="event-hero-scrim pointer-events-none absolute inset-0 z-[2]" aria-hidden="true"></div>
+	<div class="event-hero-scrim pointer-events-none absolute inset-0 z-2" aria-hidden="true"></div>
 
 	<div class="relative z-10 w-full">
 		<p data-hero-eyebrow class="text-xs font-semibold tracking-[0.28em] text-violet-300 uppercase">
 			Ben Schiemann · Hamburg
 		</p>
 
-		<h1 class="mt-4 leading-[0.86] font-black tracking-[-0.05em] uppercase">
+		<h1 class="mt-4 leading-[0.86] font-black tracking-tighter uppercase">
 			<span data-event-hero-line class="title-gradient-vivid block text-[clamp(4rem,15vw,12.5rem)]">
 				Event Tech
 			</span>
@@ -132,6 +133,7 @@
 </section>
 
 <div bind:this={sectionsEl}>
+	<EventCapabilityShowcase />
 	<EventAboutSection />
 	<EventKnowledgeSection />
 	<EventToolsSection />
