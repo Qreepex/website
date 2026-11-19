@@ -188,7 +188,9 @@
 		border-top: 1px solid color-mix(in oklab, var(--accent) 16%, transparent);
 	}
 
-	.capability-colorful {
+	/* The class is derived from `accent`, which is 'multicolor' for this
+	   section - so it must match that, not the keyword. */
+	.capability-multicolor {
 		--accent: #c026d3;
 		--glow-x: 88%;
 		--glow-y: 6%;
