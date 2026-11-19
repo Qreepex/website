@@ -1,7 +1,3 @@
-<script lang="ts">
-	import { eventTypeChips } from '$lib/content/eventTech';
-</script>
-
 <section
 	id="event-about"
 	class="section-dark-b relative overflow-hidden px-6 py-24 sm:px-10 lg:px-16"
@@ -61,7 +57,7 @@
 					rel="noopener noreferrer"
 					class="event-link">Schlagermove</a
 				>
-				and the harbor crowd at the
+				and the
 				<a
 					href="https://www.hamburg.de/hafengeburtstag"
 					target="_blank"
@@ -98,15 +94,6 @@
 			</p>
 		</div>
 
-		<p class="mt-14 text-xs font-semibold tracking-[0.2em] text-cyan-300 uppercase">
-			Open for work across
-		</p>
-		<ul class="mt-4 flex flex-wrap gap-2.5">
-			{#each eventTypeChips as chip}
-				<li class="event-type-chip">{chip}</li>
-			{/each}
-		</ul>
-
 		<a
 			href="/reach-me"
 			class="event-about-cta mt-12 inline-flex items-center px-6 py-3.5 text-sm font-black tracking-[0.12em] uppercase"
@@ -117,26 +104,6 @@
 </section>
 
 <style>
-	.event-type-chip {
-		background: color-mix(in oklab, var(--color-violet-400) 14%, transparent);
-		border: 1px solid color-mix(in oklab, var(--color-violet-400) 35%, transparent);
-		color: var(--color-mist-100);
-		padding: 0.45rem 0.8rem;
-		font-size: 0.8rem;
-		font-weight: 700;
-		letter-spacing: 0.04em;
-		text-transform: uppercase;
-		cursor: default;
-		transition:
-			transform 0.15s ease,
-			background-color 0.15s ease;
-	}
-
-	.event-type-chip:hover {
-		transform: translateY(-2px);
-		background: color-mix(in oklab, var(--color-violet-400) 30%, transparent);
-	}
-
 	.event-link {
 		color: var(--color-mist-100);
 		text-decoration: underline;

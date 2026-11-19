@@ -7,7 +7,6 @@
 	import EventCtaSection from '$lib/eventTech/EventCtaSection.svelte';
 	import EventHighlightsSection from '$lib/eventTech/EventHighlightsSection.svelte';
 	import EventKnowledgeSection from '$lib/eventTech/EventKnowledgeSection.svelte';
-	import EventToolsSection from '$lib/eventTech/EventToolsSection.svelte';
 	import { initEventTechReveals } from '$lib/eventTech/reveal';
 	import { fxDisabled } from '$lib/stores/reducedMotion';
 	import gsap from 'gsap';
@@ -101,10 +100,6 @@
 	<div class="event-hero-scrim pointer-events-none absolute inset-0 z-2" aria-hidden="true"></div>
 
 	<div class="relative z-10 w-full">
-		<p data-hero-eyebrow class="text-xs font-semibold tracking-[0.28em] text-violet-300 uppercase">
-			Ben Schiemann · Hamburg
-		</p>
-
 		<h1 class="mt-4 leading-[0.86] font-black tracking-tighter uppercase">
 			<span data-event-hero-line class="title-gradient-vivid block text-[clamp(4rem,15vw,12.5rem)]">
 				Event Tech
@@ -112,7 +107,7 @@
 			<span
 				class="mt-3 block text-lg font-bold tracking-[0.22em] text-mist-100/75 sm:text-2xl lg:text-3xl"
 			>
-				AV · FOH · Light · Laser Safety
+				Lights, Sound, Lasers & SFX
 			</span>
 		</h1>
 
@@ -136,7 +131,6 @@
 	<EventCapabilityShowcase />
 	<EventAboutSection />
 	<EventKnowledgeSection />
-	<EventToolsSection />
 	<EventHighlightsSection />
 	<EventCtaSection />
 </div>

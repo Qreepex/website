@@ -65,54 +65,19 @@ export const eventHighlightProjects: EventHighlightProject[] = [
 	}
 ];
 
-// ── Tools & consoles ───────────────────────────────────────────────────────
-
-export const eventToolGroups: EventToolGroup[] = [
-	{
-		title: 'Lighting, Visuals & Laser',
-		description: 'Show design, programming and safe laser operation.',
-		items: [
-			'Light Design',
-			'grandMA2/3',
-			'ArtNet',
-			'Resolume',
-			'Medien Server',
-			'Pangolin BEYOND',
-			'Laser Shows',
-			'Licensed Laser Safety Officer',
-			'Show Networking'
-		]
-	},
-	{
-		title: 'Audio Systems & FOH',
-		description: 'System tuning, FOH and monitor mixing at any scale.',
-		items: [
-			'L-Acoustics A10 / A15',
-			'L-Acoustics Kiva / Kara / K3',
-			'L-Acoustics KS21 / KS28 / SB15',
-			'Midas M32',
-			'Yamaha DM3 / DM7',
-			'System Tuning'
-		]
-	},
-
-	{
-		title: 'Stage & Custom Builds',
-		description: 'From stage concept to fully self-built rolling systems.',
-		items: [
-			'Layher',
-			'Stage Design',
-			'Set Design',
-			'Custom Speaker Wagons (Bollerwagen)',
-			'Rigging & Trussing',
-			'Event Logistics'
-		]
-	}
-];
 
 // ── Capability showcase ("I can do ...") ───────────────────────────────────
 
 export type EventCapabilityAccent = 'multicolor' | 'loud' | 'bright' | 'boom';
+
+/**
+ * How the showcase images for a section are arranged.
+ * - `grid`    classic 2x2 mosaic
+ * - `fan`     cards fanned out, spread and stacked behind each other
+ * - `strip`   tall vertical frames side by side, like light columns
+ * - `scatter` loose tilted collage, all photos on the table
+ */
+export type EventCapabilityLayout = 'grid' | 'fan' | 'strip' | 'scatter';
 
 export type EventCapabilityImage = {
 	url: string;
@@ -130,6 +95,8 @@ export type EventCapabilitySection = {
 	/** The word after "I can do". */
 	keyword: string;
 	accent: EventCapabilityAccent;
+	/** Arrangement of the showcase images. */
+	layout: EventCapabilityLayout;
 	body: string[];
 	tools: string[];
 	toolsLabel: string;
@@ -145,20 +112,21 @@ export const eventCapabilitySections: EventCapabilitySection[] = [
 		eyebrow: '01 · Light',
 		keyword: 'Colorful',
 		accent: 'multicolor',
+		layout: 'grid',
 		body: [
-			'Colour is the cheapest way to make a room feel expensive - you just have to know which two hues to keep and which twelve to drop. I design the looks for clubs, open airs and corporate stages on grandMA, build them cue by cue and keep them buskable for the moment the DJ ignores the plan.',
+			'Sound is nice, but proper lighting is what makes a space feel alive. I design the looks for clubs, open airs and corporate stages on grandMA, build them cue by cue and keep them buskable for the moment the DJ ignores the plan.',
 			'From a single wash on a vocalist to a colour-chasing rig on a festival main stage: the palette, the timing and the blackout are mine to own.'
 		],
 		toolsLabel: 'Light design & control',
 		tools: [
 			'grandMA2 / grandMA3',
-			'Moving Heads - Spot / Wash / Beam',
-			'LED Bars, Washes & Blinders',
+			'Light Design',
+			'Timecode & Show Control',
 			'ArtNet & Show Networking',
 			'Haze & Atmospheric Looks',
 			'Light Design & Show Programming'
 		],
-		credits: 'Große Freiheit 36 · Docks · Kampnagel · Schlagermove · corporate stages',
+		credits: 'Große Freiheit 36 · Docks · Scheunenfeten · Schlagermove · corporate stages',
 		images: [
 			{
 				url: '/event-showcase/pics/own/2026-scheunenfest-steinhorst/73A04943.jpg',
@@ -192,20 +160,18 @@ export const eventCapabilitySections: EventCapabilitySection[] = [
 		eyebrow: '02 · Sound',
 		keyword: 'Loud',
 		accent: 'loud',
+		layout: 'fan',
 		body: [
 			'Sound is the one thing nobody forgives: if it is harsh at the front, the night is over before the first drop. I mix FOH on L-Acoustics systems, tune the array to the room and keep the low end honest without turning the dancefloor into a paint shaker.',
 			'Club nights, festival main stages or a corporate keynote - the desk is where I am most at home, and the difference between a PA that is loud and a PA that feels loud is 90% tuning.'
 		],
 		toolsLabel: 'Systems, desks & tuning',
 		tools: [
-			'L-Acoustics A10 / A15',
-			'L-Acoustics Kiva / Kara / K3',
-			'L-Acoustics KS21 / KS28 / SB15',
-			'Midas M32',
-			'Yamaha DM3 / DM7',
+			'L-Acoustics System',
+			'Midas & Yamaha Consoles',
 			'System Tuning, FOH & Monitor Mix'
 		],
-		credits: 'Große Freiheit 36 · Docks · Steinhorst Open Air · Kieler Woche · Schlagermove',
+		credits: 'Große Freiheit 36 · Docks · Prüf Demos · Kieler Woche · Schlagermove',
 		images: [
 			{
 				url: '/event-showcase/pics/own/2025-trecker-treck-hohenhorn-foh.webp',
@@ -239,6 +205,7 @@ export const eventCapabilitySections: EventCapabilitySection[] = [
 		eyebrow: '03 · Laser',
 		keyword: 'Bright',
 		accent: 'bright',
+		layout: 'strip',
 		body: [
 			'Lasers are the one effect you cannot improvise: every beam is geometry, every scan is a risk assessment. I program aerial shows in Pangolin BEYOND, keep them inside the MPE limits and handle the paperwork that lets a promoter sleep at night.',
 			'Bright, sharp and legal - that is the whole trick. And as a licensed Laser Safety Officer I am allowed to sign off the crowd-scanning setups other people politely decline.'
@@ -250,10 +217,9 @@ export const eventCapabilitySections: EventCapabilitySection[] = [
 			'Licensed Laser Safety Officer (OStrV / TROS / DGUV)',
 			'Audience Scanning & Safety Assessments',
 			'Beam Tables & Rig Planning',
-			'ArtNet & Show Networking'
 		],
 		credits:
-			'Peins Gasthof Klinkrade · Steinhorst Open Air · Scheunenfest Steinhorst · Trecker Treck',
+			'Peins Gasthof Klinkrade · Steinhorst Open Air · Gängeviertel · Trecker Treck',
 		images: [
 			{
 				url: '/event-showcase/pics/own/klinkrade/73A06333.jpg',
@@ -287,6 +253,7 @@ export const eventCapabilitySections: EventCapabilitySection[] = [
 		eyebrow: '04 · SFX & Pyro',
 		keyword: 'Boom',
 		accent: 'boom',
+		layout: 'scatter',
 		body: [
 			'Nothing lands a drop like a wall of CO2, a row of flame jets and sparks raining over the crowd on exactly the right frame. I rig the effects, wire them into the show and fire them on timecode so it hits on the beat - not two bars later.',
 			'CO2, flames and spark effects, planned inside the safety distances, coordinated with the promoter and executed with the pyrotechnician on site.'
@@ -300,7 +267,7 @@ export const eventCapabilitySections: EventCapabilitySection[] = [
 			'Show Timecode & Cueing',
 			'Safety Distances, Permits & Briefings'
 		],
-		credits: 'Butterflies Stadtpark · Steinhorst Open Air · Scheunenfest Steinhorst · Oldenburg',
+		credits: 'Butterflies Open Air · Steinhorst Open Air · Scheunenfest Steinhorst · Stadtfest Oldenburg',
 		images: [
 			{
 				url: '/event-showcase/pics/own/Soa2026%2008172.jpeg',
@@ -315,9 +282,9 @@ export const eventCapabilitySections: EventCapabilitySection[] = [
 				focus: '50% 40%'
 			},
 			{
-				url: '/event-showcase/pics/worked/2025-steinhorst-scheuenfest-sparks.webp',
-				alt: 'Spark fountains on both sides of the stage at Scheunenfest Steinhorst',
-				caption: 'Scheunenfest Steinhorst · 2025',
+				url: '/event-showcase/pics/own/2025-butterflies-stadtpark-pyro.webp',
+				alt: 'Flamejets and CO2 effects erupting from the stage at Butterflies Stadtpark Open Air',
+				caption: 'Butterflies Stadtpark · 2025',
 				focus: '50% 50%'
 			},
 			{
@@ -330,15 +297,3 @@ export const eventCapabilitySections: EventCapabilitySection[] = [
 	}
 ];
 
-// ── Types of events ────────────────────────────────────────────────────────
-
-export const eventTypeChips: string[] = [
-	'Concerts',
-	'Clubs & Raves',
-	'Open Airs & Festivals',
-	'Corporate Events',
-	'Fairs & Conferences',
-	'Cinema & Special Events',
-	'Private Parties',
-	'Demonstrations & Custom Builds'
-];

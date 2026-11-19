@@ -15,8 +15,8 @@
 		return `capability capability-${section.accent}`;
 	}
 
-	function mediaCountClass(count: number) {
-		return `capability-media media-count-${Math.min(Math.max(count, 1), 4)}`;
+	function mediaClasses(section: EventCapabilitySection) {
+		return `capability-media layout-${section.layout} media-count-${Math.min(Math.max(section.images.length, 1), 4)}`;
 	}
 
 	/**
@@ -54,7 +54,8 @@
 		id={section.slug}
 		class={[
 			sectionClass(section),
-			'relative flex min-h-svh flex-col justify-center overflow-hidden px-6 py-[clamp(1.25rem,5svh,5.5rem)] sm:px-10 lg:px-16'
+			sectionIndex % 2 === 1 ? 'section-flip' : '',
+			'relative flex min-h-svh flex-col justify-center overflow-hidden px-6 py-[clamp(1rem,3.5svh,3.5rem)] sm:px-10 lg:h-svh lg:px-16'
 		]}
 		class:fx-paused={$fxDisabled}
 		aria-labelledby={`${section.slug}-title`}
@@ -105,7 +106,7 @@
 		<div class="relative z-10 mx-auto flex w-full max-w-7xl flex-col lg:h-full">
 			<h2
 				id={`${section.slug}-title`}
-				class="mt-3 leading-[0.82] font-black tracking-tighter uppercase"
+				class="capability-title mt-3 leading-[0.82] font-black tracking-tighter uppercase"
 			>
 				<span class="capability-lead block text-[clamp(1.15rem,min(4vw,3.2svh),3rem)]">
 					I can do
@@ -118,9 +119,9 @@
 			</h2>
 
 			<div
-				class="mt-[clamp(1rem,3svh,2.75rem)] grid gap-9 lg:flex-1 lg:grid-cols-2 lg:items-center lg:gap-12"
+				class="capability-grid mt-[clamp(1rem,3svh,2.75rem)] grid gap-9 lg:min-h-0 lg:flex-1 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] lg:items-stretch lg:gap-8"
 			>
-				<div class="max-w-136" data-animate>
+				<div class="capability-copy" data-animate>
 					{#each section.body as paragraph}
 						<p
 							class="capability-body mt-[clamp(0.5rem,1.2svh,1rem)] text-[clamp(0.85rem,min(1.2vw,2.1svh),1.125rem)] leading-relaxed font-semibold text-mist-100/88 first:mt-0"
@@ -150,9 +151,9 @@
 					</p>
 				</div>
 
-				<div class={mediaCountClass(section.images.length)} data-animate>
+				<div class={mediaClasses(section)} data-animate>
 					{#each section.images as image, index}
-						<figure class="media-tile" style={`--tile-index:${index};`} use:revealOnView>
+						<figure class="media-tile" use:revealOnView>
 							<img
 								src={ASSETS_HOST + image.url}
 								alt={image.alt}
@@ -209,6 +210,46 @@
 		--accent: #ff8a1f;
 		--glow-x: 50%;
 		--glow-y: 0%;
+	}
+
+	/* Every other section mirrors: mosaic left, copy right. Alternating sides
+	   keeps the eye moving down the page instead of hitting the same layout. */
+	@media (min-width: 1024px) {
+		/* Mirroring swaps the DOM order, so the column ratio must swap with it,
+		   otherwise the copy ends up in the wide column. */
+		.section-flip .capability-grid {
+			grid-template-columns: minmax(0, 1.28fr) minmax(0, 0.72fr);
+		}
+
+		.section-flip .capability-grid > .capability-copy {
+			order: 2;
+		}
+
+		.section-flip .capability-grid > .capability-media {
+			order: 1;
+		}
+
+		.section-flip .capability-title,
+		.section-flip .capability-eyebrow {
+			text-align: right;
+		}
+	}
+
+	/* Per-section keyword anchoring: each catch phrase enters differently. */
+	.capability-colorful .capability-keyword {
+		margin-left: -0.02em;
+	}
+
+	.capability-loud .capability-title {
+		letter-spacing: -0.06em;
+	}
+
+	.capability-bright .capability-title {
+		letter-spacing: -0.035em;
+	}
+
+	.capability-boom .capability-keyword {
+		letter-spacing: -0.065em;
 	}
 
 	.capability-veil {
@@ -344,6 +385,24 @@
 		transform: rotate(45deg);
 	}
 
+	/* No max-width: the copy fills its column, so there is no unused band
+	   between the text and the photos. */
+	.capability-copy {
+		min-width: 0;
+	}
+
+	/* The row is now as tall as the screen allows, so the photos are large.
+	   `space-between` spreads the copy's blocks over that height instead of
+	   pooling the slack above and below the text. */
+	@media (min-width: 1024px) {
+		.capability-copy {
+			display: flex;
+			flex-direction: column;
+			/* justify-content: space-between; */
+			gap: clamp(0.75rem, 2svh, 1.6rem);
+		}
+	}
+
 	.capability-credits {
 		display: flex;
 		flex-wrap: wrap;
@@ -367,21 +426,20 @@
 		color: color-mix(in oklab, var(--accent) 88%, white);
 	}
 
-	/* ── Media mosaic ───────────────────────────────────────────────────── */
+	/* ── Media mosaic: shared tiles ─────────────────────────────────────── */
 
 	.capability-media {
+		position: relative;
+		/* Grid children default to min-width:auto, which would let a wide track
+		   blow the columns out. */
+		min-width: 0;
 		display: grid;
 		grid-template-columns: repeat(2, minmax(0, 1fr));
 		gap: 0.7rem;
-	}
-
-	/* Fewer than four images should still fill the tile block evenly. */
-	.media-count-2 {
-		grid-template-columns: minmax(0, 1fr);
-	}
-
-	.media-count-3 > .media-tile:first-child {
-		grid-column: 1 / -1;
+		/* Stacked layouts have no copy column to size against, so the mosaic
+		   supplies its own height instead of stretching to the row. */
+		align-self: start;
+		height: clamp(14rem, 42svh, 26rem);
 	}
 
 	.media-tile {
@@ -393,13 +451,9 @@
 		transition:
 			opacity 0.55s ease,
 			translate 0.55s cubic-bezier(0.22, 0.85, 0.3, 1),
+			transform 0.55s cubic-bezier(0.22, 0.85, 0.3, 1),
 			border-color 0.25s ease,
 			box-shadow 0.25s ease;
-	}
-
-	.media-count-2 > .media-tile,
-	.media-count-3 > .media-tile:first-child {
-		aspect-ratio: 16 / 9;
 	}
 
 	.media-img {
@@ -456,29 +510,152 @@
 		}
 	}
 
-	/* Stacked breakpoints: a wider tile ratio keeps the mosaic from ballooning
-	   to more than a screen once the columns collapse. */
-	@media (min-width: 640px) and (max-width: 1023px) {
-		.capability-media {
-			aspect-ratio: 16 / 10;
-			max-height: 46svh;
-		}
+	/* ── Layouts ────────────────────────────────────────────────────────── */
 
-		.media-count-2,
-		.media-count-3 > .media-tile:first-child {
-			aspect-ratio: 16 / 9;
-		}
+	/* Every layout is a plain CSS grid of tiles: no rotation, no absolute
+	   positioning, no negative margins, no vertical offsets. The tiles fill
+	   their cells, so they are always aligned with each other and always inside
+	   their column. The four layouts differ only in how the grid is divided
+	   and in the proportions of its tracks.
 
-		.media-tile,
-		.media-count-2 > .media-tile,
-		.media-count-3 > .media-tile:first-child {
-			aspect-ratio: auto;
-			height: 100%;
-		}
+	   Spans are written out per image count, because a tile with nowhere to go
+	   lands in an implicit row that collapses to nothing. */
 
-		.capability-media {
-			grid-template-rows: repeat(2, minmax(0, 1fr));
-		}
+	/* 1 · GRID - even 2x2. */
+	.layout-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		grid-template-rows: repeat(2, minmax(0, 1fr));
+	}
+
+	.layout-grid.media-count-2 {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		grid-template-rows: minmax(0, 1fr);
+	}
+
+	.layout-grid.media-count-3 > .media-tile:first-child {
+		grid-column: 1 / -1;
+	}
+
+	/* 2 · FAN - one tall feature frame, the rest stacked beside it. */
+	.layout-fan {
+		grid-template-columns: 1.25fr 1fr;
+		grid-template-rows: repeat(3, minmax(0, 1fr));
+	}
+
+	.layout-fan > .media-tile:nth-child(1) {
+		grid-column: 1;
+		grid-row: 1 / -1;
+	}
+
+	.layout-fan > .media-tile:nth-child(2) {
+		grid-column: 2;
+		grid-row: 1;
+	}
+
+	.layout-fan > .media-tile:nth-child(3) {
+		grid-column: 2;
+		grid-row: 2;
+	}
+
+	.layout-fan > .media-tile:nth-child(4) {
+		grid-column: 2;
+		grid-row: 3;
+	}
+
+	.layout-fan.media-count-2 {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		grid-template-rows: minmax(0, 1fr);
+	}
+
+	.layout-fan.media-count-2 > .media-tile:nth-child(1) {
+		grid-row: auto;
+	}
+
+	.layout-fan.media-count-3 {
+		grid-template-columns: 1.25fr 1fr;
+		grid-template-rows: repeat(2, minmax(0, 1fr));
+	}
+
+	.layout-fan.media-count-3 > .media-tile:nth-child(3) {
+		grid-row: 2;
+	}
+
+	/* 3 · STRIP - a tall frame, a column of two, and a wide one underneath. */
+	.layout-strip {
+		grid-template-columns: 1.1fr 1fr 1fr;
+		grid-template-rows: repeat(2, minmax(0, 1fr));
+	}
+
+	.layout-strip > .media-tile:nth-child(1) {
+		grid-column: 1;
+		grid-row: 1 / -1;
+	}
+
+	.layout-strip > .media-tile:nth-child(2) {
+		grid-column: 2;
+		grid-row: 1;
+	}
+
+	.layout-strip > .media-tile:nth-child(3) {
+		grid-column: 3;
+		grid-row: 1;
+	}
+
+	.layout-strip > .media-tile:nth-child(4) {
+		grid-column: 2 / -1;
+		grid-row: 2;
+	}
+
+	.layout-strip.media-count-2 {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		grid-template-rows: minmax(0, 1fr);
+	}
+
+	.layout-strip.media-count-2 > .media-tile:nth-child(1) {
+		grid-row: auto;
+	}
+
+	.layout-strip.media-count-3 {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		grid-template-rows: repeat(2, minmax(0, 1fr));
+	}
+
+	.layout-strip.media-count-3 > .media-tile:nth-child(1) {
+		grid-column: 1 / -1;
+		grid-row: 1;
+	}
+
+	.layout-strip.media-count-3 > .media-tile:nth-child(2) {
+		grid-column: 1;
+		grid-row: 2;
+	}
+
+	.layout-strip.media-count-3 > .media-tile:nth-child(3) {
+		grid-column: 2;
+		grid-row: 2;
+	}
+
+	/* 4 · SCATTER - an uneven 2x2: wide left, shorter top row. */
+	.layout-scatter {
+		grid-template-columns: 1.35fr 1fr;
+		grid-template-rows: 1fr 1.2fr;
+	}
+
+	.layout-scatter.media-count-2 {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		grid-template-rows: minmax(0, 1fr);
+	}
+
+	.layout-scatter.media-count-3 > .media-tile:first-child {
+		grid-column: 1 / -1;
+	}
+
+	/* Tiles fill their cell; the ratio is only a fallback before the grid
+	   supplies a height. */
+	.capability-media > .media-tile {
+		aspect-ratio: auto;
+		height: 100%;
+		min-height: 0;
 	}
 
 	/* ── Effect: COLORFUL - rotating colour wheel ───────────────────────── */
@@ -855,35 +1032,28 @@
 		}
 	}
 
-	/* Very short viewports (small laptops in landscape) need tighter chrome
-	   so a section still resolves to a single screen. */
-	@media (max-height: 700px) {
-		.capability-section-foot {
-			margin-top: 0.6rem;
-			padding-top: 0.5rem;
-		}
-	}
-
-	/* ── Large screens: exactly one viewport per section ────────────────── */
+	/* ── Large screens ──────────────────────────────────────────────────── */
 
 	@media (min-width: 1024px) {
-		/* A definite mosaic height keeps all four sections on the same vertical
-		   rhythm and stops the tiles from spilling past the fold. */
+		/* `height: 0` + `min-height: 100%` makes the mosaic exactly as tall as
+		   the copy column beside it. The tiles contribute no intrinsic height,
+		   so the row is sized by the text alone; the 100% then resolves against
+		   that height. A plain `height: 100%` is circular here and browsers fall
+		   back to the content height instead. */
 		.capability-media {
-			grid-template-rows: repeat(2, minmax(0, 1fr));
-			align-self: center;
-			height: clamp(12rem, 52svh, 34rem);
-			min-height: 0;
+			align-self: stretch;
+			height: 0;
+			min-height: 100%;
 		}
 
-		.media-count-3 {
-			grid-template-rows: minmax(0, 1.18fr) minmax(0, 1fr);
+		/* Track proportions tuned for the wide desktop columns; the tracks are
+		   free to be flatter on narrow screens. */
+		.layout-fan {
+			grid-template-columns: 1.2fr 1fr;
 		}
 
-		.media-tile {
-			aspect-ratio: auto;
-			height: 100%;
-			min-height: 0;
+		.layout-strip {
+			grid-template-columns: 1.1fr 1fr 1fr;
 		}
 	}
 
